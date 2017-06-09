@@ -43,7 +43,7 @@
         },
         props: {
             item: Object,
-
+            default: {"name":"aa"}
         }
         ,
         methods: {
