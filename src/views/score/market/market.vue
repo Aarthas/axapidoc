@@ -4,6 +4,7 @@
         <!--<h1 class="title">Refresh & Infinite</h1>-->
         <!--</div>-->
 
+
         <scroller style="top: 0px"
                   ref="myScroller"
                   :on-infinite="infinite">
@@ -11,7 +12,7 @@
             <!--<li v-for="(item, index) in items" class="row" :class="{'grey-bg': index % 2 == 0}">-->
             <!--{{ item }}-->
 
-
+            <div style="height: 80px;">aaa</div>
             <!--</li>-->
             <score_item v-for="item in list" :key="item.erpGoodsId" :item="item"></score_item>
 
