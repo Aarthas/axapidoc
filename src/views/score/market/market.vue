@@ -25,7 +25,7 @@
     import score_item from './component/score_item.vue'
 
     var page;
-    let aaaaaa;
+
 
     export default {
         components: {
@@ -35,87 +35,66 @@
         },
         data() {
             return {
-                items: [],
+
                 list: [],
-                itemListData: null
+
             }
         },
 
         mounted() {
             page = this;
-//            for (var i = 1; i <= 20; i++) {
-//                page.items.push(i + ' a')
-//            }
-//            console.log(this.bottom )
-//
-//            this.top = 1
-//            this.bottom = 20
-//            console.log(this.bottom )
-            page.loadData(0);
+
+            loadData(0);
 
 
         },
 
         methods: {
-
-
             infinite (done) {
-                console.log("bb")
-                console.log(page)
-                console.log(page.itemListData)
 
+                if (itemsData) {
 
-                console.log(page.itemListData)
-                if (page.itemListData) {
+                    if (itemsData.isLast) {
 
-                    console.log("b1")
-                    if (page.itemListData.isLast) {
-                        console.log("b2")
                         done(true)
                     } else {
-                        console.log("b3")
-                        console.log(page.itemListData.page + "  b4")
-                        page.loadData(page.itemListData.page + 1);
+
+                        loadData(itemsData.page + 1);
                     }
                 }
             },
-            loadData(pageindex){
 
-                Lib.M.ajax({
-                    url: 'score/items?page=' + pageindex,
-
-
-                    headers: {
-                        "x-auth-token": "a5f0b242-5c63-4c31-b2e7-738e4a3daf1d",
-                        "shopId": "aa",
-                    },
-                    success: function (basebean) {
-                        page.itemListData = basebean.getData()
-
-
-                        if (basebean.getData().isFirst) {
-                            page.list = basebean.getData().list;
-
-                        } else {
-                            page.list = page.list.concat(basebean.getData().list);
-
-
-                        }
-                        if (basebean.getData().isLast) {
-                            page.$refs.myScroller.finishInfinite(true);
-                        } else {
-                            page.$refs.myScroller.finishInfinite();
-                        }
-
-
-                    }
-                });
-
-            }
 
         }
     }
+    var itemsData;
+   function loadData(pageindex){
 
+        Lib.M.ajax({
+            url: 'score/items?page=' + pageindex,
+            headers: {
+                "x-auth-token": "a5f0b242-5c63-4c31-b2e7-738e4a3daf1d",
+                "shopId": "aa",
+            },
+            success: function (basebean) {
+
+                itemsData= basebean.getData();
+
+                if (basebean.getData().isFirst) {
+                    page.list = basebean.getData().list;
+
+                } else {
+                    page.list = page.list.concat(basebean.getData().list);
+                }
+                if (basebean.getData().isLast) {
+                    page.$refs.myScroller.finishInfinite(true);
+                } else {
+                    page.$refs.myScroller.finishInfinite();
+                }
+            }
+        });
+
+    }
 
 </script>
 <style>

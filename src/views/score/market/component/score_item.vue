@@ -5,10 +5,7 @@
         <div
                 class="pane_lf">
 
-            <div style="background:url(http://img.dev.sanjiang.info/goods/c5/g46/109314/c8fdbdadb9baceef5350313039333134.b.0.jpg);
-                background-size:90px 90px;
-                background-repeat:no-repeat;
-                height: 90px;width: 90px;"></div>
+            <img class="img" :src="item.img"></img>
 
         </div>
 
@@ -43,7 +40,7 @@
         },
         props: {
             item: Object,
-            default: {"name":"aa"}
+            default: {"name": "aa"}
         }
         ,
         methods: {
@@ -61,15 +58,15 @@
     .pane {
         display: flex;
         flex-direction: row;
-        height: 110px;
+        height: 115px;
         background-color: white;
         border-bottom: 1px solid #eeeeee;
         /*margin: 0.7em;*/
     }
 
     .pane_lf {
-        width: 110px;
-        height: 110px;
+        width: 115px;
+        height: 115px;
         color: white;
         display: flex;
         /*background-color: #0bb20c;*/
@@ -88,14 +85,10 @@
 
     }
 
-    .pane_lf_info1 {
-        border-radius: 30px;
-        background-color: white;
-        color: #55b0f6;
-        font-size: 14px;
-        padding-top: 3px;
-        padding-bottom: 2px;
-        padding-left: 12px;
-        padding-right: 12px;
+
+    .img {
+
+        height: 100px;
+        width: 100px;
     }
 </style>
