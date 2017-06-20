@@ -7,13 +7,14 @@
             <YSelect :propsData="{title:'投诉类型', list:complaintPreData.types}" v-model="p_type"></YSelect>
         </group>
 
-        <group title="请选择购买门店">
-            <!--<cellhead title="请选择购买门店"></cellhead>-->
-            <cell title="生风电" inline-desc='高桥镇望童路928弄西堤阳光小区' is-link @click.native="onitemClick(item)"></cell>
-        </group>
-
+        <div v-show="p_platform != 10007">
+            <group title="请选择购买门店">
+                <!--<cellhead title="请选择购买门店"></cellhead>-->
+                <cell title="生风电" inline-desc='高桥镇望童路928弄西堤阳光小区' is-link @click.native="onitemClick(item)"></cell>
+            </group>
+        </div>
         <group title="订单编号">
-            <YInput :item="{placeholder:'请输入'}" v-model="orderNum"></YInput>
+            <YInput :item="{placeholder:'请输入'}" v-model="p_orderNum"></YInput>
         </group>
         <group title="投诉的内容">
             <YTextArea :item="{placeholder:'请输入您要投诉的内容'}"></YTextArea>
@@ -21,6 +22,8 @@
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
+
+
 
 
 
@@ -83,7 +86,7 @@
         data () {
             return {
                 complaintPreData: {},
-                orderNum: "",
+                p_orderNum: "",
                 p_platform: "",
                 p_type: "",
             };
