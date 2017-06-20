@@ -62,12 +62,12 @@
         },
 
         methods: {
-            onitemClick:function () {
-                console.log("aaa")
+            onitemClick:function (item) {
+                console.log(item)
 //                window.location.href="./post2.html"
 
 
-                page.$router.push({path:"post2"})
+                page.$router.push({path:"post2",query:{platform:item.value}})
             }
         }
     }

@@ -54,6 +54,8 @@
 
         },
         mounted () {
+
+//            console.log(query)
             Lib.axios.axios({
                 url: 'complaint/getComplaintPreData',
                 success: function (basebean) {
@@ -65,9 +67,14 @@
         },
 
         methods: {
-            onitemClick:function () {
-                console.log("aaa")
-                window.location.href="./submit.html"
+            onitemClick:function (item) {
+                console.log(item)
+                let platform = page.$route.query.platform;
+
+
+                let type = item.value;
+
+                window.location.href="./submit.html?platform="+platform+"&type="+type;
 
 
 

@@ -7,7 +7,7 @@
         </group>
 
         <group title="订单编号">
-            <YInput :item="{placeholder:'请输入'}"></YInput>
+            <YInput :item="{placeholder:'请输入'}" v-model="orderNum"></YInput>
         </group>
         <group title="投诉的内容">
             <YTextArea :item="{placeholder:'请输入您要投诉的内容'}"></YTextArea>
@@ -15,6 +15,9 @@
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
+
+
+
         </div>
         <div style="display: flex;flex-direction: row;justify-content: space-around;background-color: white;padding-bottom: 10px;">
 
@@ -35,7 +38,7 @@
         </group>
 
         <div style="margin: 30px  12px;">
-           <x-button @click.native="submit" type="primary" > 提交</x-button>
+            <x-button @click.native="submit" type="primary"> 提交</x-button>
 
         </div>
     </div>
@@ -58,9 +61,8 @@
     export default {
 
         components: {
-            Scroller,
-            Divider,
-            Spinner,
+
+
             XButton,
             Group,
             Cell,
@@ -69,8 +71,8 @@
         },
         data () {
             return {
-                complaintPreData: {}
-
+                complaintPreData: {},
+                orderNum:""
             };
         },
         created () {
@@ -80,10 +82,8 @@
         mounted () {
             Lib.axios.axios({
                 url: 'complaint/getComplaintPreData',
-
                 success: function (basebean) {
                     page.complaintPreData = basebean.getData();
-
                 }
             })
 
