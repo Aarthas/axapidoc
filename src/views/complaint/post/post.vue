@@ -12,7 +12,7 @@
 
 
     import Lib from 'assets/js/Lib';
-//    import xcell from '../../../components/XCell.vue';
+
     var page
 
 
@@ -37,10 +37,8 @@
         mounted () {
 
 
-        }, activated () {
-
-
         },
+
         methods: {
             aa:function () {
                 console.log("aaa")
