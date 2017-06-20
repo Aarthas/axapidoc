@@ -17,19 +17,11 @@
             <YInput :item="{placeholder:'请输入'}" v-model="p_orderNum"></YInput>
         </group>
         <group title="投诉的内容">
-            <YTextArea :item="{placeholder:'请输入您要投诉的内容'}"></YTextArea>
+            <YTextArea :item="{placeholder:'请输入您要投诉的内容'}"  v-model="p_content"></YTextArea>
         </group>
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
-
-
-
-
-
-
-
-
 
         </div>
         <div style="display: flex;flex-direction: row;justify-content: space-around;background-color: white;padding-bottom: 10px;">
@@ -89,6 +81,7 @@
                 p_orderNum: "",
                 p_platform: "",
                 p_type: "",
+                p_content:"",
             };
         },
         created () {
@@ -110,6 +103,7 @@
             submit: function () {
                 console.log("submit")
                 console.log("submit" + page.p_platform)
+                console.log("submit"+ page.p_content)
 //                window.location.href = "./result.html"
             }
         }

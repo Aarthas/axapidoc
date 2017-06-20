@@ -3,7 +3,9 @@
 
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea class="weui-textarea" :placeholder="item.placeholder" rows="5"></textarea>
+                <textarea  class="weui-textarea" :placeholder="item.placeholder" rows="5"
+                           v-model="currentValue"
+                ></textarea>
 
             </div>
         </div>
@@ -27,7 +29,9 @@
 
         name: "y-textarea",
         data () {
-            return {};
+            return {
+                currentValue: ''
+            };
         },
         props: {
             item: Object,
@@ -36,6 +40,12 @@
             isLink: Boolean,
             link: {
                 type: [String, Object]
+            }
+        },
+        watch: {
+            currentValue (newVal) {
+                this.$emit('input', this.currentValue)
+                this.$emit('on-change', this.currentValue)
             }
         },
 
