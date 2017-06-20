@@ -38,8 +38,8 @@
 
 
         <group title="">
-            <YInput :item="{placeholder:'联系人'}"></YInput>
-            <YInput :item="{placeholder:'联系电话'}"></YInput>
+            <YInput :item="{placeholder:'联系人'}"  v-model="p_contact"></YInput>
+            <YInput :item="{placeholder:'联系电话'}"  v-model="p_mobile"></YInput>
         </group>
 
         <div style="margin: 30px  12px;">
@@ -82,6 +82,8 @@
                 p_platform: "",
                 p_type: "",
                 p_content:"",
+                p_contact:"",
+                p_mobile:"",
             };
         },
         created () {
