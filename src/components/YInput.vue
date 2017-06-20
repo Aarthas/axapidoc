@@ -27,7 +27,9 @@
         },
         props: {
             item: Object,
-            props: ['value'],
+            value: {
+                default: '',
+            },
         },
 
 

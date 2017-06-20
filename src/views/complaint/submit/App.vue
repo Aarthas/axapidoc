@@ -1,5 +1,11 @@
 <template>
     <div>
+        <group title="请选择购买平台">
+            <YSelect :propsData="{title:'购买平台', list:complaintPreData.platforms}"></YSelect>
+        </group>
+        <group title="请选择投诉类型">
+            <YSelect :propsData="{title:'投诉类型', list:complaintPreData.types}"></YSelect>
+        </group>
 
         <group title="请选择购买门店">
             <!--<cellhead title="请选择购买门店"></cellhead>-->
@@ -15,6 +21,7 @@
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
+
 
 
 
@@ -53,6 +60,7 @@
     import cellhead from '../../../components/CellHead.vue';
     import YTextArea from '../../../components/YTextArea.vue';
     import YInput from '../../../components/YInput.vue';
+    import YSelect from '../../../components/YSelect.vue';
     import Lib from 'assets/js/Lib';
 
     var page
@@ -67,12 +75,12 @@
             Group,
             Cell,
             xcell,
-            cellhead, YTextArea, YInput
+            cellhead, YTextArea, YInput, YSelect
         },
         data () {
             return {
                 complaintPreData: {},
-                orderNum:""
+                orderNum: ""
             };
         },
         created () {
