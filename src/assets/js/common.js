@@ -6,19 +6,73 @@ var oproto = Object.prototype;
 var serialize = oproto.toString;
 var Rxports = {
 
+    axios: function (opt) {
 
-    /**
-     * 封装axios，减少学习成本，参数基本跟jq ajax一致
-     * @param {String} type            请求的类型，默认post
-     * @param {String} url                请求地址
-     * @param {String} time            超时时间
-     * @param {Object} data            请求参数
-     * @param {String} dataType        预期服务器返回的数据类型，xml html json ...
-     * @param {Object} headers            自定义请求headers
-     * @param {Function} success        请求成功后，这里会有两个参数,服务器返回数据，返回状态，[data, res]
-     * @param {Function} error        发送请求前
-     * @param return
-     */
+        var opts = opt || {};
+
+        if (!opts.url) {
+            alert('请填写接口地址');
+            return false;
+        }
+
+        axios({
+            method: opts.method || 'get',
+            url: opts.url,
+            params: opts.params || {},
+            headers: opts.headers||{
+                    "x-auth-token": "0d48008a-1439-4cca-8349-9833b09fff82"
+            },
+
+            // baseURL: 'http://193.0.1.157:20000',
+            baseURL: 'http://app.sanjiang.com',
+            timeout: opts.time || 10 * 1000,
+            responseType: opts.dataType || 'json'
+        }).then(function (res) {
+            console.log(res)
+            // res.data.data.list = null;
+            if (res.status == 200) {
+                var basebean = new BaseBean(res);
+                // console.log(basebean)
+
+                if (basebean.isSuccess()) {
+                    opts.success(basebean);
+                }
+                else {
+                    if (opts.onerrcode) {
+                        opts.onerrcode(basebean);
+                    }
+
+
+                }
+
+                // if(opts.success){
+                // 	opts.success(res.data,res);
+                // }
+
+            } else {
+
+
+            }
+            if (opts.onAfter) {
+                opts.onAfter();
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+            if (opts.error) {
+                opts.error(error);
+
+            } else {
+                // alert('好多人在访问呀，请重新试试[timeout]');
+            }
+            if (opts.onAfter) {
+                opts.onAfter();
+            }
+
+        });
+
+    },
+
     ajax: function (opt) {
 
         var opts = opt || {};
