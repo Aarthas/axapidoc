@@ -13,6 +13,7 @@
             <!--{{ item }}-->
 
             <div style="height: 80px;">aaa</div>
+            <div style="height: 80px;" v-on:click="aa">bb</div>
             <!--</li>-->
             <score_item v-for="item in list" :key="item.erpGoodsId" :item="item"></score_item>
 
@@ -24,7 +25,7 @@
 <script>
     import Lib from 'assets/js/Lib';
     import score_item from './component/score_item.vue'
-
+    import axios from 'axios';
     var page;
 
 
@@ -45,12 +46,65 @@
         mounted() {
             page = this;
 
+
+
+            axios.get("http://weixin.sanjiang.com/weichat-csr-web"+ '/weixin/jsconfig?url=' + window.location.href).
+            then(function (resp) {
+                console.log(resp)
+                /* console.log(resp)*/
+                var res = resp.data;
+                /* console.log(res);*/
+                if (!res.success) {
+                    alert(res.errmsg);
+                    return;
+                }
+                res.data.debug = false;
+                res.data.jsApiList = ['chooseWXPay','chooseImage','uploadImage'];
+                wx.config(res.data);
+            }, function (resp) {
+                console.log("resp")
+            });
+
+            wx.ready(function () {
+                wx.hideOptionMenu();
+                console.log("ready")
+
+            });
+
+            wx.error(function (res) {
+//        console.log(res);
+                console.log("error")
+            });
+
+
             loadData(0);
 
 
         },
 
         methods: {
+            aa(){
+                console.log("aa")
+
+                wx.chooseImage({
+                    count: 1, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        alert(JSON.stringify(res))
+                        alert(localIds[0])
+                        wx.uploadImage({
+                            localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                var serverId = res.serverId; // 返回图片的服务器端ID
+                                alert("serverId="+serverId)
+                            }
+                        });
+                    }
+                });
+            },
             infinite (done) {
 
                 if (itemsData) {

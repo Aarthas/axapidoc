@@ -34,8 +34,8 @@ var Rxports = {
             params: opts.params || {},
             headers: opts.headers,
 
-            baseURL: 'http://193.0.1.157:20000',
-            // baseURL: 'http://app.sanjiang.com',
+            // baseURL: 'http://193.0.1.157:20000',
+            baseURL: 'http://app.sanjiang.com',
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {

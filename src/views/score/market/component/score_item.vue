@@ -5,7 +5,7 @@
         <div
                 class="pane_lf">
 
-            <img class="img" :src="item.img"></img>
+            <div class="img_pane" :style="{backgroundImage: 'url('+item.img+''}"></div>
 
         </div>
 
@@ -90,5 +90,12 @@
 
         height: 100px;
         width: 100px;
+    }
+
+    .img_pane {
+
+        background-size:contain;
+        background-repeat:no-repeat;
+        height: 90px;width: 90px;
     }
 </style>
