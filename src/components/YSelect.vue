@@ -23,7 +23,7 @@
 
     export default {
 
-        name: "y-textarea",
+
         data () {
             return {};
         },

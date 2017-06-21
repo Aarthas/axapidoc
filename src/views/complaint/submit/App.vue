@@ -17,29 +17,31 @@
             <YInput :item="{placeholder:'请输入'}" v-model="p_orderNum"></YInput>
         </group>
         <group title="投诉的内容">
-            <YTextArea :item="{placeholder:'请输入您要投诉的内容'}"  v-model="p_content"></YTextArea>
+            <YTextArea :item="{placeholder:'请输入您要投诉的内容'}" v-model="p_content"></YTextArea>
         </group>
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
 
+
+
         </div>
-        <div style="display: flex;flex-direction: row;justify-content: space-around;background-color: white;padding-bottom: 10px;">
+        <div style="display: flex;flex-direction: row;justify-content: flex-start;background-color: white;padding-bottom: 10px;">
 
             <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>
-            <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>
-            <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>
-            <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>
+                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"  @click="chooseImage"></div>
+            <!--<div class="img_pane"-->
+                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+            <!--<div class="img_pane"-->
+                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+            <!--<div class="img_pane"-->
+                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
         </div>
 
 
         <group title="">
-            <YInput :item="{placeholder:'联系人'}"  v-model="p_contact"></YInput>
-            <YInput :item="{placeholder:'联系电话'}"  v-model="p_mobile"></YInput>
+            <YInput :item="{placeholder:'联系人'}" v-model="p_contact"></YInput>
+            <YInput :item="{placeholder:'联系电话'}" v-model="p_mobile"></YInput>
         </group>
 
         <div style="margin: 30px  12px;">
@@ -53,14 +55,14 @@
     console.log("app start")
     //  console.log( window.location )
 
-    import { XButton, Group, Cell} from 'vux'
+    import {XButton, Group, Cell} from 'vux'
     import xcell from '../../../components/XCell.vue';
     import cellhead from '../../../components/CellHead.vue';
     import YTextArea from '../../../components/YTextArea.vue';
     import YInput from '../../../components/YInput.vue';
     import YSelect from '../../../components/YSelect.vue';
     import Lib from 'assets/js/Lib';
-
+    import axios from 'axios';
     var page
 
 
@@ -79,9 +81,9 @@
                 p_orderNum: "",
                 p_platform: "",
                 p_type: "",
-                p_content:"",
-                p_contact:"",
-                p_mobile:"",
+                p_content: "",
+                p_contact: "",
+                p_mobile: "",
             };
         },
         created () {
@@ -95,6 +97,32 @@
                     page.complaintPreData = basebean.getData();
                 }
             })
+            axios.get("http://weixin.sanjiang.com/weichat-csr-web" + '/weixin/jsconfig?url=' + window.location.href).then(function (resp) {
+                console.log(resp)
+                /* console.log(resp)*/
+                var res = resp.data;
+                /* console.log(res);*/
+                if (!res.success) {
+                    alert(res.errmsg);
+                    return;
+                }
+                res.data.debug = false;
+                res.data.jsApiList = ['chooseImage', 'uploadImage'];
+                wx.config(res.data);
+            }, function (resp) {
+                console.log("resp=" + resp)
+            });
+
+            wx.ready(function () {
+                wx.hideOptionMenu();
+                console.log("ready")
+
+            });
+
+            wx.error(function (res) {
+//        console.log(res);
+                console.log("error")
+            });
 
 
         },
@@ -103,8 +131,32 @@
             submit: function () {
                 console.log("submit")
                 console.log("submit" + page.p_platform)
-                console.log("submit"+ page.p_content)
+                console.log("submit" + page.p_content)
 //                window.location.href = "./result.html"
+            },
+            chooseImage:function () {
+                console.log("chooseIamage")
+
+                wx.chooseImage({
+                    count: 4, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        alert(JSON.stringify(res))
+                        alert(localIds[0])
+//                        wx.uploadImage({
+//                            localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+//                            isShowProgressTips: 1, // 默认为1，显示进度提示
+//                            success: function (res) {
+//                                var serverId = res.serverId; // 返回图片的服务器端ID
+//                                alert("serverId="+serverId)
+//                            }
+//                        });
+                    }
+                });
+
+
             }
         }
     }
@@ -119,6 +171,7 @@
         background-repeat: no-repeat;
         height: 80px;
         width: 80px;
+        margin-left: 12px;
     }
 
 </style>
