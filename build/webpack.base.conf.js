@@ -39,6 +39,11 @@ var webpackConfig = {
     }
   },
   module: {
+      loaders: [{
+          test: /\.js$/,
+          loader: 'babel',
+          include: [resolve('src')]
+      }],
     rules: [
       {
         test: /\.vue$/,
@@ -47,8 +52,9 @@ var webpackConfig = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        loader: 'babel',
+        include: [resolve('src'), resolve('test')],
+          exclude: /node_modules/
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

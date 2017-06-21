@@ -64,7 +64,7 @@
                 url: 'score/integalVolumes',
                 headers: {
                     "x-auth-token": token,
-                    "shopId": shopid,
+                    "shopid": shopid,
                 },
                 success: function (basebean) {
                     console.log(basebean.getData())

@@ -1,5 +1,7 @@
 <template>
     <div>
+        <!--<aaa></aaa>-->
+
         <group title="请选择购买平台">
             <YSelect :propsData="{title:'购买平台', list:complaintPreData.platforms}" v-model="p_platform"></YSelect>
         </group>
@@ -10,7 +12,13 @@
         <div v-show="p_platform != 10007">
             <group title="请选择购买门店">
                 <!--<cellhead title="请选择购买门店"></cellhead>-->
-                <cell title="生风电" inline-desc='高桥镇望童路928弄西堤阳光小区' is-link @click.native="onitemClick(item)"></cell>
+                <!--<cell title="生风电"  is-link @click.native="chooseShop">-->
+                <!--<selector placeholder="请选择省份"title="省份" name="district" :options="complaintPreData.types" @on-change="onChange"></selector>-->
+                <!--</cell>-->
+                <YSelect :propsData="{title:'区域', placeholder:'aa',list:complaintPreData.types}"
+                         v-model="p_type"></YSelect>
+                <YSelect :propsData="{ list:complaintPreData.types}" v-model="p_type"></YSelect>
+                <div style="font-size: 14px;margin-left: 20px;margin-bottom: 12px;">横街镇东村鄞县大道西段南面横街镇东村鄞县大道西段南面</div>
             </group>
         </div>
         <group title="订单编号">
@@ -25,17 +33,19 @@
 
 
 
+
         </div>
         <div style="display: flex;flex-direction: row;justify-content: flex-start;background-color: white;padding-bottom: 10px;">
 
             <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"  @click="chooseImage"></div>
+                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"
+                 @click="chooseShop"></div>
             <!--<div class="img_pane"-->
-                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
             <!--<div class="img_pane"-->
-                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
             <!--<div class="img_pane"-->
-                 <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
         </div>
 
 
@@ -55,7 +65,7 @@
     console.log("app start")
     //  console.log( window.location )
 
-    import {XButton, Group, Cell} from 'vux'
+    import {XButton, Group, Cell, Selector} from 'vux'
     import xcell from '../../../components/XCell.vue';
     import cellhead from '../../../components/CellHead.vue';
     import YTextArea from '../../../components/YTextArea.vue';
@@ -72,12 +82,14 @@
             XButton,
             Group,
             Cell,
+            Selector,
             xcell,
             cellhead, YTextArea, YInput, YSelect
         },
         data () {
             return {
                 complaintPreData: {},
+                showShops: false,
                 p_orderNum: "",
                 p_platform: "",
                 p_type: "",
@@ -134,7 +146,7 @@
                 console.log("submit" + page.p_content)
 //                window.location.href = "./result.html"
             },
-            chooseImage:function () {
+            chooseImage: function () {
                 console.log("chooseIamage")
 
                 wx.chooseImage({
@@ -157,6 +169,9 @@
                 });
 
 
+            },
+            chooseShop: function () {
+                page.showShops = true;
             }
         }
     }

@@ -1,16 +1,20 @@
 <template>
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
-        <div class="weui-cell__hd">
+        <div class="weui-cell__hd" v-if="propsData.title">
             <label  class="weui-label">{{propsData.title}}</label>
         </div>
         <div class="weui-cell__bd">
-            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select">
-                <option></option>
+            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" >
+                <option  v-if="true" :selected="typeof value === 'undefined' && propsData.placeholder">{{propsData.placeholder}}</option>
+
                 <option v-for="item in propsData.list" :title="item.name"  is-link :key="item.value" :value="item.value">{{item.name}}</option>
 
             </select>
+
         </div>
+
+
     </div>
 
 

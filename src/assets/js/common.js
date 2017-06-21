@@ -23,8 +23,8 @@ var Rxports = {
                     "x-auth-token": "0d48008a-1439-4cca-8349-9833b09fff82"
             },
 
-            // baseURL: 'http://193.0.1.157:20000',
-            baseURL: 'http://app.sanjiang.com',
+            baseURL: 'http://193.0.1.157:20000',
+            // baseURL: 'http://app.sanjiang.com',
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
@@ -88,8 +88,8 @@ var Rxports = {
             params: opts.params || {},
             headers: opts.headers,
 
-            // baseURL: 'http://193.0.1.157:20000',
-            baseURL: 'http://app.sanjiang.com',
+            baseURL: 'http://193.0.1.157:20000',
+            // baseURL: 'http://app.sanjiang.com',
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
