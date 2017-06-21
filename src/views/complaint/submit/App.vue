@@ -53,7 +53,7 @@
     console.log("app start")
     //  console.log( window.location )
 
-    import {Scroller, Divider, Spinner, XButton, Group, Cell, XInput, XTextarea} from 'vux'
+    import { XButton, Group, Cell} from 'vux'
     import xcell from '../../../components/XCell.vue';
     import cellhead from '../../../components/CellHead.vue';
     import YTextArea from '../../../components/YTextArea.vue';
@@ -67,8 +67,6 @@
     export default {
 
         components: {
-
-
             XButton,
             Group,
             Cell,
