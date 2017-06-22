@@ -15,10 +15,10 @@
                 <!--<cell title="生风电"  is-link @click.native="chooseShop">-->
                 <!--<selector placeholder="请选择省份"title="省份" name="district" :options="complaintPreData.types" @on-change="onChange"></selector>-->
                 <!--</cell>-->
-                <YSelect :propsData="{title:'区域', placeholder:'aa',list:complaintPreData.types}"
-                         v-model="p_type"></YSelect>
-                <YSelect :propsData="{ list:complaintPreData.types}" v-model="p_type"></YSelect>
-                <div style="font-size: 14px;margin-left: 20px;margin-bottom: 12px;">横街镇东村鄞县大道西段南面横街镇东村鄞县大道西段南面</div>
+                <YSelect :propsData="{title:'门店区域', placeholder:'',list:areaList}" v-model="p_areaindex"></YSelect>
+                <YSelect :propsData="{ placeholder:'请选择门店', list:shopList}" v-model="p_shopindex"></YSelect>
+
+                <div style="font-size: 14px;margin-left: 1em;margin-bottom: 12px;">{{info}}</div>
             </group>
         </div>
         <group title="订单编号">
@@ -30,6 +30,10 @@
         <!---->
         <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
             请上传小票和商品照片
+
+
+
+
 
 
 
@@ -96,7 +100,63 @@
                 p_content: "",
                 p_contact: "",
                 p_mobile: "",
+                p_shopindex: -1,
+                p_areaindex: -1,
             };
+        },
+        computed: {
+
+            areaList () {
+
+                let list = [];
+                let shopsList = page.complaintPreData.shopsList;
+                if (shopsList) {
+                    for (var i = 0; i < shopsList.length; i++) {
+                        let a = shopsList[i]
+                        list.push({name: a.area, value: i})
+                    }
+                }
+
+
+                return list
+            },
+            shopList () {
+
+                let list = [];
+
+                let shopsList = page.complaintPreData.shopsList;
+                if (shopsList&&shopsList[page.p_areaindex]) {
+                    let shops = shopsList[page.p_areaindex].shops
+                    for (var j in shops) {
+                        let shop = shops[j]
+                        list.push({name: shop.shopName, value: j})
+                    }
+                }
+
+                return list
+            },
+            info () {
+                console.log("info")
+                let shopsList = page.complaintPreData.shopsList;
+                if (shopsList&&shopsList[page.p_areaindex]) {
+                    let shops = shopsList[page.p_areaindex].shops
+                    if (shops&&shops[page.p_shopindex])
+                    {
+                        let detailAddress = shops[page.p_shopindex].address
+                        return detailAddress;
+                    }
+
+                }
+
+                return ""
+            },
+        },
+        watch: {
+            p_shopindex (newVal) {
+//                console.log(newVal)
+
+
+            }
         },
         created () {
             page = this;

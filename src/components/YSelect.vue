@@ -5,9 +5,9 @@
             <label  class="weui-label">{{propsData.title}}</label>
         </div>
         <div class="weui-cell__bd">
-            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" >
-                <option  v-if="true" :selected="typeof value === 'undefined' && propsData.placeholder">{{propsData.placeholder}}</option>
-
+            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" :style="{color: value>0?'#333333':'rgb(169, 169, 169)'}">
+                <option  value="0"  >{{propsData.placeholder||'请选择'}}</option>
+                <!--<option  v-if="!propsData.placeholder && typeof (value === 'undefined' || value === '') && propsData.title"></option>-->
                 <option v-for="item in propsData.list" :title="item.name"  is-link :key="item.value" :value="item.value">{{item.name}}</option>
 
             </select>
@@ -34,14 +34,19 @@
         props: {
             propsData: Object,
             value: {
-                default: '',
+                default: [],
             },
         },
 
 
         computed: {
 
-
+            showPlaceholder () {
+                if ( this.placeholder&&propsData.list&&propsData.list.length>0) {
+                    return true
+                }
+                return false
+            }
         },
 
         created () {
