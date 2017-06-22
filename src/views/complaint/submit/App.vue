@@ -28,28 +28,48 @@
             <YTextArea :item="{placeholder:'请输入您要投诉的内容'}" v-model="p_content"></YTextArea>
         </group>
         <!---->
-        <div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">
-            请上传小票和商品照片
+        <!--<div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">-->
+        <!--请上传小票和商品照片-->
+        <!--style="background-image:url(http://f11.baidu.com/it/u=3488398,1935781473&fm=76);"-->
+        <div class="weui-gallery" id="gallery" style="display: block" v-show="galleryshow" @click="galleryshow=false">
 
+            <span class="weui-gallery__img" id="galleryImg"
+                  :style="{backgroundImage: 'url('+gallerysrc+''}"
+            ></span>
 
-
-
-
-
-
-
+            <div class="weui-gallery__opr">
+                <div  class="weui-gallery__del" @click="delInGallery(index)">
+                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
+                </div>
+            </div>
         </div>
-        <div style="display: flex;flex-direction: row;justify-content: flex-start;background-color: white;padding-bottom: 10px;">
+        <!--</div>-->
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">请上传小票和商品照片</p>
+                            <div class="weui-uploader__info">0/4</div>
+                        </div>
+                        <div class="weui-uploader__bd">
+                            <ul class="weui-uploader__files" id="uploaderFiles">
 
-            <div class="img_pane"
-                 :style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"
-                 @click="chooseShop"></div>
-            <!--<div class="img_pane"-->
-            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
-            <!--<div class="img_pane"-->
-            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
-            <!--<div class="img_pane"-->
-            <!--:style="{backgroundImage: 'url(http://onpxz5rdd.bkt.clouddn.com/ic_take_phote.png'}"></div>-->
+
+                                <li v-for="(file,index) in previewimages" class="weui-uploader__file"
+                                    :style="{backgroundImage: 'url('+getblob(file)+''}" @click="showGallery(index)">
+
+                                </li>
+
+                            </ul>
+                            <div class="weui-uploader__input-box">
+                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*"
+                                       multiple v-on:change="onFileChange"  capture=“camera/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -102,6 +122,10 @@
                 p_mobile: "",
                 p_shopindex: -1,
                 p_areaindex: -1,
+                filepath: '',
+                previewimages: [],
+                galleryshow: false,
+                gallerysrc: false,
             };
         },
         computed: {
@@ -125,7 +149,7 @@
                 let list = [];
 
                 let shopsList = page.complaintPreData.shopsList;
-                if (shopsList&&shopsList[page.p_areaindex]) {
+                if (shopsList && shopsList[page.p_areaindex]) {
                     let shops = shopsList[page.p_areaindex].shops
                     for (var j in shops) {
                         let shop = shops[j]
@@ -138,10 +162,9 @@
             info () {
                 console.log("info")
                 let shopsList = page.complaintPreData.shopsList;
-                if (shopsList&&shopsList[page.p_areaindex]) {
+                if (shopsList && shopsList[page.p_areaindex]) {
                     let shops = shopsList[page.p_areaindex].shops
-                    if (shops&&shops[page.p_shopindex])
-                    {
+                    if (shops && shops[page.p_shopindex]) {
                         let detailAddress = shops[page.p_shopindex].address
                         return detailAddress;
                     }
@@ -150,14 +173,11 @@
 
                 return ""
             },
-        },
-        watch: {
-            p_shopindex (newVal) {
-//                console.log(newVal)
-
+            previewimages(){
 
             }
         },
+        watch: {},
         created () {
             page = this;
 
@@ -179,7 +199,7 @@
                     return;
                 }
                 res.data.debug = false;
-                res.data.jsApiList = ['chooseImage', 'uploadImage'];
+                res.data.jsApiList = ['chooseImage', 'uploadImage', 'getLocalImgData'];
                 wx.config(res.data);
             }, function (resp) {
                 console.log("resp=" + resp)
@@ -200,12 +220,51 @@
         },
 
         methods: {
+            showGallery: function (index) {
+                console.log(index)
+                page.galleryshow = true;
+                page.gallerysrc = page.getblob(page.previewimages[index]);
+
+            },
+            hideGallery: function () {
+
+                page.galleryshow = false;
+                page.gallerysrc = '';
+
+            },
+            getblob: function (file) {
+                let src
+                let url = window.URL || window.webkitURL || window.mozURL
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+                return src;
+            },
+            onFileChange: function (e) {
+//                console.log("onFileChange" + e.target.files)
+//                alert(e.target.files[0])
+
+                let file = e.target.files[0]
+
+                page.previewimages.push(file)
+                page.previewimages[0]
+//
+
+            }
+            ,
             submit: function () {
                 console.log("submit")
                 console.log("submit" + page.p_platform)
                 console.log("submit" + page.p_content)
-//                window.location.href = "./result.html"
-            },
+                console.log("submit" + page.filepath)
+                for (var i in page.previewimages) {
+                    let file = page.previewimages[i]
+                    console.log(file)
+                }
+            }
+            ,
             chooseImage: function () {
                 console.log("chooseIamage")
 
@@ -217,6 +276,13 @@
                         var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                         alert(JSON.stringify(res))
                         alert(localIds[0])
+                        wx.getLocalImgData({
+                            localId: localIds[0], // 图片的localID
+                            success: function (res) {
+                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                                alert(JSON.stringify(res))
+                            }
+                        });
 //                        wx.uploadImage({
 //                            localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
 //                            isShowProgressTips: 1, // 默认为1，显示进度提示
@@ -229,13 +295,26 @@
                 });
 
 
-            },
+            }
+            ,
             chooseShop: function () {
                 page.showShops = true;
             }
         }
     }
 
+    function upload(file) {
+        let param = new FormData(); //创建form对象
+        param.append('file', file);//通过append向form对象添加数据
+        console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+            headers: {'Content-Type': 'multipart/form-data'}
+        };  //添加请求头
+        axios.post('http://app.sanjiang.com/images/imgFile', param, config)
+            .then(response => {
+                console.log(response.data);
+            })
+    }
 </script>
 
 <style>
