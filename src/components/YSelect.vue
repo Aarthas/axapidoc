@@ -5,8 +5,8 @@
             <label  class="weui-label">{{propsData.title}}</label>
         </div>
         <div class="weui-cell__bd">
-            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" :style="{color: value>0?'#333333':'rgb(169, 169, 169)'}">
-                <option  value="0"  >{{propsData.placeholder||'请选择'}}</option>
+            <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" :style="{color: value>-1?'#333333':'rgb(169, 169, 169)'}">
+                <option  value="-1"  >{{propsData.placeholder||'请选择'}}</option>
                 <!--<option  v-if="!propsData.placeholder && typeof (value === 'undefined' || value === '') && propsData.title"></option>-->
                 <option v-for="item in propsData.list" :title="item.name"  is-link :key="item.value" :value="item.value">{{item.name}}</option>
 

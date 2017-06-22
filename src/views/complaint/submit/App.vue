@@ -1,4 +1,5 @@
-<template>
+<template> 
+
     <div>
         <!--<aaa></aaa>-->
 
@@ -10,16 +11,7 @@
         </group>
 
         <div v-show="p_platform != 10007">
-            <group title="请选择购买门店">
-                <!--<cellhead title="请选择购买门店"></cellhead>-->
-                <!--<cell title="生风电"  is-link @click.native="chooseShop">-->
-                <!--<selector placeholder="请选择省份"title="省份" name="district" :options="complaintPreData.types" @on-change="onChange"></selector>-->
-                <!--</cell>-->
-                <YSelect :propsData="{title:'门店区域', placeholder:'',list:areaList}" v-model="p_areaindex"></YSelect>
-                <YSelect :propsData="{ placeholder:'请选择门店', list:shopList}" v-model="p_shopindex"></YSelect>
-
-                <div style="font-size: 14px;margin-left: 1em;margin-bottom: 12px;">{{info}}</div>
-            </group>
+            <shop_pick :item=this.complaintPreData.shopsList></shop_pick>
         </div>
         <group title="订单编号">
             <YInput :item="{placeholder:'请输入'}" v-model="p_orderNum"></YInput>
@@ -63,12 +55,11 @@
 
         </div>
     </div>
-</template>
 
-<script>
-    console.log("app start")
-    //  console.log( window.location )
 
+</template>  
+<script> 
+    console.log("app start")     //  console.log( window.location )  
     import {XButton, Group, Cell, Selector} from 'vux'
     import xcell from '../../../components/XCell.vue';
     import cellhead from '../../../components/CellHead.vue';
@@ -77,90 +68,41 @@
     import YSelect from '../../../components/YSelect.vue';
     import Lib from 'assets/js/Lib';
     import axios from 'axios';
-    var page
+    import shop_pick from '../../../views/complaint/submit/components/shop_pick.vue' ;
+    var page   
+    export default {  
+        components: { 
+            XButton, 
+            Group, 
+            Cell, Selector, 
+            xcell, 
+            cellhead,
+            YTextArea,
+            YInput,
+            YSelect,
+            "shop_pick": shop_pick, 
+        }, 
+        data () { 
+            return { 
+                complaintPreData: {}, 
+                showShops: false, 
+                p_orderNum: "", 
+                p_platform: "", 
+                p_type: "", 
+                p_content: "", 
+                p_contact: "", 
+                p_mobile: "", 
+            }; 
+        }, 
+        computed: {  
 
-
-    export default {
-
-        components: {
-            XButton,
-            Group,
-            Cell,
-            Selector,
-            xcell,
-            cellhead, YTextArea, YInput, YSelect
-        },
-        data () {
-            return {
-                complaintPreData: {},
-                showShops: false,
-                p_orderNum: "",
-                p_platform: "",
-                p_type: "",
-                p_content: "",
-                p_contact: "",
-                p_mobile: "",
-                p_shopindex: -1,
-                p_areaindex: -1,
-            };
-        },
-        computed: {
-
-            areaList () {
-
-                let list = [];
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList) {
-                    for (var i = 0; i < shopsList.length; i++) {
-                        let a = shopsList[i]
-                        list.push({name: a.area, value: i})
-                    }
-                }
-
-
-                return list
-            },
-            shopList () {
-
-                let list = [];
-
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList&&shopsList[page.p_areaindex]) {
-                    let shops = shopsList[page.p_areaindex].shops
-                    for (var j in shops) {
-                        let shop = shops[j]
-                        list.push({name: shop.shopName, value: j})
-                    }
-                }
-
-                return list
-            },
-            info () {
-                console.log("info")
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList&&shopsList[page.p_areaindex]) {
-                    let shops = shopsList[page.p_areaindex].shops
-                    if (shops&&shops[page.p_shopindex])
-                    {
-                        let detailAddress = shops[page.p_shopindex].address
-                        return detailAddress;
-                    }
-
-                }
-
-                return ""
-            },
-        },
+        }, 
         watch: {
-            p_shopindex (newVal) {
-//                console.log(newVal)
 
 
-            }
-        },
-        created () {
-            page = this;
-
+        }, 
+        created () { 
+            page = this;  
         },
         mounted () {
             Lib.axios.axios({
@@ -198,7 +140,6 @@
 
 
         },
-
         methods: {
             submit: function () {
                 console.log("submit")
@@ -238,15 +179,3 @@
 
 </script>
 
-<style>
-
-    .img_pane {
-
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 80px;
-        width: 80px;
-        margin-left: 12px;
-    }
-
-</style>
