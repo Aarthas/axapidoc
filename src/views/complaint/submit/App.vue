@@ -53,12 +53,12 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex;justify-content: flex-start;margin-left: 30px;margin-right: 10px;">
+            <div style="display: flex;justify-content: flex-start;margin-left: 30px;margin-right: 10px;padding-bottom: 10px;" v-show="previewimages.length>0">
                 <!--<div v-for="(file,index) in previewimages"  @click="delImage(index)" class="weui-msg__icon-area"><i class="weui-icon-cancel " style="font-size: 26px;"></i></div>-->
-                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;"  v-show="previewimages.length>0"  @click="delImage(0)" ></i></div>
-                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>1" @click="delImage(1)"></i></div>
-                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>2" @click="delImage(2)"></i></div>
-                <div class="weui-msg__icon-area" ><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>3" @click="delImage(3)"></i></div>
+                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;"  v-show="previewimages.length>0"  @click="delImage(0)" ></i></div>
+                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>1" @click="delImage(1)"></i></div>
+                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>2" @click="delImage(2)"></i></div>
+                <div  ><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>3" @click="delImage(3)"></i></div>
             </div>
         </div>
 
@@ -100,7 +100,7 @@
             Cell,
             Selector,
             xcell,
-            cellhead, YTextArea, YInput, YSelect
+            cellhead, YTextArea, YInput, YSelect,shop_pick
         },
         data () {
             return {
@@ -112,8 +112,6 @@
                 p_content: "",
                 p_contact: "",
                 p_mobile: "",
-                p_shopindex: -1,
-                p_areaindex: -1,
 
                 previewimages: ["https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
                     "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
@@ -123,52 +121,7 @@
         },
         computed: {
 
-            areaList () {
 
-                let list = [];
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList) {
-                    for (var i = 0; i < shopsList.length; i++) {
-                        let a = shopsList[i]
-                        list.push({name: a.area, value: i})
-                    }
-                }
-
-
-                return list
-            },
-            shopList () {
-
-                let list = [];
-
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList && shopsList[page.p_areaindex]) {
-                    let shops = shopsList[page.p_areaindex].shops
-                    for (var j in shops) {
-                        let shop = shops[j]
-                        list.push({name: shop.shopName, value: j})
-                    }
-                }
-
-                return list
-            },
-            info () {
-                console.log("info")
-                let shopsList = page.complaintPreData.shopsList;
-                if (shopsList && shopsList[page.p_areaindex]) {
-                    let shops = shopsList[page.p_areaindex].shops
-                    if (shops && shops[page.p_shopindex]) {
-                        let detailAddress = shops[page.p_shopindex].address
-                        return detailAddress;
-                    }
-
-                }
-
-                return ""
-            },
-            previewimages(){
-
-            }
         },
         watch: {},
         created () {
@@ -296,13 +249,6 @@
 
 <style>
 
-    .img_pane {
 
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 80px;
-        width: 80px;
-        margin-left: 12px;
-    }
 
 </style>
