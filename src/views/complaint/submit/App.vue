@@ -211,10 +211,11 @@
 
                                 console.log(serverIds)
                                 alert("serverIds" + JSON.stringify(serverIds))
+                                alert("url" + 'http://weixin.sanjiang.com/image/weixin/upload')
                                 axios(
                                     {
                                         method: "post",
-                                        url: "http://weixin.sanjiang.com/weixin/image/upload",
+                                        url: "http://weixin.sanjiang.com/image/weixin/upload",
                                         data: {serverIds: serverIds},
                                         responseType: 'json'
                                     })
@@ -224,7 +225,7 @@
                                         if (resp.status == 200) {
                                             if (resp.data.success) {
                                                 alert("img path  SUCCESS")
-                                                let urlArray ;
+                                                let urlArray;
                                                 resp.data.data.forEach(function (value, index, array) {
                                                     urlArray.push(value)
                                                 });
@@ -281,7 +282,11 @@
                                             }
                                         }
 
-                                    });
+                                    })
+                                    .catch(function (err) {
+                                        alert("err" + JSON.stringify(err))
+
+                                    })
 
                             }
                         }
