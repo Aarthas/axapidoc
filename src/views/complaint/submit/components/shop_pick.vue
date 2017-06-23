@@ -5,10 +5,10 @@
             <!--<cell title="生风电"  is-link @click.native="chooseShop">-->
             <!--<selector placeholder="请选择省份"title="省份" name="district" :options="complaintPreData.types" @on-change="onChange"></selector>-->
             <!--</cell>-->
-            <YSelect :propsData="{title:'门店区域', placeholder:'',list:areaList}" v-model="p_areaindex"></YSelect>
-            <YSelect :propsData="{ placeholder:'请选择门店', list:shopList}" v-model="p_shopindex" v-show="p_areaindex>0"></YSelect>
+            <YSelect :propsData="{title:'区域与门店', placeholder:'',list:areaList}" v-model="p_areaindex"></YSelect>
+            <YSelect :propsData="{ placeholder:'请选择门店', list:shopList}" v-model="p_shopindex" v-show="p_areaindex>-2"></YSelect>
 
-            <div  v-show="p_areaindex>0">
+            <div  >
                 <div  v-show="p_shopindex>-1" style="font-size: 14px;margin-left: 1em;margin-bottom: 12px;"  >{{info}}</div>
                 <!--<div v-else style="font-size: 14px;margin-left: 1em;margin-bottom: 12px;"></div>-->
             </div>

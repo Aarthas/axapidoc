@@ -4,6 +4,7 @@ import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 var oproto = Object.prototype;
 var serialize = oproto.toString;
+var baseurl = 'http://193.0.1.157:20000';
 var Rxports = {
 
     axios: function (opt) {
@@ -19,12 +20,13 @@ var Rxports = {
             method: opts.method || 'get',
             url: opts.url,
             params: opts.params || {},
+            data: opts.data,
             headers: opts.headers||{
-                    "x-auth-token": "0d48008a-1439-4cca-8349-9833b09fff82"
+                    "terminal": "50"
             },
 
-            // baseURL: 'http://193.0.1.157:20000',
-            baseURL: 'http://app.sanjiang.com',
+            baseURL: baseurl,
+
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
@@ -86,10 +88,13 @@ var Rxports = {
             method: opts.method || 'get',
             url: opts.url,
             params: opts.params || {},
-            headers: opts.headers,
+            data: opts.data,
+            headers: opts.headers||{
+                "terminal": "50"
+            },
 
-            // baseURL: 'http://193.0.1.157:20000',
-            baseURL: 'http://app.sanjiang.com',
+            baseURL: baseurl,
+
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {

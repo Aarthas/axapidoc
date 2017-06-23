@@ -10,7 +10,7 @@
         </group>
 
         <div v-show="p_platform != 10007">
-            <shop_pick :item=this.complaintPreData.shopsList></shop_pick>
+            <shop_pick :item=this.complaintPreData.shopsList ref="shop_pick"></shop_pick>
         </div>
         <group title="订单编号">
             <YInput :item="{placeholder:'请输入'}" v-model="p_orderNum"></YInput>
@@ -107,23 +107,17 @@
                 complaintPreData: {},
                 showShops: false,
                 p_orderNum: "",
-                p_platform: "",
-                p_type: "",
+                p_platform: -1,
+                p_type: -1,
                 p_content: "",
                 p_contact: "",
                 p_mobile: "",
 
-                previewimages: ["https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
-                    "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
-                'http://static.googleadsserving.cn/pagead/imgad?id=CICAgKDLr9LBfBCsAhj6ATIIo6hExUnag7o'],
+                previewimages: [],
 
             };
         },
-        computed: {
 
-
-        },
-        watch: {},
         created () {
             page = this;
 
@@ -179,14 +173,59 @@
             }
             ,
             submit: function () {
-                console.log("submit")
-                console.log("submit" + page.p_platform)
-                console.log("submit" + page.p_content)
-                console.log("submit" + page.filepath)
-                for (var i in page.previewimages) {
-                    let file = page.previewimages[i]
-                    console.log(file)
-                }
+                console.log("submit p_platform = " + page.p_platform)
+                console.log("submit p_type = " + page.p_type)
+//                console.log("submit" + page.$refs.shop_pick.p_areaindex)
+//
+//                console.log("submit" + page.$refs.shop_pick.p_shopindex)
+//                if (page.$refs.shop_pick.p_areaindex<=0)
+//                {
+//                    page.$vux.toast.show( {
+//                        text: '请选择区域',
+//                        type: "text",
+//                        width: "19em"
+//                    } )
+//                    return;
+//                }
+//                if (page.$refs.shop_pick.p_shopindex<=0)
+//                {
+//                    page.$vux.toast.show( {
+//                        text: '请选择门店',
+//                        type: "text",
+//                        width: "19em"
+//                    } )
+//                    return;
+//                }
+
+                let shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
+                console.log("submit shop =" +shopid)
+                console.log("submit p_orderNum =" +page.p_orderNum)
+                console.log("submit p_content =" +page.p_content)
+                console.log("submit  p_contact = " + page.p_contact)
+                console.log("submit   p_mobile =" + page.p_mobile)
+                console.log("submit   previewimages =" + page.previewimages)
+
+                Lib.axios.axios({
+                    method:"post",
+
+                    url: 'complaint/addComplaintFromWx',
+                    data:{
+
+                        platform: page.p_platform,
+                        shopId: shopid,
+                        orderId: page.p_orderNum,
+                        complainType: page.p_type,
+                        complainContent: page.p_content,
+                        contact: page.p_contact,
+                        mobile: page.p_mobile,
+//                        imgUrls: page.previewimages,
+                    },
+                    success: function (basebean) {
+
+                    }
+                })
+
+
             }
             ,
             chooseImage: function () {
@@ -226,10 +265,7 @@
 
 
             }
-            ,
-            chooseShop: function () {
-                page.showShops = true;
-            }
+
         }
     }
 
