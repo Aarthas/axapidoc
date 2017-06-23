@@ -31,44 +31,43 @@
         <!--<div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">-->
         <!--请上传小票和商品照片-->
         <!--style="background-image:url(http://f11.baidu.com/it/u=3488398,1935781473&fm=76);"-->
-        <div class="weui-gallery" id="gallery" style="display: block" v-show="galleryshow" @click="galleryshow=false">
 
-            <span class="weui-gallery__img" id="galleryImg"
-                  :style="{backgroundImage: 'url('+gallerysrc+''}"
-            ></span>
-
-            <div class="weui-gallery__opr">
-                <div  class="weui-gallery__del" @click="delInGallery(index)">
-                    <i class="weui-icon-delete weui-icon_gallery-delete"></i>
-                </div>
-            </div>
-        </div>
         <!--</div>-->
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <div class="weui-uploader">
                         <div class="weui-uploader__hd">
-                            <p class="weui-uploader__title">请上传小票和商品照片</p>
-                            <div class="weui-uploader__info">0/4</div>
+                            <p class="weui-uploader__title">请上传小票或商品照片</p>
+                            <div class="weui-uploader__info">{{previewimages.length}}/4</div>
                         </div>
                         <div class="weui-uploader__bd">
                             <ul class="weui-uploader__files" id="uploaderFiles">
 
 
+
                                 <li v-for="(file,index) in previewimages" class="weui-uploader__file"
-                                    :style="{backgroundImage: 'url('+getblob(file)+''}" @click="showGallery(index)">
+                                    :style="{backgroundImage: 'url('+file+''}" @click="showPreview(index)">
 
                                 </li>
 
+
                             </ul>
-                            <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*"
-                                       multiple v-on:change="onFileChange"  capture=“camera/>
+
+                          <div class="weui-uploader__input-box" v-show="previewimages.length < 4">
+                                <span  class="weui-uploader__input"  @click="chooseImage"
+                                       />
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="display: flex;justify-content: flex-start;margin-left: 30px;margin-right: 10px;">
+                <!--<div v-for="(file,index) in previewimages"  @click="delImage(index)" class="weui-msg__icon-area"><i class="weui-icon-cancel " style="font-size: 26px;"></i></div>-->
+                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;"  v-show="previewimages.length>0"  @click="delImage(0)" ></i></div>
+                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>1" @click="delImage(1)"></i></div>
+                <div class="weui-msg__icon-area" style="margin-right: 56px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>2" @click="delImage(2)"></i></div>
+                <div class="weui-msg__icon-area" ><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>3" @click="delImage(3)"></i></div>
             </div>
         </div>
 
@@ -122,10 +121,11 @@
                 p_mobile: "",
                 p_shopindex: -1,
                 p_areaindex: -1,
-                filepath: '',
-                previewimages: [],
-                galleryshow: false,
-                gallerysrc: false,
+
+                previewimages: ["https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
+                    "https://ss0.baidu.com/73F1bjeh1BF3odCf/it/u=471012672,4176877834&fm=85&s=DD10449372200703DF8E8EB503005023",
+                'http://static.googleadsserving.cn/pagead/imgad?id=CICAgKDLr9LBfBCsAhj6ATIIo6hExUnag7o'],
+
             };
         },
         computed: {
@@ -199,7 +199,7 @@
                     return;
                 }
                 res.data.debug = false;
-                res.data.jsApiList = ['chooseImage', 'uploadImage', 'getLocalImgData'];
+                res.data.jsApiList = ['chooseImage', 'uploadImage', 'getLocalImgData','showPreview'];
                 wx.config(res.data);
             }, function (resp) {
                 console.log("resp=" + resp)
@@ -212,7 +212,7 @@
             });
 
             wx.error(function (res) {
-//        console.log(res);
+
                 console.log("error")
             });
 
@@ -220,38 +220,16 @@
         },
 
         methods: {
-            showGallery: function (index) {
+            delImage:function (index) {
                 console.log(index)
-                page.galleryshow = true;
-                page.gallerysrc = page.getblob(page.previewimages[index]);
-
+                page.previewimages.splice(index,1)
+                console.log(page.previewimages)
             },
-            hideGallery: function () {
-
-                page.galleryshow = false;
-                page.gallerysrc = '';
-
-            },
-            getblob: function (file) {
-                let src
-                let url = window.URL || window.webkitURL || window.mozURL
-                if (url) {
-                    src = url.createObjectURL(file);
-                } else {
-                    src = e.target.result;
-                }
-                return src;
-            },
-            onFileChange: function (e) {
-//                console.log("onFileChange" + e.target.files)
-//                alert(e.target.files[0])
-
-                let file = e.target.files[0]
-
-                page.previewimages.push(file)
-                page.previewimages[0]
-//
-
+            showPreview: function (index) {
+                wx.previewImage({
+                    current: page.previewimages[index], // 当前显示图片的http链接
+                    urls: page.previewimages // 需要预览的图片http链接列表
+                });
             }
             ,
             submit: function () {
@@ -269,20 +247,26 @@
                 console.log("chooseIamage")
 
                 wx.chooseImage({
-                    count: 4, // 默认9
+                    count: 4-page.previewimages.length, // 默认9
                     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                     success: function (res) {
                         var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                        alert(JSON.stringify(res))
-                        alert(localIds[0])
-                        wx.getLocalImgData({
-                            localId: localIds[0], // 图片的localID
-                            success: function (res) {
-                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                alert(JSON.stringify(res))
-                            }
+//                        alert(JSON.stringify(res))
+//                        alert(localIds[0])
+                        localIds.forEach(function(value,index,array){
+                            page.previewimages.push(value)
                         });
+//                        alert( page.previewimages)
+
+
+//                        wx.getLocalImgData({
+//                            localId: localIds[0], // 图片的localID
+//                            success: function (res) {
+//                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+//                                alert(JSON.stringify(res))
+//                            }
+//                        });
 //                        wx.uploadImage({
 //                            localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
 //                            isShowProgressTips: 1, // 默认为1，显示进度提示
