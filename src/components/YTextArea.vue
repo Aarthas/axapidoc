@@ -3,7 +3,7 @@
 
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea  class="weui-textarea" :placeholder="item.placeholder" rows="5"
+                <textarea  class="weui-textarea" :placeholder="item.placeholder" rows="4"
                            v-model="currentValue"
                 ></textarea>
 
