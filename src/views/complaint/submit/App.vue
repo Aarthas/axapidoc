@@ -36,7 +36,6 @@
                             <ul class="weui-uploader__files" id="uploaderFiles">
 
 
-
                                 <li v-for="(file,index) in previewimages" class="weui-uploader__file"
                                     :style="{backgroundImage: 'url('+file+''}" @click="showPreview(index)">
 
@@ -45,20 +44,25 @@
 
                             </ul>
 
-                          <div class="weui-uploader__input-box" v-show="previewimages.length < 4">
-                                <span  class="weui-uploader__input"  @click="chooseImage"
-                                       />
+                            <div class="weui-uploader__input-box" v-show="previewimages.length < 4">
+                                <span class="weui-uploader__input" @click="chooseImage"
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="display: flex;justify-content: flex-start;margin-left: 30px;margin-right: 10px;padding-bottom: 10px;" v-show="previewimages.length>0">
+            <div style="display: flex;justify-content: flex-start;margin-left: 30px;margin-right: 10px;padding-bottom: 10px;"
+                 v-show="previewimages.length>0">
                 <!--<div v-for="(file,index) in previewimages"  @click="delImage(index)" class="weui-msg__icon-area"><i class="weui-icon-cancel " style="font-size: 26px;"></i></div>-->
-                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;"  v-show="previewimages.length>0"  @click="delImage(0)" ></i></div>
-                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>1" @click="delImage(1)"></i></div>
-                <div  style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>2" @click="delImage(2)"></i></div>
-                <div  ><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>3" @click="delImage(3)"></i></div>
+                <div style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;"
+                                                    v-show="previewimages.length>0" @click="delImage(0)"></i></div>
+                <div style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;"
+                                                    v-show="previewimages.length>1" @click="delImage(1)"></i></div>
+                <div style="margin-right: 54px;"><i class="weui-icon-cancel " style="font-size: 26px;"
+                                                    v-show="previewimages.length>2" @click="delImage(2)"></i></div>
+                <div><i class="weui-icon-cancel " style="font-size: 26px;" v-show="previewimages.length>3"
+                        @click="delImage(3)"></i></div>
             </div>
         </div>
 
@@ -85,7 +89,7 @@
     import YTextArea from '../../../components/YTextArea.vue';
     import YInput from '../../../components/YInput.vue';
     import YSelect from '../../../components/YSelect.vue';
-    import shop_pick from '../../../views/complaint/submit/components/shop_pick.vue' ;
+    import shop_pick from '../../../views/complaint/submit/components/shop_pick.vue' ;
 
     import Lib from 'assets/js/Lib';
     import axios from 'axios';
@@ -100,7 +104,7 @@
             Cell,
             Selector,
             xcell,
-            cellhead, YTextArea, YInput, YSelect,shop_pick
+            cellhead, YTextArea, YInput, YSelect, shop_pick
         },
         data () {
             return {
@@ -129,7 +133,8 @@
                     page.complaintPreData = basebean.getData();
                 }
             })
-            axios.get("http://weixin.sanjiang.com/weichat-csr-web" + '/weixin/jsconfig?url=' + window.location.href).then(function (resp) {
+
+            axios.get("http://weixin.sanjiang.com/weichat-csr-web" + '/weixin/jsconfig?url=' + encodeURIComponent(window.location.href)).then(function (resp) {
                 console.log(resp)
                 /* console.log(resp)*/
                 var res = resp.data;
@@ -139,7 +144,7 @@
                     return;
                 }
                 res.data.debug = false;
-                res.data.jsApiList = ['chooseImage', 'uploadImage', 'getLocalImgData','showPreview'];
+                res.data.jsApiList = ['chooseImage', 'uploadImage', 'showPreview'];
                 wx.config(res.data);
             }, function (resp) {
                 console.log("resp=" + resp)
@@ -160,71 +165,131 @@
         },
 
         methods: {
-            delImage:function (index) {
+
+            delImage: function (index) {
                 console.log(index)
-                page.previewimages.splice(index,1)
-                console.log(page.previewimages)
+                page.previewimages.splice(index, 1)
+
             },
             showPreview: function (index) {
                 wx.previewImage({
                     current: page.previewimages[index], // 当前显示图片的http链接
                     urls: page.previewimages // 需要预览的图片http链接列表
                 });
+
+
             }
             ,
             submit: function () {
-                console.log("submit p_platform = " + page.p_platform)
-                console.log("submit p_type = " + page.p_type)
-//                console.log("submit" + page.$refs.shop_pick.p_areaindex)
-//
-//                console.log("submit" + page.$refs.shop_pick.p_shopindex)
-//                if (page.$refs.shop_pick.p_areaindex<=0)
-//                {
-//                    page.$vux.toast.show( {
-//                        text: '请选择区域',
-//                        type: "text",
-//                        width: "19em"
-//                    } )
-//                    return;
-//                }
-//                if (page.$refs.shop_pick.p_shopindex<=0)
-//                {
-//                    page.$vux.toast.show( {
-//                        text: '请选择门店',
-//                        type: "text",
-//                        width: "19em"
-//                    } )
-//                    return;
-//                }
+                console.log("submit")
+                let localIds = [];
+//                page.previewimages = ['weixin://resourceid/6756b6bc134e6c1e6a939c75dcdf475b', 'weixin://resourceid/645928247a501a3870db4446deaf8e44'];
+                console.log(page.previewimages instanceof Array)
+                page.previewimages.forEach(function (value, index, array) {
+                    localIds.push(value)
+                });
+                console.log("ccc")
+                console.log(localIds)
+                alert("localIds=" + JSON.stringify(localIds))
+                let serverIds = [];
+                var syncUpload = function (localIds) {
+                    var localId = localIds.pop();
+                    wx.uploadImage({
+                        localId: localId,
+                        isShowProgressTips: 1,
+                        success: function (res) {
+                            var serverId = res.serverId; // 返回图片的服务器端ID
+                            //其他对serverId做处理的代码
+                            serverIds.push(serverId)
+                            console.log("serverId1 = " + serverId)
+                            console.log("serverIds 1= " + serverIds)
+                            if (localIds.length > 0) {
+                                syncUpload(localIds);
+                            } else {
+                                alert("syncUpload  SUCCESS")
+                                console.log("aaa")
 
-                let shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
-                console.log("submit shop =" +shopid)
-                console.log("submit p_orderNum =" +page.p_orderNum)
-                console.log("submit p_content =" +page.p_content)
-                console.log("submit  p_contact = " + page.p_contact)
-                console.log("submit   p_mobile =" + page.p_mobile)
-                console.log("submit   previewimages =" + page.previewimages)
-                let code = Lib.Utils.getQueryString("code");
-                Lib.axios.axios({
-                    method:"post",
+                                console.log(serverIds)
+                                alert("serverIds" + JSON.stringify(serverIds))
+                                axios(
+                                    {
+                                        method: "post",
+                                        url: "http://weixin.sanjiang.com/weixin/image/upload",
+                                        data: {serverIds: serverIds},
+                                        responseType: 'json'
+                                    })
+                                    .then(function (resp) {
 
-                    url: 'complaint/addComplaintFromWx',
-                    data:{
+                                        alert("download from wxserver " + JSON.stringify(resp))
+                                        if (resp.status == 200) {
+                                            if (resp.data.success) {
+                                                alert("img path  SUCCESS")
+                                                let urlArray ;
+                                                resp.data.data.forEach(function (value, index, array) {
+                                                    urlArray.push(value)
+                                                });
+                                                console.log("submit p_platform = " + page.p_platform)
+                                                console.log("submit p_type = " + page.p_type)
+                                                console.log("submit" + page.$refs.shop_pick.p_areaindex)
 
-                        platform: page.p_platform,
-                        shopId: shopid,
-                        orderId: page.p_orderNum,
-                        complainType: page.p_type,
-                        complainContent: page.p_content,
-                        contact: page.p_contact,
-                        mobile: page.p_mobile,
-                        imgUrls: page.previewimages,
-                        wxcode: code,
-                    },
-                    success: function (basebean) {
+                                                console.log("submit" + page.$refs.shop_pick.p_shopindex)
+                                                if (page.$refs.shop_pick.p_areaindex <= 0) {
+                                                    page.$vux.toast.show({
+                                                        text: '请选择区域',
+                                                        type: "text",
+                                                        width: "19em"
+                                                    })
+                                                    return;
+                                                }
+                                                if (page.$refs.shop_pick.p_shopindex <= 0) {
+                                                    page.$vux.toast.show({
+                                                        text: '请选择门店',
+                                                        type: "text",
+                                                        width: "19em"
+                                                    })
+                                                    return;
+                                                }
 
-                    }
-                })
+                                                let shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
+                                                console.log("submit shop =" + shopid)
+                                                console.log("submit p_orderNum =" + page.p_orderNum)
+                                                console.log("submit p_content =" + page.p_content)
+                                                console.log("submit  p_contact = " + page.p_contact)
+                                                console.log("submit   p_mobile =" + page.p_mobile)
+                                                console.log("submit   previewimages =" + page.previewimages)
+                                                let code = Lib.Utils.getQueryString("code");
+                                                Lib.axios.axios({
+                                                    method: "post",
+
+                                                    url: 'complaint/addComplaintFromWx',
+                                                    data: {
+
+                                                        platform: page.p_platform,
+                                                        shopId: shopid,
+                                                        orderId: page.p_orderNum,
+                                                        complainType: page.p_type,
+                                                        complainContent: page.p_content,
+                                                        contact: page.p_contact,
+                                                        mobile: page.p_mobile,
+                                                        imgUrls: page.previewimages,
+                                                        wxcode: code,
+                                                    },
+                                                    success: function (basebean) {
+                                                        alert("submit zSUCCESS")
+                                                    }
+                                                })
+                                            }
+                                        }
+
+                                    });
+
+                            }
+                        }
+                    });
+                };
+
+
+                syncUpload(localIds);
 
 
             }
@@ -233,34 +298,15 @@
                 console.log("chooseIamage")
 
                 wx.chooseImage({
-                    count: 4-page.previewimages.length, // 默认9
+                    count: 4 - page.previewimages.length, // 默认9
                     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                     success: function (res) {
                         var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-//                        alert(JSON.stringify(res))
-//                        alert(localIds[0])
-                        localIds.forEach(function(value,index,array){
+
+                        localIds.forEach(function (value, index, array) {
                             page.previewimages.push(value)
                         });
-//                        alert( page.previewimages)
-
-
-//                        wx.getLocalImgData({
-//                            localId: localIds[0], // 图片的localID
-//                            success: function (res) {
-//                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-//                                alert(JSON.stringify(res))
-//                            }
-//                        });
-//                        wx.uploadImage({
-//                            localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-//                            isShowProgressTips: 1, // 默认为1，显示进度提示
-//                            success: function (res) {
-//                                var serverId = res.serverId; // 返回图片的服务器端ID
-//                                alert("serverId="+serverId)
-//                            }
-//                        });
                     }
                 });
 
@@ -270,22 +316,10 @@
         }
     }
 
-    function upload(file) {
-        let param = new FormData(); //创建form对象
-        param.append('file', file);//通过append向form对象添加数据
-        console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-        let config = {
-            headers: {'Content-Type': 'multipart/form-data'}
-        };  //添加请求头
-        axios.post('http://app.sanjiang.com/images/imgFile', param, config)
-            .then(response => {
-                console.log(response.data);
-            })
-    }
+
 </script>
 
 <style>
-
 
 
 </style>
