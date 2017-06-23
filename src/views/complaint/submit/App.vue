@@ -204,7 +204,7 @@
                 console.log("submit  p_contact = " + page.p_contact)
                 console.log("submit   p_mobile =" + page.p_mobile)
                 console.log("submit   previewimages =" + page.previewimages)
-
+                let code = Lib.Utils.getQueryString("code");
                 Lib.axios.axios({
                     method:"post",
 
@@ -218,7 +218,8 @@
                         complainContent: page.p_content,
                         contact: page.p_contact,
                         mobile: page.p_mobile,
-//                        imgUrls: page.previewimages,
+                        imgUrls: page.previewimages,
+                        wxcode: code,
                     },
                     success: function (basebean) {
 
