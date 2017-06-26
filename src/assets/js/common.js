@@ -63,7 +63,6 @@ var Rxports = {
             console.log(error);
             if (opts.error) {
                 opts.error(error);
-
             } else {
                 // alert('好多人在访问呀，请重新试试[timeout]');
             }

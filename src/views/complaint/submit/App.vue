@@ -2,6 +2,7 @@
     <div>
         <!--<aaa></aaa>-->
 
+
         <group title="请选择购买平台">
             <YSelect :propsData="{title:'购买平台', list:complaintPreData.platforms}" v-model="p_platform"></YSelect>
         </group>
@@ -95,6 +96,7 @@
     import axios from 'axios';
     var page
 
+    var showalert = false;
 
     export default {
 
@@ -182,123 +184,156 @@
             ,
             submit: function () {
                 console.log("submit")
-                let localIds = [];
-//                page.previewimages = ['weixin://resourceid/6756b6bc134e6c1e6a939c75dcdf475b', 'weixin://resourceid/645928247a501a3870db4446deaf8e44'];
-                console.log(page.previewimages instanceof Array)
-                page.previewimages.forEach(function (value, index, array) {
-                    localIds.push(value)
-                });
-                console.log("ccc")
-                console.log(localIds)
-                alert("localIds=" + JSON.stringify(localIds))
-                let serverIds = [];
-                var syncUpload = function (localIds) {
-                    var localId = localIds.pop();
-                    wx.uploadImage({
-                        localId: localId,
-                        isShowProgressTips: 1,
-                        success: function (res) {
-                            var serverId = res.serverId; // 返回图片的服务器端ID
-                            //其他对serverId做处理的代码
-                            serverIds.push(serverId)
-                            console.log("serverId1 = " + serverId)
-                            console.log("serverIds 1= " + serverIds)
-                            if (localIds.length > 0) {
-                                syncUpload(localIds);
-                            } else {
-                                alert("syncUpload  SUCCESS")
-                                console.log("aaa")
+                console.log("submit p_platform = " + page.p_platform)
+                console.log("submit p_type = " + page.p_type)
+                console.log("submit p_platform = " + page.p_platform)
+                console.log("submit p_type = " + page.p_type)
+                console.log("submit p_areaindex" + page.$refs.shop_pick.p_areaindex)
+                console.log("submit p_shopindex" + page.$refs.shop_pick.p_shopindex)
+                console.log("submit p_orderNum =" + page.p_orderNum)
+                console.log("submit p_content =" + page.p_content)
+                console.log("submit  p_contact = " + page.p_contact)
+                console.log("submit   p_mobile =" + page.p_mobile)
+                console.log("submit   previewimages =" + page.previewimages)
+                console.log("submit   code =" +    Lib.Utils.getQueryString("code"))
 
-                                console.log(serverIds)
-                                alert("serverIds" + JSON.stringify(serverIds))
-                                alert("url" + 'http://weixin.sanjiang.com/image/weixin/upload')
-                                axios(
-                                    {
-                                        method: "post",
-                                        url: "http://weixin.sanjiang.com/image/weixin/upload",
-                                        data: {serverIds: serverIds},
-                                        responseType: 'json'
-                                    })
-                                    .then(function (resp) {
+                if (page.p_platform <= 0) {
+                    Lib.uiutil.showtoast(page, '请选择平台')
+                    return;
+                }
+                if (page.p_type <= 0) {
+                    Lib.uiutil.showtoast(page, '请选择投诉类型')
+                    return;
+                }
 
-                                        alert("download from wxserver " + JSON.stringify(resp))
-                                        if (resp.status == 200) {
-                                            if (resp.data.success) {
-                                                alert("img path  SUCCESS")
-                                                let urlArray;
-                                                resp.data.data.forEach(function (value, index, array) {
-                                                    urlArray.push(value)
-                                                });
-                                                console.log("submit p_platform = " + page.p_platform)
-                                                console.log("submit p_type = " + page.p_type)
-                                                console.log("submit" + page.$refs.shop_pick.p_areaindex)
+//                if (page.$refs.shop_pick.p_areaindex < 0) {
+//                    Lib.uiutil.showtoast(page, '请选择区域')
+//                    return;
+//                }
+//                if (page.$refs.shop_pick.p_shopindex <= 0) {
+//                    Lib.uiutil.showtoast(page, '请选择门店')
+//                    return;
+//                }
+                if (page.p_content == null || page.p_content.length == 0) {
+                    Lib.uiutil.showtoast(page, '请输入投诉的内容')
+                    return;
+                }
+                if (page.p_mobile == null || page.p_mobile.length == 0) {
+                    Lib.uiutil.showtoast(page, '请输入联系电话')
+                    return;
+                }
+                let shopid
+                if (page.$refs.shop_pick.p_areaindex > 0 && page.$refs.shop_pick.p_shopindex >= 0) {
+                    shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
 
-                                                console.log("submit" + page.$refs.shop_pick.p_shopindex)
-                                                if (page.$refs.shop_pick.p_areaindex <= 0) {
-                                                    page.$vux.toast.show({
-                                                        text: '请选择区域',
-                                                        type: "text",
-                                                        width: "19em"
-                                                    })
-                                                    return;
-                                                }
-                                                if (page.$refs.shop_pick.p_shopindex <= 0) {
-                                                    page.$vux.toast.show({
-                                                        text: '请选择门店',
-                                                        type: "text",
-                                                        width: "19em"
-                                                    })
-                                                    return;
-                                                }
+                } else {
+                    shopid = null;
+                }
 
-                                                let shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
-                                                console.log("submit shop =" + shopid)
-                                                console.log("submit p_orderNum =" + page.p_orderNum)
-                                                console.log("submit p_content =" + page.p_content)
-                                                console.log("submit  p_contact = " + page.p_contact)
-                                                console.log("submit   p_mobile =" + page.p_mobile)
-                                                console.log("submit   previewimages =" + page.previewimages)
-                                                let code = Lib.Utils.getQueryString("code");
-                                                Lib.axios.axios({
-                                                    method: "post",
+                console.log("submit shop =" + shopid)
 
-                                                    url: 'complaint/addComplaintFromWx',
-                                                    data: {
 
-                                                        platform: page.p_platform,
-                                                        shopId: shopid,
-                                                        orderId: page.p_orderNum,
-                                                        complainType: page.p_type,
-                                                        complainContent: page.p_content,
-                                                        contact: page.p_contact,
-                                                        mobile: page.p_mobile,
-                                                        imgUrls: page.previewimages,
-                                                        wxcode: code,
-                                                    },
-                                                    success: function (basebean) {
-                                                        alert("submit zSUCCESS")
-                                                    }
-                                                })
-                                            }
-                                        }
+                if (page.previewimages.length > 0) {
+                    let localIds = [];
 
-                                    })
-                                    .catch(function (err) {
-                                        alert("err" + JSON.stringify(err))
-
-                                    })
-
-                            }
-                        }
+                    page.previewimages.forEach(function (value, index, array) {
+                        localIds.push(value)
                     });
-                };
+                    if (showalert)
+                        alert("localIds=" + JSON.stringify(localIds))
+                    let serverIds = [];
+                    page.syncUploadImage(localIds, serverIds, function (serverIds) {
+                        if (showalert)
+                            alert("syncUpload  SUCCESS")
+                        console.log("aaa")
+
+                        console.log(serverIds)
+                        if (showalert)
+                            alert("serverIds" + JSON.stringify(serverIds))
 
 
-                syncUpload(localIds);
+                        let data = {
+                            platform: page.p_platform,
+                            shopId: shopid,
+                            orderId: page.p_orderNum,
+                            complainType: page.p_type,
+                            complainContent: page.p_content,
+                            contact: page.p_contact,
+                            mobile: page.p_mobile,
+                            serverIds: serverIds,
+                            wxcode: Lib.Utils.getQueryString("code")
+                        }
+                        if (showalert)
+                            alert("addComplaintFromWx data" + JSON.stringify(data))
+                        page.addComplaintFromWx(data)
+
+                    });
+                } else {
+                    let data = {
+
+                        platform: page.p_platform,
+                        shopId: shopid,
+                        orderId: page.p_orderNum,
+                        complainType: page.p_type,
+                        complainContent: page.p_content,
+                        contact: page.p_contact,
+                        mobile: page.p_mobile,
+                        serverIds: [],
+                        wxcode: Lib.Utils.getQueryString("code")
+                    }
+                    if (showalert)
+                        alert("addComplaintFromWx data" + JSON.stringify(data))
+                    page.addComplaintFromWx(data)
+                }
 
 
-            }
-            ,
+            },
+            addComplaintFromWx: function (data) {
+
+                Lib.axios.axios({
+                    method: "post",
+                    url: 'complaint/addComplaintFromWx',
+                    data: data,
+                    success: function (basebean) {
+                        if (showalert)
+                            alert("submit SUCCESS")
+//                        window.location.replace("./result.html")
+                    },
+                    onerrcode: function (basebean) {
+                        page.$vux.toast.show({
+                            text: basebean.getMessage(),
+                            type: "text",
+                            width: "19em"
+                        })
+
+                    }
+                })
+            },
+
+            syncUploadImage: function (localIds, serverIds, finish) {
+
+                var localId = localIds.pop();
+                wx.uploadImage({
+                    localId: localId,
+                    isShowProgressTips: 1,
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回图片的服务器端ID
+                        //其他对serverId做处理的代码
+                        serverIds.push(serverId)
+                        if (showalert)
+                            alert("uploadImage success serverId=" + serverId)
+                        console.log("serverId1 = " + serverId)
+                        console.log("serverIds 1= " + serverIds)
+                        if (localIds.length > 0) {
+                            page.syncUploadImage(localIds, serverIds, finish);
+                        } else {
+
+                            finish(serverIds);
+
+                        }
+                    }
+                });
+            },
             chooseImage: function () {
                 console.log("chooseIamage")
 

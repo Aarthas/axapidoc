@@ -8,10 +8,10 @@
                 <!--<br/>-->
 
             </div>
-            <div style="display: flex;justify-content: center;flex-direction: column">
+            <div style="display: flex;justify-content: center;flex-direction: column;margin-left: 22px;margin-right: 22px;">
 
-                <span style="text-align: center;color: #444444;margin-top: 26px;font-size: 20px;">感谢你的参与，你的建议很重要</span>
-                <span style="text-align: center;color: #999999;margin-top:16px;font-size: 15px;">{{second}}秒钟后关闭页面</span>
+                <span style="text-align: center;color: #444444;margin-top: 26px;font-size: 16px;line-height: 26px;">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很感谢您对三江服务提出的宝贵意见，对于给您造成的不便我们深表抱歉。我们正在尽力处理您的问题，很快会有工作人员跟您联系，请耐心等待，谢谢！</span>
+                <!--<span style="text-align: center;color: #999999;margin-top:16px;font-size: 15px;">{{second}}秒钟后关闭页面</span>-->
             </div>
 
 
@@ -23,16 +23,15 @@
 
 
     var page;
-    import {XHeader, XButton} from 'vux'
+
     export default {
         components: {
-            XHeader,
-            XButton
+
         },
         data () {
             return {
 
-                desc: "",
+
 
 
             };
@@ -44,10 +43,7 @@
         },
 
         mounted(){
-            let pageParams = page.$route.query;
 
-
-            page.desc = pageParams.desc;
 
 
         },

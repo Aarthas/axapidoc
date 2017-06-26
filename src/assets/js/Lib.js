@@ -21,7 +21,7 @@ Vue.use(VueScroller)
 import C from './conf';
 import M from './common';
 import Utils from './Utils';
-
+import uiutil from './uiutil';
 import vueFilter from './vueFilter';
 
 //解决click点击300毫秒延时问题
@@ -32,5 +32,6 @@ export default{
     M,
     C,
     Utils,
+    uiutil,
     axios: M
 }
