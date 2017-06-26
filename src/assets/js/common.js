@@ -74,6 +74,74 @@ var Rxports = {
         });
 
     },
+
+    ajax: function (opt) {
+
+        var opts = opt || {};
+
+        if (!opts.url) {
+            alert('请填写接口地址');
+            return false;
+        }
+
+        axios({
+            method: opts.method || 'get',
+            url: opts.url,
+            params: opts.params || {},
+            data: opts.data,
+            headers: opts.headers||{
+                "terminal": "50"
+            },
+
+            baseURL: baseurl,
+
+            timeout: opts.time || 10 * 1000,
+            responseType: opts.dataType || 'json'
+        }).then(function (res) {
+            console.log(res)
+            // res.data.data.list = null;
+            if (res.status == 200) {
+                var basebean = new BaseBean(res);
+                // console.log(basebean)
+
+                if (basebean.isSuccess()) {
+                    opts.success(basebean);
+                }
+                else {
+                    if (opts.onerrcode) {
+                        opts.onerrcode(basebean);
+                    }
+
+
+                }
+
+                // if(opts.success){
+                // 	opts.success(res.data,res);
+                // }
+
+            } else {
+
+
+            }
+            if (opts.onAfter) {
+                opts.onAfter();
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+            if (opts.error) {
+                opts.error(error);
+
+            } else {
+                // alert('好多人在访问呀，请重新试试[timeout]');
+            }
+            if (opts.onAfter) {
+                opts.onAfter();
+            }
+
+        });
+
+    },
     /*判定是否类数组，如节点集合，纯数组，arguments与拥有非负整数的length属性的纯JS对象*/
     isArrayLike: function (obj) {
         if (!obj)
