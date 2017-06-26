@@ -4,7 +4,8 @@ import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 var oproto = Object.prototype;
 var serialize = oproto.toString;
-var baseurl = 'http://193.0.1.157:20000';
+// var baseurl = 'http://193.0.1.157:20000';
+var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
     axios: function (opt) {
