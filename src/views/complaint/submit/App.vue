@@ -297,7 +297,7 @@
                     success: function (basebean) {
                         if (showalert)
                             alert("submit SUCCESS")
-//                        window.location.replace("./result.html")
+                        window.location.replace("./result.html")
                     },
                     onerrcode: function (basebean) {
                         page.$vux.toast.show({
