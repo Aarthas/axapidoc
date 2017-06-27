@@ -1,3 +1,5 @@
+cp -ri dist/* /Users/zhangyn/demo/vue/H5Product/wx/sjmarket
+
 ## 使用前注意事项
 
 1、直接使用 `cnpm`可能会导致依赖不正确。强烈建议给 `npm` 设置 taobao 的 registry。
