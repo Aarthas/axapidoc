@@ -4,10 +4,10 @@
 
 
         <group title="请选择购买平台">
-            <YSelect :propsData="{title:'购买平台', list:complaintPreData.platforms}" v-model="p_platform"></YSelect>
+            <YSelect :propsData="{title:'购买平台',require:true, list:complaintPreData.platforms}" v-model="p_platform"></YSelect>
         </group>
-        <group title="请选择投诉类型">
-            <YSelect :propsData="{title:'投诉类型', list:complaintPreData.types}" v-model="p_type"></YSelect>
+        <group title="请选择投诉类型" >
+            <YSelect :propsData="{title:'投诉类型',require:true, list:complaintPreData.types}" v-model="p_type"></YSelect>
         </group>
 
         <div v-show="p_platform != 10006">
@@ -17,7 +17,7 @@
             <YInput :item="{placeholder:'请输入',istype:'number'}" v-model="p_orderNum"></YInput>
         </group>
         <group title="投诉的内容">
-            <YTextArea :item="{placeholder:'请输入您要投诉的内容'}" v-model="p_content"></YTextArea>
+            <YTextArea :item="{placeholder:'请输入您要投诉的内容(必输)'}" v-model="p_content"></YTextArea>
         </group>
         <!---->
         <!--<div style="line-height: 48px;background-color: white;padding-left: 15px;font-size: 16px;color: #0bb20c">-->
@@ -74,7 +74,7 @@
 
         <group title="">
             <YInput :item="{placeholder:'联系人'}" v-model="p_contact"></YInput>
-            <YInput :item="{placeholder:'联系电话',istype:'number'}" v-model="p_mobile"></YInput>
+            <YInput :item="{placeholder:'联系电话(必输)',istype:'number'}" v-model="p_mobile"></YInput>
         </group>
 
         <div style="margin: 30px  12px;">

@@ -2,7 +2,7 @@
 
     <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd" v-if="propsData.title">
-            <label  class="weui-label">{{propsData.title}}</label>
+            <label  class="weui-label"><span v-if="propsData.require" style="color: red">*</span>{{propsData.title}} </label>
         </div>
         <div class="weui-cell__bd">
             <select class="weui-select" name="select2" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="select" :style="{color: value>-1?'#333333':'rgb(169, 169, 169)'}">
