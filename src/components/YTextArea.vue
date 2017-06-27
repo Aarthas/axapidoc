@@ -64,6 +64,7 @@
         created () {
             that = this;
             console.log("created")
+            this.currentValue = this.value
         },
         mounted(){
             console.log("mounted")

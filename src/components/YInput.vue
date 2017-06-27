@@ -3,14 +3,16 @@
 
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <input class="weui-input" type="text" :placeholder="item.placeholder" v-bind:value="value" v-on:input="updateValue($event.target.value)"  ref="input"/>
+                <input class="weui-input" type="text" :placeholder="item.placeholder" v-model="currentValue"   ref="input"
+
+                />
             </div>
         </div>
 
+    <!---->
 
 
-
-</template>
+   </template>
 
 <script>
 
@@ -22,7 +24,7 @@
         name: "y-input",
         data () {
             return {
-
+                currentValue: ''
             };
         },
         props: {
@@ -31,7 +33,31 @@
                 default: '',
             },
         },
+        watch: {
+            currentValue (newVal) {
+                var formattedValue = newVal
+                // 删除两侧的空格符
+                    .trim()
+                // 保留 2 小数位
+//                console.log("watch currentValue"+formattedValue)
+                if (this.item.istype == 'number')
+                {
+                    formattedValue= formattedValue.replace(/[^\d]/g,'')
+                }
 
+//                console.log("watch formattedValue="+formattedValue)
+//                console.log("watch newVal="+newVal)
+                // 如果值不统一，手动覆盖以保持一致
+                if (formattedValue !== newVal) {
+                    console.log("watch currentValue222")
+                    this.currentValue=formattedValue;
+//                    this.$refs.input.value = formattedValue
+                }
+                // 通过 input 事件发出数值
+                this.$emit('input',formattedValue)
+
+            }
+        },
 
         computed: {
 
@@ -68,19 +94,9 @@
 
 
             },
-            updateValue: function (value) {
-                var formattedValue = value
-                // 删除两侧的空格符
-                    .trim()
-                    // 保留 2 小数位
 
-                // 如果值不统一，手动覆盖以保持一致
-                if (formattedValue !== value) {
-                    this.$refs.input.value = formattedValue
-                }
-                // 通过 input 事件发出数值
-                this.$emit('input',formattedValue)
-            }
+
+
         }
     }
 </script>
