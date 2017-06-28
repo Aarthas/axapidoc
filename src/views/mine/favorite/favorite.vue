@@ -2,16 +2,19 @@
     <div>
 
         <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
-
-        <ul style="display: inline-block; margin-top: 40px;" v-show="!listEmpty">
+        <scroller style="top: 0px"
+                  ref="myScroller"
+                  :on-infinite="infinite">
+        <ul style="display: inline-block; margin-top: 40px;" >
             <li v-for="item in list">
                 <favorite_cell :item=item></favorite_cell>
             </li>
 
         </ul>
-        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">
-            我的收藏为空
-        </div>
+        <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
+            <!--我的收藏为空-->
+        <!--</div>-->
+        </scroller>
     </div>
 </template>
 
@@ -29,34 +32,65 @@
         data () {
             return {
 
-                listEmpty: false,
+//                listEmpty: false,
                 list: [],
 
 
             }
         },
-        created(){
+
+        mounted(){
+
             page = this;
 
+
+            loadData(1);
         },
-        mounted(){
-            Lib.axios.axios({
-                url: '/collections',
-                params:{
-                 "page":"1"
+        methods: {
 
-                },
-                success: function (basebean) {
+            infinite (done) {
 
-                    let list = basebean.getData().list;
-                    let listEmpty = basebean.isListEmpty();
-                    page.listEmpty = listEmpty;
-                    page.list = list;
+                if (itemsData) {
 
+                    if (itemsData.isLast) {
+
+                        done(true)
+                    } else {
+
+                        loadData(itemsData.page + 1);
+                    }
                 }
-            });
+            },
 
-        },
+
+        }
+
+    }
+    var itemsData;
+    function loadData(pageindex){
+
+
+
+        Lib.axios.axios({
+            url: 'collections?page=' + pageindex,
+
+            success: function (basebean) {
+//                let listEmpty = basebean.isListEmpty();
+//                page.listEmpty = listEmpty;
+                itemsData= basebean.getData();
+
+                if (basebean.getData().isFirst) {
+                    page.list = basebean.getData().list;
+                } else {
+                    page.list = page.list.concat(basebean.getData().list);
+                }
+                if (basebean.getData().isLast) {
+                    page.$refs.myScroller.finishInfinite(true);
+                } else {
+                    page.$refs.myScroller.finishInfinite();
+                }
+            }
+        });
 
     }
 </script>
