@@ -8,27 +8,24 @@
       <img style="width: 90px;height: 90px;border-radius: 50%" src="http://onpxz5rdd.bkt.clouddn.com/ic_default.png">
 
     </div>
-    <div style="height: 10px"/>
-    <group>
+    <div style="height: 20px"/>
+    <group title="未注册过的手机将自动注册为三江账户">
       <vcodecell title="" :max=60    @startCount="startCount"   placeholder="手机号"  ref="vcodecell"
                  vcodeLabel="发送验证码" v-model="mobile"></vcodecell>
       <x-input v-model="smscode" title="" placeholder="验证码"></x-input>
 
     </group>
 
-    <div style="display:flex;justify-content: center;align-items: center;">
-      <div style="color: #898989;font-size: 13px;margin-top: 10px">未注册过的手机将自动注册为三江账户</div>
 
-    </div>
 
-    <div style="margin: 30px  12px;">
+    <div class="btn-area">
       <x-button @click.native="doSubmit" type="primary"> 登录</x-button>
     </div>
 
     <div style="display: flex;justify-content: flex-end;flex-direction: row">
 
       <!--<router-link :to="{ path: '/loginbypwd'}">-->
-        <span style="color: #56b0f5;font-size:14px;margin-right: 2em;margin-top: 10px;">账号密码登录</span>
+        <span style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;">账号密码登录</span>
       <!--</router-link>-->
     </div>
 
