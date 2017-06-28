@@ -5,6 +5,8 @@ import {AlertPlugin, LoadingPlugin} from 'vux'
 import  {ConfirmPlugin} from 'vux'
 import  {ToastPlugin} from 'vux'
 
+
+
 import VueScroller from 'vue-scroller'
 
 import Vue from 'vue';
@@ -27,6 +29,11 @@ import vueFilter from './vueFilter';
 //解决click点击300毫秒延时问题
 import FastClick from 'fastclick';
 FastClick.attach(document.body);
+
+
+
+// import  YHead from '../../components/YHead.vue'
+// Vue.component("YHead",YHead)
 
 export default{
     M,
