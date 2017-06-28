@@ -12,8 +12,8 @@
             <!--<li v-for="(item, index) in items" class="row" :class="{'grey-bg': index % 2 == 0}">-->
             <!--{{ item }}-->
 
-            <div style="height: 80px;">aaa</div>
-            <div style="height: 80px;" v-on:click="aa">bb</div>
+            <!--<div style="height: 80px;">aaa</div>-->
+            <!--<div style="height: 80px;" v-on:click="aa">bb</div>-->
             <!--</li>-->
             <score_item v-for="item in list" :key="item.erpGoodsId" :item="item"></score_item>
 
@@ -47,7 +47,7 @@
             page = this;
 
 
-            loadData(0);
+            loadData(1);
 
 
         },
@@ -77,7 +77,7 @@
    function loadData(pageindex){
 
         Lib.axios.axios({
-            url: 'score/items?page=' + pageindex,
+            url: 'collections?page=' + pageindex,
 
             success: function (basebean) {
 
@@ -85,7 +85,6 @@
 
                 if (basebean.getData().isFirst) {
                     page.list = basebean.getData().list;
-
                 } else {
                     page.list = page.list.concat(basebean.getData().list);
                 }
