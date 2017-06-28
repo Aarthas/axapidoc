@@ -23,7 +23,7 @@
 
 
             </m-tabbar-item>
-            <m-tabbar-item id='tab4'>
+            <m-tabbar-item id='mine'>
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab5.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab5.png" alt="" slot="icon-active">
                 我的

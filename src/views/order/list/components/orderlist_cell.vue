@@ -19,7 +19,7 @@
 </template>
 
 <script>
-   import goodsitem from './../../components/goodsitem.vue'
+   import goodsitem from '../../components/goodsitem.vue'
     export default {
         components: {
             goodsitem
