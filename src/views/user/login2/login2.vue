@@ -9,17 +9,23 @@
                  src="http://onpxz5rdd.bkt.clouddn.com/ic_default.png">
 
         </div>
-        <div style="height: 10px"/>
-        <group title="请输入手机号与新密码">
-            <vcodecell title="" :max=60 @startCount="startCount" placeholder="手机号" ref="vcodecell"
-                       vcodeLabel="发送验证码" v-model="mobile"></vcodecell>
-            <x-input v-model="sms" title="" placeholder="验证码"></x-input>
-            <x-input v-model="pwd" title="" placeholder="密码"></x-input>
+        <div style="height: 20px"/>
+        <group title="请输入手机号与密码">
+
+            <x-input v-model="smscode" title="" placeholder="手机号"></x-input>
+            <x-input v-model="smscode" title="" placeholder="密码"></x-input>
         </group>
 
 
         <div class="btn-area">
-            <x-button @click.native="doSubmit" type="primary"> 提交</x-button>
+            <x-button @click.native="doSubmit" type="primary"> 登录</x-button>
+        </div>
+
+        <div style="display: flex;justify-content: flex-end;flex-direction: row">
+
+            <!--<router-link :to="{ path: '/loginbypwd'}">-->
+            <span style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;">重置密码</span>
+            <!--</router-link>-->
         </div>
 
 
@@ -51,8 +57,8 @@
             return {
 
                 mobile: '',
-                sms: '',
-                pwd: '',
+                smscode: '',
+
             };
         },
         computed: {},

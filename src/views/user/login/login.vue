@@ -1,120 +1,117 @@
 <template>
 
-  <div>
+    <div>
 
-    <!--<YHead title="登录"></YHead>-->
-    <div style="height: 30px"/>
-    <div style="display: flex;justify-content: center;align-items: center;">
-      <img style="width: 90px;height: 90px;border-radius: 50%" src="http://onpxz5rdd.bkt.clouddn.com/ic_default.png">
+        <!--<YHead title="登录"></YHead>-->
+        <div style="height: 30px"/>
+        <div style="display: flex;justify-content: center;align-items: center;">
+            <img style="width: 90px;height: 90px;border-radius: 50%"
+                 src="http://onpxz5rdd.bkt.clouddn.com/ic_default.png">
+
+        </div>
+        <div style="height: 20px"/>
+        <group title="未注册过的手机将自动注册为三江账户">
+            <vcodecell title="" :max=60 @startCount="startCount" placeholder="手机号" ref="vcodecell"
+                       vcodeLabel="发送验证码" v-model="mobile"></vcodecell>
+            <x-input v-model="smscode" title="" placeholder="验证码"></x-input>
+
+        </group>
+
+
+        <div class="btn-area">
+            <x-button @click.native="doSubmit" type="primary"> 登录</x-button>
+        </div>
+
+        <div style="display: flex;justify-content: flex-end;flex-direction: row">
+
+            <!--<router-link :to="{ path: '/loginbypwd'}">-->
+            <span style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;">账号密码登录</span>
+            <!--</router-link>-->
+        </div>
+
 
     </div>
-    <div style="height: 20px"/>
-    <group title="未注册过的手机将自动注册为三江账户">
-      <vcodecell title="" :max=60    @startCount="startCount"   placeholder="手机号"  ref="vcodecell"
-                 vcodeLabel="发送验证码" v-model="mobile"></vcodecell>
-      <x-input v-model="smscode" title="" placeholder="验证码"></x-input>
-
-    </group>
-
-
-
-    <div class="btn-area">
-      <x-button @click.native="doSubmit" type="primary"> 登录</x-button>
-    </div>
-
-    <div style="display: flex;justify-content: flex-end;flex-direction: row">
-
-      <!--<router-link :to="{ path: '/loginbypwd'}">-->
-        <span style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;">账号密码登录</span>
-      <!--</router-link>-->
-    </div>
-
-
-
-  </div>
-  <!--</transition>-->
+    <!--</transition>-->
 </template>
 
 
 <script>
 
     import vcodecell from '../components/vcodecell.vue'
-  import {Group, XInput, XButton} from 'vux'
+    import {Group, XInput, XButton} from 'vux'
     import Lib from 'assets/js/Lib';
 
-  var page
+    var page
 
 
+    export default {
 
-  export default {
-
-    components: {
-      Group,
-      XInput,
-      XButton,
-        vcodecell
-
-
-    },
-    data () {
-      return {
-
-        mobile: '',
-        smscode: '',
-
-      };
-    },
-    computed: {},
-    created () {
-      page = this;
-      console.log("created")
-
-    },
-    mounted () {
+        components: {
+            Group,
+            XInput,
+            XButton,
+            vcodecell
 
 
+        },
+        data () {
+            return {
 
-    },
-    updated () {
+                mobile: '',
+                smscode: '',
 
+            };
+        },
+        computed: {},
+        created () {
+            page = this;
+            console.log("created")
 
-    },
-    activated () {
-
-
-    },
-    deactivated () {
-
-      console.log("deactivated")
-    },
-    destroyed () {
-      console.log("destroyed")
-
-    },
-
-    methods: {
+        },
+        mounted () {
 
 
-        startCount: function (v) {
+        },
+        updated () {
 
-            console.log("aa")
-            console.log(v)
-            page.$refs.vcodecell.start();
+
+        },
+        activated () {
+
+
+        },
+        deactivated () {
+
+            console.log("deactivated")
+        },
+        destroyed () {
+            console.log("destroyed")
+
+        },
+
+        methods: {
+
+
+            startCount: function (v) {
+
+                console.log("aa")
+                console.log(v)
+                page.$refs.vcodecell.start();
 //        FineWork.UserService.smsForLogin({
 //          mobile: page.mobile.trim(),
 //        }, function (basebean) {
 //          basebean.showMessage();
 //          page.$refs.vcodePane.start();
 //        });
-      },
+            },
 
-      doSubmit: function () {
+            doSubmit: function () {
 
 
-        let params = {
-          mobile: page.mobile.trim(),
-          smscode: page.smscode.trim(),
-        };
+                let params = {
+                    mobile: page.mobile.trim(),
+                    smscode: page.smscode.trim(),
+                };
 
 //        if (params.mobile.length == 0) {
 //          FineWork.MyToast.toast("手机号不能为空")
@@ -162,9 +159,9 @@
 //          smscode:page.smscode.trim(),
 //        })
 
-      },
+            },
+        }
     }
-  }
 </script>
 
 <style>
