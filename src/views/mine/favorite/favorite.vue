@@ -40,10 +40,10 @@
 
         },
         mounted(){
-            Lib.M.axios({
+            Lib.axios.axios({
                 url: '/collections',
                 params:{
-                 "page":1
+                 "page":"1"
 
                 },
                 success: function (basebean) {
