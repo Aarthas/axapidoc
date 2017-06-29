@@ -7,15 +7,7 @@ var env = {
     isDev:true
 };
 var baseUrl;
-if (env.isDev)
-{
-    baseUrl = "http://weixin.sanjiang.com/memberCenter";
-
-}else
-{
-    baseUrl  = "http://localhost:9090/";
-
-}
+// baseUrl = "http://weixin.sanjiang.com/memberCenter";
 baseUrl  = "http://localhost:9090/";
 var Constant = {
     baseurl : baseUrl,
