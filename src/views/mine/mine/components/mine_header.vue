@@ -1,31 +1,77 @@
 <template>
-   <div class="header">
-      <div class="login_view">
-          <img style="display: inline-block;margin-left:10px;margin-right:10px;height:80px;border-radius:50%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=">
-          <div style="display: inline-block;font-size: 17px;line-height: 0.9;text-align: center;color: #fff;margin-top:8px;">登录/注册</div>
-      </div>
+    <div class="header">
 
-   </div>
+        <div v-if="userinfo.islogin" class="login_view" style="padding-top: 10px;"  @click="$emit('jt_profile')">
+            <img class="avatar"
+                 src="http://onpxz5rdd.bkt.clouddn.com/ic_default.png">
+            <div style="font-size: 16px;line-height: 1;text-align: center;color: #fff;margin-top:6px;">
+                {{ userinfo.username}}
+
+            </div>
+            <div style="font-size: 13px;line-height: 1;text-align: center;color: #fff;margin-top:4px;">
+                {{ userinfo.memberName}}
+
+            </div>
+        </div>
+        <div v-else class="login_view" @click="$emit('jt_login')">
+            <img class="avatar"
+                 src="http://onpxz5rdd.bkt.clouddn.com/pic_info_unlogin.png">
+            <div style="font-size: 16px;line-height: 1;text-align: center;color: #fff;margin-top:8px;">
+                登录
+
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
+    export default {
+        components: {},
+        data () {
+            return {}
+        },
+        props: {
+            userinfo: Object,
 
+        },
+        methods: {
+
+            myfunc: function () {
+                let that = this;
+                that.$emit('exchange', this.item)
+            }
+        }
+    }
 </script>
 
 <style scoped>
-   .header{
-       background-color: #f03838;
-       height:170px;
-       width: 100%;
-       text-align: center;
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f03838;
+        height: 170px;
+        width: 100%;
+        text-align: center;
     }
-    .login_view{
-        display: inline-block;
 
+    .login_view {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 20px auto;
         width: 120px;
         height: 110px;
-        margin-top: 40px;
-        margin-bottom:20px ;
+        /*margin-top: 30px;*/
+        /*margin-bottom: 20px;*/
     }
 
+    .avatar {
+        display: inline-block;
+        border: 2px solid #fee767;
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+    }
 </style>

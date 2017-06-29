@@ -93,13 +93,13 @@
 </script>
 
 <style lang="less">
-    .custom-primary-blue {
-        border-color: #55b0f6!important;
-        color: #55b0f6!important;
-        &:active {
-            border-color:  #367eb5!important;
-            color:  #367eb5!important;
-            background-color: transparent;
-        }
-    }
+    /*.custom-primary-blue {*/
+        /*border-color: #55b0f6!important;*/
+        /*color: #55b0f6!important;*/
+        /*&:active {*/
+            /*border-color:  #367eb5!important;*/
+            /*color:  #367eb5!important;*/
+            /*background-color: transparent;*/
+        /*}*/
+    /*}*/
 </style>

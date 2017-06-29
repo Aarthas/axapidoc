@@ -1,6 +1,9 @@
 <template>
     <div class="main_view">
-        <mine_header></mine_header>
+        <mine_header
+                @jt_profile="jt_profile"
+                @jt_login="jt_login"
+                :userinfo="userinfo"></mine_header>
 
         <group>
             <cell title="我的订单" class="wui-cell" is-link :link="linkto(0)">
@@ -43,6 +46,7 @@
     import { Group, Cell,Card} from 'vux'
     import Lib from 'assets/js/Lib';
     import mine_header from './components/mine_header.vue' ;
+    var page;
     export default {
         components: {
             Group,
@@ -50,12 +54,36 @@
             mine_header,
             Card
         },
-        created () {
+        data () {
+            return {
 
+                userinfo:{}
+            };
+        },
+        created () {
+            page = this;
             console.log("created")
             console.log(window.location)
         },
+        mounted(){
+            Lib.axios.axios({
+                url: '/users/me',
+                success: function (basebean) {
+                    let data = basebean.getData();
+                    page.userinfo=data;
+                    page.userinfo.islogin = true;
+                }
+            });
+        },
         methods: {
+            jt_profile:function () {
+                console.log("aa")
+                window.location.href = Lib.constant.baseurl+"/views/mine/profile.html"
+            },
+            jt_login:function () {
+                console.log("aa")
+                window.location.href = Lib.constant.baseurl+"/views/user/login.html"
+            },
             linkto: function (index) {
                 switch (index) {
                     case 0:
