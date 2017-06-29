@@ -125,24 +125,24 @@
     }
     .wui-cell{
 
-        font-size: 15px;
+        font-size: 16px;
     }
 
-    .card-demo-flex {
-        display: flex;
-    }
+    /*.card-demo-flex {*/
+        /*display: flex;*/
+    /*}*/
 
-    .card-demo-content01 {
-        padding: 10px 0;
-    }
+    /*.card-demo-content01 {*/
+        /*padding: 10px 0;*/
+    /*}*/
 
-    .card-demo-flex > div {
-        flex: 1;
-        text-align: center;
-        font-size: 13px;
-    }
+    /*.card-demo-flex > div {*/
+        /*flex: 1;*/
+        /*text-align: center;*/
+        /*font-size: 13px;*/
+    /*}*/
 
-    .card-demo-flex span {
-        color: #f74c31;
-    }
+    /*.card-demo-flex span {*/
+        /*color: #f74c31;*/
+    /*}*/
 </style>
