@@ -63,6 +63,17 @@
         created () {
 
 
+            localStorage.setItem("token", "a75e9b65-cf4a-45ad-bc07-5c12de0c6c3f")
+
+//            if(window.localStorage){
+//
+//                alert("support");
+//
+//            }else{
+//
+//                alert("not support");
+//
+//            }
         }, methods: {
         }
     }

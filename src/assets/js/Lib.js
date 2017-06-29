@@ -5,7 +5,7 @@ import {AlertPlugin, LoadingPlugin} from 'vux'
 import  {ConfirmPlugin} from 'vux'
 import  {ToastPlugin} from 'vux'
 
-
+import { cookie } from 'vux'
 
 import VueScroller from 'vue-scroller'
 
@@ -25,6 +25,7 @@ import M from './common';
 import Utils from './Utils';
 import uiutil from './uiutil';
 import constant from './constant';
+
 import vueFilter from './vueFilter';
 
 //解决click点击300毫秒延时问题
@@ -35,12 +36,13 @@ FastClick.attach(document.body);
 
 // import  YHead from '../../components/YHead.vue'
 // Vue.component("YHead",YHead)
-
+// var cookie = require("./cookie");
 export default{
     M,
     C,
     Utils,
     uiutil,
     axios: M,
-    constant
+    constant,
+    cookie
 }

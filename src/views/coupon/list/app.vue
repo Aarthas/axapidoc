@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view></router-view>
+        <router-view style="margin-bottom: 56px;"></router-view>
         <m-tabbar v-model="select">
             <m-tabbar-item id='list'>
                 <div style="line-height: 40px;">我的</div>
@@ -42,7 +42,7 @@
         },
         data() {
             return {
-                select: "tab1"
+                select: "list"
             }
         },
         watch: {
@@ -55,10 +55,12 @@
 
             }
         },
-        created () {
+        mounted () {
+            this.$router.push({path: "list"})
 
+        },
 
-        }, methods: {}
+        methods: {}
     }
 </script>
 <style scoped>

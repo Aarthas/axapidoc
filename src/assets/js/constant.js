@@ -13,10 +13,10 @@ if (env.isDev)
 
 }else
 {
-    baseUrl  = "http://weixin.sanjiang.com/membercard";
+    baseUrl  = "http://localhost:9090/";
 
 }
-
+baseUrl  = "http://localhost:9090/";
 var Constant = {
     baseurl : baseUrl,
     index:encodeWxUrl(baseUrl+"/#/index",'snsapi_base'),

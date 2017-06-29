@@ -62,10 +62,10 @@
                         return
                         break;
                     case 2:
-                        return "http://localhost:9090/views/coupon/list.html"
+                        return Lib.constant.baseurl+"/views/coupon/list.html"
                         break;
                     case 3:
-                        return "http://localhost:9090/views/coupon/list.html"
+                        return Lib.constant.baseurl+"/views/coupon/list.html"
                         break;
                     case 4:
                         return Lib.constant.baseurl+"/views/mine/iccard.html"
