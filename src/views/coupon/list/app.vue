@@ -19,11 +19,7 @@
 
             </m-tabbar-item>
 
-            <!--<m-tabbar-item id='tab5'>-->
-            <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">-->
-            <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">-->
-            <!--我的-->
-            <!--</m-tabbar-item>-->
+
         </m-tabbar>
 
     </div>
@@ -33,7 +29,7 @@
     import Lib from 'assets/js/Lib';
     import mTabbar from '../../../components/tabbar/tabbar'
     import mTabbarItem from '../../../components/tabbar/tabbar-item'
-    //    import {Group, Cell} from 'vux'
+
     export default {
         components: {
 
