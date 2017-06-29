@@ -1,15 +1,18 @@
 <template>
     <div>
-
-        <ul style="display: inline-block;" v-show="!listEmpty">
+        <scroller style="top: 0px"
+                  ref="myScroller"
+                  :on-infinite="infinite">
+        <ul style="display: inline-block;">
             <li v-for="item in list">
-                <orderlist_cell :item=item></orderlist_cell>
+                <orderlist_cell @todetail="todetail" :item=item ></orderlist_cell>
             </li>
 
         </ul>
-        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">
-            我的订单列表为空
-        </div>
+        <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
+            <!--我的订单列表为空-->
+        <!--</div>-->
+        </scroller>
     </div>
 </template>
 
@@ -24,36 +27,73 @@
         data () {
             return {
 
-                listEmpty: false,
+//                listEmpty: false,
                 list: [],
 
 
             }
         },
-        created(){
+
+
+        mounted(){
+
             page = this;
 
+
+            loadData(1);
         },
-        mounted(){
-            Lib.M.axios({
-                url: '/orders',
-                params:{
-                    appOrderStatus : 0,
-                    page : 1
-                },
-                success: function (basebean) {
+        methods: {
 
-                    let list = basebean.getData().list;
-                    let listEmpty = basebean.isListEmpty();
-                    page.listEmpty = listEmpty;
-                    page.list = list;
+            infinite (done) {
 
+                if (itemsData) {
+
+                    if (itemsData.isLast) {
+
+                        done(true)
+                    } else {
+
+                        loadData(itemsData.page + 1);
+                    }
                 }
-            });
+            },
+            todetail:function (orderId) {
+                window.location="http://localhost:9090/views/trade/detail.html?orderId="+orderId;
 
-        },
+            }
+
+
+        }
 
     }
+    var itemsData;
+    function loadData(pageindex){
+
+
+
+        Lib.axios.axios({
+            url: 'orders?page=' + pageindex+"&&appOrderStatus=0",
+
+            success: function (basebean) {
+//                let listEmpty = basebean.isListEmpty();
+//                page.listEmpty = listEmpty;
+                itemsData= basebean.getData();
+
+                if (basebean.getData().isFirst) {
+                    page.list = basebean.getData().list;
+                } else {
+                    page.list = page.list.concat(basebean.getData().list);
+                }
+                if (basebean.getData().isLast) {
+                    page.$refs.myScroller.finishInfinite(true);
+                } else {
+                    page.$refs.myScroller.finishInfinite();
+                }
+            }
+        });
+
+    }
+
 </script>
 
 <style scoped>

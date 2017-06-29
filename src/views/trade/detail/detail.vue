@@ -1,16 +1,105 @@
 <template>
     <div>
+        <!--订单信息-->
+        <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
+            <div  class="orderInfo">订单状态：{{itemsData.orderStatusName}}</div>
+            <div  class="orderInfo">订单号：{{itemsData.orderId}}</div>
+            <div  class="orderInfo">下单时间：{{itemsData.createdDate}}</div>
+
+            <div  v-if="itemsData.orderStatus==5" style="display: flex;flex-direction: row;height: 50px;">
+                <x-button    style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">取消订单</x-button>
+                <x-button  style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="warn" >去支付</x-button>
+            </div>
+            <div  v-else-if="itemsData.orderStatus!=5&&itemsData.orderStatus>0" style="display: flex;flex-direction: row;height: 50px;text-align: center">
+                <x-button    style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">查看物流</x-button>
+            </div>
+
+
+        </div>
+
+        <!--收货信息-->
+        <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
+            <div  class="orderInfo">收货人：{{address.consignee}}</div>
+            <div  class="orderInfo">联系电话：{{address.mobile}}</div>
+            <div  class="orderInfo">收货地址：{{address.detailAddress}}</div>
+        </div>
+        <!--商品信息-->
+        <ul style="margin-top: 8px;">
+            <li v-for="item in goodsList">
+                <good :item=item style="background-color: #ffffff;"></good>
+            </li>
+        </ul>
+        <!--支付方式-配送方式-订单备注-->
+        <group gutter="8px">
+            <cell class="cell" title="支付方式" :value="itemsData.payTypeName"></cell>
+            <cell class="cell" title="配送方式" :value="itemsData.deliverName"></cell>
+            <cell class="cell" title="订单备注" :value="itemsData.comment"></cell>
+        </group>
+        <!--价格信息-->
+        <div style="margin-top: 8px;">
+          <priceDetail :priceObject="priceInfo"></priceDetail>
+        </div>
+
     </div>
 </template>
 
 <script>
     import Lib from 'assets/js/Lib';
+    import good from '../components/goodsitem.vue';
+    import priceDetail from '../components/priceDetail.vue';
+    import { Group, Cell,XButton } from 'vux';
+    let orderId = Lib.Utils.getQueryString("orderId");
+    var page;
     export default {
-        components: {},
+        components: {good,priceDetail,Group,Cell,XButton},
+        name:"orderDetail",
+        data () {
+            return {
+                priceInfo:{},
+                goodsList: [],
+                itemsData:{},
+                address:{},
+
+            }
+        },
+
+        mounted(){
+
+            page = this;
+
+            loadData(orderId);
+        },
+
 
     }
+
+    function loadData(orderId){
+
+
+        Lib.axios.axios({
+            url: "/orders/"+orderId+"/detail",
+
+            success: function (basebean) {
+
+                page.itemsData = basebean.getData();
+                page.goodsList = basebean.getData().items;
+                page.priceInfo = basebean.getData().priceInfo;
+                page.address   = basebean.getData().address;
+
+            }
+        });
+
+    }
+
 </script>
 
 <style scoped>
-
+    .orderInfo{
+       color: #666666;
+       margin-left: 8px;
+       margin-top: 8px;
+    }
+    .cell{
+        font-size: 14px;
+    }
 </style>

@@ -40,9 +40,9 @@
 </template>
 
 <script>
-    import {Group, Cell, Card} from 'vux'
+    import { Group, Cell,Card} from 'vux'
     import Lib from 'assets/js/Lib';
-    import mine_header from './components/mine_header.vue' ;
+    import mine_header from './components/mine_header.vue' ;
     export default {
         components: {
             Group,
@@ -86,14 +86,13 @@
 </script>
 
 <style scoped>
-    .main_view {
+    .main_view{
         width: 100%;
         height: 100%;
         background-color: #f6f6f6;
 
     }
-
-    .wui-cell {
+    .wui-cell{
 
         font-size: 15px;
     }
