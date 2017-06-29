@@ -24,6 +24,7 @@ import C from './conf';
 import M from './common';
 import Utils from './Utils';
 import uiutil from './uiutil';
+import constant from './constant';
 import vueFilter from './vueFilter';
 
 //解决click点击300毫秒延时问题
@@ -40,5 +41,6 @@ export default{
     C,
     Utils,
     uiutil,
-    axios: M
+    axios: M,
+    constant
 }

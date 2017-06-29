@@ -50,7 +50,7 @@
         }
         .m-tabbar-item-text {
             display: block;
-            font-size: 10px;
+            font-size: 12px;
             color: #949494;
         }
         &.is-active {

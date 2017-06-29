@@ -54,7 +54,7 @@
         created(){
             page = this;
 
-
+window.location.href = "www.baid"
             console.log("token=" + token)
             console.log("shopid=" + shopid)
         },

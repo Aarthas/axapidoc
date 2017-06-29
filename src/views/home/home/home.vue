@@ -19,7 +19,8 @@
             <m-tabbar-item id='tab3'>
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
-                购物车
+                <div>购物车</div>
+
 
 
             </m-tabbar-item>
@@ -40,8 +41,8 @@
 
 <script>
     import Lib from 'assets/js/Lib';
-    import mTabbar from './components/tabbar'
-    import mTabbarItem from './components/tabbar-item'
+    import mTabbar from '../../../components/tabbar/tabbar'
+    import mTabbarItem from '../../../components/tabbar/tabbar-item'
 //    import {Group, Cell} from 'vux'
     export default {
         components: {
@@ -67,8 +68,5 @@
     }
 </script>
 <style scoped>
-    .aicon {
-        height: 22px;
-        width: 22px;
-    }
+
 </style>
