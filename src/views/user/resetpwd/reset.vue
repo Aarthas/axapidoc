@@ -30,7 +30,7 @@
 
 <script>
 
-    import vcodecell from '../components/vcodecell.vue'
+    import vcodecell from '../../../components/vcodecell.vue'
     import {Group, XInput, XButton} from 'vux'
     import Lib from 'assets/js/Lib';
 

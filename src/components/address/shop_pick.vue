@@ -19,7 +19,7 @@
 
 <script>
     import {XButton, Group, Cell, Selector} from 'vux'
-    import YSelect from '../../../../components/YSelect.vue';
+    import YSelect from '../YSelect.vue';
     export default {
         components: {
             Group,

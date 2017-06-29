@@ -66,12 +66,18 @@
             console.log(window.location)
         },
         mounted(){
+            this.$vux.loading.show({
+                text: '亲爱'
+            })
+// 隐藏
+
             Lib.axios.axios({
                 url: '/users/me',
                 success: function (basebean) {
                     let data = basebean.getData();
                     page.userinfo=data;
                     page.userinfo.islogin = true;
+                    page.$vux.loading.hide()
                 }
             });
         },

@@ -2,6 +2,10 @@
 
 
         <div class="weui-cell">
+            <div class="weui-cell__hd" >
+                <span  class="weui-label"  v-if="item.title"
+                       v-html="item.title"> </span>
+            </div>
             <div class="weui-cell__bd">
                 <input class="weui-input" type="text" :placeholder="item.placeholder" v-model="currentValue"   ref="input"
 

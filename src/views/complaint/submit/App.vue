@@ -94,7 +94,7 @@
     import YTextArea from '../../../components/YTextArea.vue';
     import YInput from '../../../components/YInput.vue';
     import YSelect from '../../../components/YSelect.vue';
-    import shop_pick from '../../../views/complaint/submit/components/shop_pick.vue' ;
+    import shop_pick from '../../../components/address/shop_pick.vue' ;
 
     import Lib from 'assets/js/Lib';
     import axios from 'axios';
