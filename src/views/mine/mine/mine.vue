@@ -58,8 +58,11 @@
         methods: {
             linkto: function (index) {
                 switch (index) {
+                    case 0:
+                        return Lib.constant.baseurl+"/views/trade/list.html"
+                        break;
                     case 1:
-                        return
+                        return Lib.constant.baseurl+"/views/mine/favorite.html"
                         break;
                     case 2:
                         return Lib.constant.baseurl+"/views/coupon/list.html"
