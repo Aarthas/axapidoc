@@ -10,16 +10,15 @@
                <x-input title="IC卡卡号:" placeholder="请输入13位卡号" :max=13  v-model="icnumber" @on-change="change"></x-input>
             </group>
            <div v-if="isShow==true"style="height: 40px;background-color: #ffffff;">
-            <div  style="line-height: 40px;text-align: left;font-size: 17px;margin-left: 10px;" v-if="isExited==true"  >您的IC卡余额：{{icqueryReturnData.balance}}元</div>
-            <div  style="line-height: 40px;text-align: center;font-size: 17px;color: #f03838;" v-else >购物卡不存在 </div>
+            <div  style="line-height: 40px;text-align: center;font-size: 17px;" v-if="isExited==true"  >您的IC卡余额：{{icqueryReturnData.balance}}元</div>
+            <div  style="line-height: 40px;text-align: center;font-size: 17px;color: #f03838;" v-else >{{errMessage}} </div>
            </div>
         </div>
 
-        <div style="display:inline-block;margin-top :20px;margin-left: 20px;margin-right: 20px;">
+        <div style="margin: 30px  12px;">
+            <x-button @click.native="icquery" type="primary"> 查询</x-button>
 
-        <x-button style=" height: 40px;" type="warn" @click.native="icquery">查询</x-button>
         </div>
-
     </div>
 </template>
 
@@ -41,7 +40,8 @@
                 icnumber:"",
                 isShow:false,
                 isExited:false,
-                icqueryReturnData:{}
+                icqueryReturnData:{},
+                errMessage:""
             }
         },
         created () {
@@ -67,8 +67,11 @@
 
                     },
                     onerrcode:function (basebean) {
+
                         page.isShow=true;
                         page.isExited=false;
+                        page.errMessage=basebean.getMessage();
+
                     }
 
                 });
