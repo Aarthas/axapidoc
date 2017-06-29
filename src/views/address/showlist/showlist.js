@@ -4,7 +4,7 @@ Vue.use(VueRouter)
 
 
 import App from './app.vue'
-import list from './page/list.vue'
+import list from './list.vue'
 import add from '../add/add.vue'
 
 
