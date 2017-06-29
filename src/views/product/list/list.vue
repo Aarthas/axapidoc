@@ -1,26 +1,26 @@
 <template>
+
     <div>
-
-
-        <scroller style="top: 0px"
+        <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
+        <scroller style="top: 40px"
                   ref="myScroller"
                   :on-infinite="infinite">
-        <ul >
-            <li v-for="item in list">
-                <favorite_cell :item=item></favorite_cell>
-            </li>
+            <ul >
+                <li v-for="item in list">
+                    <favorite_cell :item=item></favorite_cell>
+                </li>
 
-        </ul>
-        <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-            <!--我的收藏为空-->
-        <!--</div>-->
+            </ul>
+            <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
+            <!--商品列表为空-->
+            <!--</div>-->
         </scroller>
     </div>
 </template>
 
 <script>
     import Lib from 'assets/js/Lib';
-    import favorite_cell from './components/favorite_cell.vue' ;
+    import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
     import { Search } from 'vux';
     var page;
     export default {
@@ -34,6 +34,7 @@
 
 //                listEmpty: false,
                 list: [],
+                pageIndex:1,
 
 
             }
@@ -44,7 +45,7 @@
             page = this;
 
 
-            loadData(1);
+            loadData("大米");
         },
         methods: {
 
@@ -57,22 +58,19 @@
                         done(true)
                     } else {
 
-                        loadData(itemsData.page + 1);
+                        loadData("大米", itemsData.page + 1);
                     }
                 }
             },
 
 
         }
-
     }
     var itemsData;
-    function loadData(pageindex){
-
-
+    function loadData(keyword,pageIndex){
 
         Lib.axios.axios({
-            url: 'collections?page=' + pageindex,
+            url: '/search?keyword=' + keyword+"&&page"+pageIndex,
 
             success: function (basebean) {
 //                let listEmpty = basebean.isListEmpty();

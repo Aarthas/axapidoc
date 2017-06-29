@@ -1,3 +1,5 @@
+
+<!--订单列表、详情页用到的商品信息-->
 <template>
 
     <div style="display:flex;flex-direction: row;margin-top: 3px;background-color: #ffffff;width: 100vw;height: 79px;">
@@ -14,6 +16,7 @@
                 <div style="height:30px;border-radius:50%;margin-top: 17px;margin-right: 18px;color: #666666;">x{{item.number}}</div>
             </div>
         </div>
+
     </div>
 </template>
 
