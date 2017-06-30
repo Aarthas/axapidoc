@@ -10,6 +10,7 @@
             </group>
 
 
+
             <group title="请选择社区">
             <picker  :data='newAreaData' :fixed-columns=3 :columns=3 v-model='year7Value' @on-change='change' ref="picker1"></picker>
             </group>
@@ -25,7 +26,6 @@
             <div style="margin: 0 12px  12px;">
                 <x-button @click.native="submit" type="primary"> 提交</x-button>
                 <x-button @click.native="logout"> 删除 </x-button>
-
             </div>
         </div>
 

@@ -66,9 +66,9 @@
             console.log(window.location)
         },
         mounted(){
-            this.$vux.loading.show({
-                text: '亲爱'
-            })
+//            this.$vux.loading.show({
+//                text: '亲爱'
+//            })
 // 隐藏
 
             Lib.axios.axios({
