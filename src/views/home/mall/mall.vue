@@ -2,7 +2,7 @@
     <div style="display: flex;flex-direction: column">
 
         <search2></search2>
-        <div class="vux-demo" style="margin-top: 44px;" >
+        <div class="vux-demo" style="margin-top: 44px;">
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
@@ -12,39 +12,45 @@
 
         <hoticon :list="hoticondata"></hoticon>
         <!--<floor v-for="floor in floors" :floor="floor">-->
+        <div style="height:8px;"></div>
+        <!--<qiangxian :list="hoticondata"></qiangxian>-->
+        <!--<floor/>-->
 
-            <!--<floor/>-->
+        <div v-for="floor in malldata.floors">
+            <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
+        </div>
 
-
+        <div style="height: 300px;"></div>
     </div>
 </template>
 
 <script>
 
-    import { Swiper,Search} from 'vux'
+    import {Swiper, Search} from 'vux'
     import Lib from 'assets/js/Lib';
-    import search2 from './components/search.vue' ;
-    import hoticon from './components/hoticon.vue' ;
+    import search2 from './components/search.vue' ;
+    import hoticon from './components/hoticon.vue' ;
+    import content_floor from './components/floors/content-floor.vue' ;
+    import qiangxian from './components/floors/qiangxian.vue' ;
     var page;
     export default {
         components: {
 
-            Swiper,Search,search2,hoticon
+            Swiper, Search, search2, hoticon, content_floor, qiangxian
         },
         data () {
             return {
-                malldata:{},
+                malldata: {},
                 results: [],
                 value: 'test'
             };
         },
         computed: {
             bannerdata: function () {
-                if (page.malldata.head)
-                {
+                if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
                         return {
-                            url:  value.aim,
+                            url: value.aim,
                             img: value.img
                         };
                     })
@@ -54,13 +60,12 @@
 
             },
             hoticondata: function () {
-                if (page.malldata.menu)
-                {
+                if (page.malldata.menu) {
                     let array = page.malldata.menu.map(function (value, index) {
                         return {
-                            url:  value.aim,
+                            url: value.aim,
                             img: value.img,
-                            title:value.title
+                            title: value.title
                         };
                     })
                     return array;
@@ -83,7 +88,7 @@
                 url: '/home/index',
                 success: function (basebean) {
                     let malldata = basebean.getData();
-                    page.malldata=malldata;
+                    page.malldata = malldata;
 
                     page.$vux.loading.hide()
                 }
@@ -116,19 +121,19 @@
             linkto: function (index) {
                 switch (index) {
                     case 0:
-                        return Lib.constant.baseurl+"/views/trade/list.html"
+                        return Lib.constant.baseurl + "/views/trade/list.html"
                         break;
                     case 1:
-                        return Lib.constant.baseurl+"/views/mine/favorite.html"
+                        return Lib.constant.baseurl + "/views/mine/favorite.html"
                         break;
                     case 2:
-                        return Lib.constant.baseurl+"/views/coupon/list.html"
+                        return Lib.constant.baseurl + "/views/coupon/list.html"
                         break;
                     case 3:
-                        return Lib.constant.baseurl+"/views/coupon/list.html"
+                        return Lib.constant.baseurl + "/views/coupon/list.html"
                         break;
                     case 4:
-                        return Lib.constant.baseurl+"/views/mine/iccard.html"
+                        return Lib.constant.baseurl + "/views/mine/iccard.html"
                         break;
                     case 5:
                         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fsjmarket%2Fviews%2Fcomplaint%2Fsubmit.html&response_type=code&scope=snsapi_base#wechat_redirect";
