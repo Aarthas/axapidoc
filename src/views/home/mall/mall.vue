@@ -18,8 +18,11 @@
 
         <div v-for="floor in malldata.floors">
             <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
-        </div>
 
+        </div>
+        <div style="height:8px;"></div>
+        <horizon_scroll></horizon_scroll>
+        <horizon_scroll></horizon_scroll>
         <div style="height: 300px;"></div>
     </div>
 </template>
@@ -32,11 +35,12 @@
     import hoticon from './components/hoticon.vue' ;
 
     import qiangxian from './components/floors/qiangxian.vue' ;
+    import horizon_scroll from './components/floors/horizon-scroll.vue' ;
     var page;
     export default {
         components: {
 
-            Swiper, Search, search2, hoticon, qiangxian
+            Swiper, Search, search2, hoticon, qiangxian,horizon_scroll
         },
         data () {
             return {
