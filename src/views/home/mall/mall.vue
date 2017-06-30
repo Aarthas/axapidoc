@@ -30,13 +30,13 @@
     import Lib from 'assets/js/Lib';
     import search2 from './components/search.vue' ;
     import hoticon from './components/hoticon.vue' ;
-    import content_floor from './components/floors/content-floor.vue' ;
+
     import qiangxian from './components/floors/qiangxian.vue' ;
     var page;
     export default {
         components: {
 
-            Swiper, Search, search2, hoticon, content_floor, qiangxian
+            Swiper, Search, search2, hoticon, qiangxian
         },
         data () {
             return {
