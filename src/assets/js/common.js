@@ -23,7 +23,7 @@ var Rxports = {
             params: opts.params || {},
             data: opts.data,
             headers: opts.headers||{
-                    "terminal": "50",
+                    "terminal": "30",
                 "x-auth-token": "1877766c-d2e1-49f9-9e94-9c1d7ffb9d0b",
                 // "x-auth-token": localStorage.getItem("token"),
 

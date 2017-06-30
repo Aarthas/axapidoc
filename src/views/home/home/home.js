@@ -8,9 +8,10 @@ import category from '../category/category.vue'
 import mine from '../../mine/mine/mine.vue'
 import tab1 from './tab1.vue'
 import tab2 from './tab2.vue'
+import mall from '../mall/mall.vue'
 
 const routes = [
-    { path: '/tab1', component: tab1 },
+    { path: '/mall', component: mall },
     { path: '/category', component: category },
     { path: '/tab2', component: tab2 },
     { path: '/mine', component: mine }
