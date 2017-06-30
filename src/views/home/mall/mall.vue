@@ -10,6 +10,10 @@
 
         </div>
 
+        <hoticon :list="hoticondata"></hoticon>
+        <!--<floor v-for="floor in floors" :floor="floor">-->
+
+            <!--<floor/>-->
 
 
     </div>
@@ -20,11 +24,12 @@
     import { Swiper,Search} from 'vux'
     import Lib from 'assets/js/Lib';
     import search2 from './components/search.vue' ;
+    import hoticon from './components/hoticon.vue' ;
     var page;
     export default {
         components: {
 
-            Swiper,Search,search2
+            Swiper,Search,search2,hoticon
         },
         data () {
             return {
@@ -44,6 +49,21 @@
                         };
                     })
                     return headbanner;
+                }
+
+
+            },
+            hoticondata: function () {
+                if (page.malldata.menu)
+                {
+                    let array = page.malldata.menu.map(function (value, index) {
+                        return {
+                            url:  value.aim,
+                            img: value.img,
+                            title:value.title
+                        };
+                    })
+                    return array;
                 }
 
 

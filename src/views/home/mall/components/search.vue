@@ -9,7 +9,7 @@
 
             <!--<img src="../../assets/images/ic_scan_gray.png" alt="">-->
         </div>
-        <span style="line-height: 44px;width:60px;text-align: center;">搜索</span>
+        <span style="line-height: 44px;width:60px;text-align: center;color: #666666">搜索</span>
         <!--<div class="m-header-button is-right" style="text-align: center;width: 50px;">-->
         <!--<a href="javascript:;"><img class="m-icon-img" src="../../assets/images/ic_chat_white.png" /></a>-->
         <!--</div>-->
@@ -21,61 +21,24 @@
 
 </template>
 <script>
+    export default {
+        components: {},
+        data () {
+            return {}
 
+        },
+        props: {
+            item: Object,
 
-//    export default {
-//        data() {
-//            return {
-//                keyword: '',
-//                collectionSwitch: 0,
-//                editSwitch: 0
-//            }
-//        },
-//        methods: {
-//            showCollection() {
-//                let switchFun = (obj, key) => {
-//                    key == 1? document.querySelector('.show-collection-switch').style.transform = 'rotate(90deg)': document.querySelector('.show-collection-switch').style.transform = 'rotate(0deg)'
-//                    obj.collectionSwitch = key
-//                }
-//                this.collectionSwitch == 0? switchFun(this, 1): switchFun(this, 0)
-//            },
-//            showEdit() {
-//                this.editSwitch == 0? this.editSwitch = 1: this.editSwitch = 0
-//            },
-//            oprateItem(name) {
-//                if(this.editSwitch == 0) {
-//                    this.setKeyword(name)
-//                    document.querySelector('.show-collection-switch').click()
-//                } else if(this.editSwitch == 1) {
-//                    this.deleteCollection(name)
-//                }
-//            },
-//            setKeyword(key) {
-//                if(key == 0) {
-//                    this.searchFun(this.keyword)
-//                } else {
-//                    this.searchFun(key)
-//                }
-//            }
-//        },
-//        vuex: {
-//            getters: {
-//                collectItem(state) {
-//                    return state.collectItems
-//                }
-//            },
-//            actions: {
-//                deleteCollection: ({ dispatch }, name) => {
-//                    dispatch('DELETE_COLLECTION', name)
-//                },
-//                searchFun: ({ dispatch }, keyword) => {
-//                    $.get('http://localhost:8090', { query: keyword }, (data) => {
-//                        dispatch('SET_RESULT', JSON.parse(data))
-//                    })
-//                }
-//            }
-//        }
-//    }
+        }
+        ,
+        methods: {
+            myfunc: function () {
+                let that = this;
+                that.$emit('exchange', this.item)
+            }
+        }
+    }
 </script>
 
 <style lang="less" scoped>
@@ -90,7 +53,7 @@
         color: #494949;
         position: relative;
         background: #ffffff;
-
+        /*opacity: 0.8;*/
         position: fixed;
         left: 0;
         right: 0;
