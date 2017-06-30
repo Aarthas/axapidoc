@@ -7,7 +7,7 @@
 
 
             </m-tabbar-item>
-            <m-tabbar-item id='tab2'>
+            <m-tabbar-item id='exchange'>
                 <div style="line-height: 40px;">兑换</div>
 
             </m-tabbar-item>
