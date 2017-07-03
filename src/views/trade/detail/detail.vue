@@ -5,7 +5,7 @@
             <div  class="orderInfo">订单状态：{{itemsData.orderStatusName}}</div>
             <div  class="orderInfo">订单号：{{itemsData.orderId}}</div>
             <div  class="orderInfo">下单时间：{{itemsData.createdDate}}</div>
-
+            <div  style="height: 8px;background-color: white;"></div>
             <div  v-if="itemsData.orderStatus==5" style="display: flex;flex-direction: row;height: 50px;">
                 <x-button    style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">取消订单</x-button>
                 <x-button  style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="warn" >去支付</x-button>
@@ -22,6 +22,7 @@
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
             <div  class="orderInfo">联系电话：{{address.mobile}}</div>
             <div  class="orderInfo">收货地址：{{address.detailAddress}}</div>
+            <div  style="height: 8px;background-color: white;"></div>
         </div>
         <!--商品信息-->
         <ul style="margin-top: 8px;">

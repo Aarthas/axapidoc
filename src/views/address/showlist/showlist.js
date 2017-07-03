@@ -6,11 +6,12 @@ Vue.use(VueRouter)
 import App from './app.vue'
 import list from './list.vue'
 import add from '../add/add.vue'
-
+import edit from '../edit/edit.vue'
 
 const routes = [
     { path: '/list', component: list },
     { path: '/add', component: add },
+    { path: '/edit', component: edit }
 ]
 
 

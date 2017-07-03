@@ -22,7 +22,7 @@
         },
 
         mounted () {
-            this.$router.push({path: "add"})
+            this.$router.push({path: "list"})
 
         },
 

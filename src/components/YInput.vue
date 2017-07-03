@@ -60,6 +60,10 @@
                 // 通过 input 事件发出数值
                 this.$emit('input',formattedValue)
 
+            },
+            value (newVal) {
+
+                this.currentValue =this.value;
             }
         },
 
@@ -76,6 +80,7 @@
 
         created () {
             that = this;
+            this.currentValue =this.value;
             console.log("created")
         },
         mounted(){

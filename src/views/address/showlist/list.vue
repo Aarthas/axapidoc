@@ -2,10 +2,10 @@
 
     <div>
 
-        <ul v-if="!listEmpty">
+        <ul v-if="!listEmpty" style="margin-bottom: 60px;">
             <li v-for="item in list">
 
-
+                <address_cell :address="item" @toEdit="toEdit"></address_cell>
 
             </li>
 
@@ -13,13 +13,11 @@
         <div v-else style="display: flex;justify-content: center;align-items: center;height: 400px;">
             地址为空
 
-
-
-
-
-
-
         </div>
+        <div style="position:fixed; bottom:0; width: 100%;">
+            <x-button @click.native="toAdd" type="primary"> +添加新地址</x-button>
+        </div>
+
 
     </div>
 </template>
@@ -30,6 +28,7 @@
 
     import {Group, XInput, XButton} from 'vux'
     import Lib from 'assets/js/Lib';
+    import address_cell from './components/addresslist_cell.vue'
 
     var page
 
@@ -39,7 +38,7 @@
         components: {
 
             XButton,
-
+            address_cell
 
         },
         data () {
@@ -62,10 +61,10 @@
                 url: 'address',
                 success: function (basebean) {
                     console.log(basebean.getData())
-                    let list = basebean.getData().list;
-                    let listEmpty = basebean.isListEmpty();
-                    console.log(listEmpty)
-                    page.listEmpty = listEmpty;
+                    let list = basebean.getData();
+//                    let listEmpty = basebean.isListEmpty();
+//                    console.log(listEmpty)
+//                    page.listEmpty = listEmpty;
                     page.list = list;
 
                 }
@@ -75,11 +74,11 @@
 
         methods: {
 
-            exchange: function () {
-
+            toAdd: function () {
+                this.$router.push({path: "add"})
             },
-            jt: function () {
-
+            toEdit: function (address) {
+                this.$router.push({path: "edit",query:address})
             }
         }
     }
@@ -95,4 +94,5 @@
             /*background-color: transparent;*/
         /*}*/
     /*}*/
+
 </style>
