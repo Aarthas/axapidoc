@@ -69,7 +69,7 @@
 
     .avatar {
         display: inline-block;
-        border: 2px solid #fee767;
+        border: 2px solid #ffffff;
         height: 70px;
         width: 70px;
         border-radius: 50%;

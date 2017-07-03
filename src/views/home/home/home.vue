@@ -2,7 +2,7 @@
     <div>
         <router-view></router-view>
         <m-tabbar v-model="select">
-            <m-tabbar-item id='tab1' >
+            <m-tabbar-item id='mall' >
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
                 首页
@@ -52,7 +52,7 @@
         },
         data() {
             return {
-                select: "tab1"
+                select: "mall"
             }
         },
         watch: {
