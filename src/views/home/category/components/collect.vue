@@ -1,7 +1,7 @@
 <template>
-    <div style="display: flex;flex-direction: column;">
-        <img style="width: 80px;height: 80px;" :src="items.appImgSrc"/>
-        <div >{{items.appCategoryName}}</div>
+    <div style="display: flex;flex-direction: column;margin-left: 10px;margin-top: 5px;margin-bottom: 5px;">
+        <img style="width: 60px;height: 60px;" :src="model.appImgSrc"/>
+        <div style="text-align: center;color: #666666;font-size: 13px;width: 60px;">{{model.appCategoryName}}</div>
     </div>
 </template>
 
@@ -10,7 +10,7 @@
     export default {
         components: {},
         props:{
-            items:Object
+            model:Object
         }
     }
 </script>

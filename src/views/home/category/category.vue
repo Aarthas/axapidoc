@@ -1,12 +1,14 @@
 <template>
-    <div  style="display: flex;flex-direction: row;">
+    <div>
+    <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
+    <div  style="display: flex;flex-direction: row;margin-top: 50px;">
 
         <div style="width: 25%;">
             <ul>
-                <li v-for="item in list" style=" margin-top: 2px;background-color: #f4f4f4;">
-                    <div @click="clickLeft(item.id)" style="text-align: center;color: #999999;height:44px;line-height: 44px;font-size: 14px;" >{{item.appCategoryName}}</div>
-
-                </li>
+                <!--<li v-for="item in list" style=" margin-top: 2px;background-color: #f4f4f4;"  >-->
+                    <!--<div  @click="clickLeft(item.id)" style="text-align: center;color: #999999;height:44px;line-height: 44px;font-size: 14px;">{{item.appCategoryName}}</div>-->
+                <!--</li>-->
+                <li v-for="(item,$index) in list" @click="selectStyle (item, $index);clickLeft(item.id) " :class="{'active':item.active,'unactive':!item.active}" >{{item.appCategoryName}}</li>
             </ul>
 
         </div>
@@ -14,44 +16,45 @@
 
             <ul>
                 <li v-for="item in categoryModelList">
-
                     <collect :item="item"></collect>
                 </li>
-
             </ul>
 
         </div>
 
     </div>
+    </div>
 </template>
 
 <script>
     import Lib from 'assets/js/Lib';
-    import { Tabbar, TabbarItem, Group, Cell } from 'vux'
-    import collect from './components/collection_cell.vue'
+    import { Tabbar, TabbarItem, Group, Cell,Search } from 'vux';
+    import collect from './components/collection_cell.vue';
+    import Vue from 'vue';
     var page;
     export default {
         components: {
-            collect
+            collect,
+            Search
         },
         data(){
             return {
+                active: false,
                 list:[],
-                categoryModelList:[]
+                categoryModelList:[],
+                item:{}
             }
         },
 
         mounted(){
             page = this;
             loadLeftData();
-            let item = page.list[0];
-
-             page.clickLeft(1);
          },
         methods: {
-            clickLeft:function (leftId) {
+            clickLeft:function (itemId) {
+
                 Lib.axios.axios({
-                    url: 'categorys/'+leftId+'/childs',
+                    url: 'categorys/'+itemId+'/childs',
                     success: function (basebean) {
 
                         page.categoryModelList = basebean.getData().categoryModelList;
@@ -59,7 +62,18 @@
 
                     }
                 });
+            },
+            selectStyle (item, index) {
+                page.$nextTick(function () {
+                    page.list.forEach(function (item) {
+                        Vue.set(item,'active',false);
+                    });
+                    Vue.set(item,'active',true);
+                });
             }
+
+
+
         }
     }
     function loadLeftData(){
@@ -72,10 +86,32 @@
             success: function (basebean) {
 
                 page.list = basebean.getData();
-
+                page.item=basebean.getData()[0];
+                page.clickLeft(page.item.id);
+                page.selectStyle (page.item,1);
 
             }
         });
 
     }
 </script>
+<style scoped>
+    .active{
+        text-align: center;
+        color: #f03838;
+        height:44px;
+        line-height: 44px;
+        font-size: 14px;
+        background-color:#ffffff ;
+    }
+    .unactive{
+        text-align: center;
+        color: #999999;
+        height:44px;
+        line-height: 44px;
+        font-size: 14px;
+
+    }
+
+
+</style>
