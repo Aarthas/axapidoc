@@ -56,10 +56,7 @@
                 Lib.axios.axios({
                     url: 'categorys/'+itemId+'/childs',
                     success: function (basebean) {
-
                         page.categoryModelList = basebean.getData().categoryModelList;
-
-
                     }
                 });
             },
@@ -71,9 +68,6 @@
                     Vue.set(item,'active',true);
                 });
             }
-
-
-
         }
     }
     function loadLeftData(){
