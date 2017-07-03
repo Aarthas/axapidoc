@@ -14,13 +14,23 @@
 
 
 
+
         </div>
 
     </div>
 </template>
 
 <script>
-
+    let headers = null;
+    let token = Lib.Utils.getQueryString("token");
+    let shopid = Lib.Utils.getQueryString("shopid");
+    if (token != null || token.length >= 0) {
+        headers = {
+            "x-auth-token": token,
+            "shopid": shopid,
+            "terminal": "50",
+        };
+    }
 
     import {Toast} from 'vux'
     var page;
@@ -28,8 +38,6 @@
     import coupons_blue from './component/coupons_blue.vue'
     import coupons_orange from './component/coupons_orange.vue'
     import Lib from 'assets/js/Lib';
-
-
 
 
     export default {
@@ -45,32 +53,18 @@
 
                 listEmpty: false,
                 list: [],
-
-                showSuccess: false
             }
         }
         ,
         created(){
             page = this;
 
-window.location.href = "www.baid"
-            console.log("token=" + token)
-            console.log("shopid=" + shopid)
+
         },
         mounted(){
 
-            let headers = null;
-            let token = Lib.Utils.getQueryString("token");
-            let shopid = Lib.Utils.getQueryString("shopid");
-            if (token!=null||token.length >= 0)
-            {
-                headers= {
-                    "x-auth-token": token,
-                    "shopid": shopid,
-                    "terminal": "50",
-                };
-            }
-            Lib.ajax.ajax({
+
+            Lib.axios.axios({
                 url: 'score/integalVolumes',
                 headers: headers,
                 success: function (basebean) {
@@ -104,13 +98,10 @@ window.location.href = "www.baid"
                         page.$vux.loading.show({
                             text: '加载中'
                         })
-                        Lib.M.ajax({
+                        Lib.axios.axios({
                             url: 'score/receiveIntegalVolume',
                             params: item,
-                            headers: {
-                                "x-auth-token": token,
-                                "shopId": shopid,
-                            },
+                            headers: headers,
                             success: function (basebean) {
                                 page.$vux.toast.show({
                                     text: '兑换成功'
