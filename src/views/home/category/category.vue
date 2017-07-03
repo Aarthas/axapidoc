@@ -42,7 +42,7 @@
                 active: false,
                 list:[],
                 categoryModelList:[],
-                item:{}
+
             }
         },
 
@@ -86,9 +86,9 @@
             success: function (basebean) {
 
                 page.list = basebean.getData();
-                page.item=basebean.getData()[0];
-                page.clickLeft(page.item.id);
-                page.selectStyle (page.item,1);
+                let item=basebean.getData()[0];
+                page.clickLeft(item.id);
+                page.selectStyle (item,1);
 
             }
         });
@@ -103,6 +103,7 @@
         line-height: 44px;
         font-size: 14px;
         background-color:#ffffff ;
+        margin-top: 2px;
     }
     .unactive{
         text-align: center;
@@ -110,7 +111,8 @@
         height:44px;
         line-height: 44px;
         font-size: 14px;
-
+        margin-top: 2px;
+        background-color:#f6f6f6 ;
     }
 
 
