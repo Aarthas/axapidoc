@@ -9,7 +9,7 @@
 
 
             </m-tabbar-item>
-            <m-tabbar-item id='tab2' >
+            <m-tabbar-item id='category' >
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
                 分类

@@ -99,7 +99,7 @@
                         return Lib.constant.baseurl+"/views/mine/favorite.html"
                         break;
                     case 2:
-                        return Lib.constant.baseurl+"/views/coupon/list.html"
+                        return Lib.constant.baseurl+"/views/address/showlist.html#/list"
                         break;
                     case 3:
                         return Lib.constant.baseurl+"/views/coupon/list.html"
