@@ -58,7 +58,7 @@
                 }
             },
             todetail:function (orderId) {
-                window.location="http://localhost:9090/views/trade/detail.html?orderId="+orderId;
+                window.location=Lib.constant.baseurl+"/views/trade/detail.html?orderId="+orderId;
 
             }
 

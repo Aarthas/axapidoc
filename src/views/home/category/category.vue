@@ -16,7 +16,7 @@
 
             <ul>
                 <li v-for="item in categoryModelList">
-                    <collect :item="item"></collect>
+                    <collect :item="item" ></collect>
                 </li>
             </ul>
 
@@ -31,6 +31,8 @@
     import { Tabbar, TabbarItem, Group, Cell,Search } from 'vux';
     import collect from './components/collection_cell.vue';
     import Vue from 'vue';
+
+
     var page;
     export default {
         components: {
@@ -44,6 +46,11 @@
                 categoryModelList:[],
 
             }
+        },
+        created() {
+          Lib.Hub.$on('change', (categoryId) => { //Hub接收事件
+                window.location=Lib.constant.baseurl+"/views/product/list.html?categoryId="+categoryId+"&&keyword=无";
+            });
         },
 
         mounted(){
@@ -67,7 +74,8 @@
                     });
                     Vue.set(item,'active',true);
                 });
-            }
+            },
+
         }
     }
     function loadLeftData(){

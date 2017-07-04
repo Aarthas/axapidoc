@@ -18,7 +18,7 @@ Vue.use(LoadingPlugin); //全局注册alert事件，注册之后，不需要每�
 Vue.use(ConfirmPlugin)
 Vue.use(ToastPlugin)
 Vue.use(VueScroller)
-
+let Hub = new Vue(); //创建事件中心
 
 import C from './conf';
 import M from './common';
@@ -44,5 +44,6 @@ export default{
     uiutil,
     axios: M,
     constant,
-    cookie
+    cookie,
+    Hub
 }

@@ -80,6 +80,9 @@
         },
         created () {
             page = this;
+            Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+                window.location=Lib.constant.baseurl+"/views/product/list.html?categoryId=无"+"&&keyword="+keyword;
+            });
 
         },
         mounted(){

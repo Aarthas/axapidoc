@@ -22,6 +22,8 @@
     import Lib from 'assets/js/Lib';
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
     import { Search } from 'vux';
+    let categoryId = Lib.Utils.getQueryString("categoryId");
+    let keyword = Lib.Utils.getQueryString("keyword");
     var page;
     export default {
         components: {
@@ -44,8 +46,12 @@
 
             page = this;
 
+            if(keyword=="无"){
+                loadData(categoryId);
+            }else {
+                loadData(keyword);
+            }
 
-            loadData("大米");
         },
         methods: {
 
@@ -57,8 +63,12 @@
 
                         done(true)
                     } else {
+                        if(keyword=="无"){
+                            loadData(categoryId, itemsData.page + 1);
+                        }else {
+                            loadData(keyword,itemsData.page + 1);
+                        }
 
-                        loadData("大米", itemsData.page + 1);
                     }
                 }
             },
@@ -67,10 +77,16 @@
         }
     }
     var itemsData;
-    function loadData(keyword,pageIndex){
-
+    function loadData(param,pageIndex){
+        var urlString;
+        if(keyword=="无"){
+            urlString= '/search?categoryId=' + param + "&&page" + pageIndex
+        }else {
+            urlString= '/search?keyword=' + param + "&&page" + pageIndex
+        }
         Lib.axios.axios({
-            url: '/search?keyword=' + keyword+"&&page"+pageIndex,
+
+            url: urlString,
 
             success: function (basebean) {
 //                let listEmpty = basebean.isListEmpty();
