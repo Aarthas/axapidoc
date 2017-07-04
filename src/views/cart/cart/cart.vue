@@ -22,6 +22,12 @@
             </popup_radio>
         </div>
         <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
+
+
+        <numb></numb>
+
+
+
     </div>
 
 
@@ -33,9 +39,10 @@
 <script>
 
 
-    import {Group, XInput, XButton} from 'vux'
+    import {Group, XInput, XButton,XNumber} from 'vux'
     import Lib from 'assets/js/Lib';
     import popup_radio from './popup-radio.vue'
+    import numb from './numb.vue'
     var page
 
 
@@ -44,7 +51,7 @@
         components: {
             Group,
             XInput,
-            XButton, popup_radio
+            XButton, popup_radio,XNumber,numb
 
 
         },
@@ -52,7 +59,7 @@
             return {
 
                 option1: 0,
-                options1: ['A', 'B', 'C'],
+
                 addresslist: []
             };
         },
