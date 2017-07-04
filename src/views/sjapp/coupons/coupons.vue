@@ -9,8 +9,8 @@
             </li>
 
         </ul>
-        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">
-            可兑换优惠券为空
+        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;font-size: 18px;">
+            {{listEmptyInfo}}
 
 
 
@@ -52,6 +52,7 @@
             return {
 
                 listEmpty: false,
+                listEmptyInfo: '',
                 list: [],
             }
         }
@@ -79,6 +80,13 @@
 //                    } else {
 //
 //                    }
+                },
+                onerrcode:function (basebean) {
+                    if (basebean.getCode()== 0)
+                    {
+                        page.listEmpty = true;
+                        page.listEmptyInfo = basebean.getMessage();
+                    }
                 }
             });
 
