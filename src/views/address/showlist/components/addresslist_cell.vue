@@ -4,7 +4,7 @@
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
             <div  class="orderInfo">联系电话：{{address.mobile}}</div>
             <div  class="orderInfo">收货地址：{{area}} {{address.detailAddress}}</div>
-            <div  style="color: #f03838;margin-left: 8px;margin-top: 8px;" v-show="address.isDefault==true">[默认地址]</div>
+
             <div  style="height: 8px;background-color: white;"> </div>
         </div>
         <div style="background-color: white;margin-top: 8px;flex: 1;text-align: center;" @click="click">

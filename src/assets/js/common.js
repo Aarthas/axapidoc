@@ -4,8 +4,8 @@ import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 var oproto = Object.prototype;
 var serialize = oproto.toString;
-// var baseurl = 'http://193.0.1.157:20000';
-var baseurl = 'http://app.sanjiang.com';
+var baseurl = 'http://193.0.1.157:20000';
+// var baseurl = 'http://app.sanjiang.com';
 var Rxports = {
 
     axios: function (opt) {
@@ -23,8 +23,8 @@ var Rxports = {
             params: opts.params || {},
             data: opts.data,
             headers: opts.headers||{
-                    "terminal": "30",
-                "x-auth-token": "1877766c-d2e1-49f9-9e94-9c1d7ffb9d0b",
+                    "terminal": "50",
+                "x-auth-token": "b22b16e9-9e9c-4bc5-8bde-aaea0db0ed93",
                 // "x-auth-token": localStorage.getItem("token"),
 
             },
