@@ -46,10 +46,10 @@
 
             page = this;
 
-            if(keyword=="无"){
-                loadData(categoryId,1);
+            if(keyword==null){
+                loadData(categoryId,page.pageIndex);
             }else {
-                loadData(keyword,1);
+                loadData(keyword,page.pageIndex);
             }
 
         },
@@ -63,7 +63,7 @@
 
                         done(true)
                     } else {
-                        if(keyword=="无"){
+                        if(keyword==null){
                             loadData(categoryId, itemsData.page + 1);
                         }else {
                             loadData(keyword,itemsData.page + 1);
@@ -80,10 +80,10 @@
     function loadData(param,pageIndex){
         var urlString;
 
-        if(keyword=="无"){
-            urlString= '/search?categoryId=' + param + "&&page=" + pageIndex
+        if(keyword==null){
+            urlString= '/search?categoryId=' + param + "&page=" + pageIndex
         }else {
-            urlString= '/search?keyword=' + param + "&&page=" + pageIndex
+            urlString= '/search?keyword=' + param + "&page=" + pageIndex
         }
         Lib.axios.axios({
 

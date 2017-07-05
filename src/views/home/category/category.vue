@@ -49,7 +49,7 @@
         },
         created() {
           Lib.Hub.$on('change', (categoryId) => { //Hub接收事件
-                window.location=Lib.constant.baseurl+"/views/product/list.html?categoryId="+categoryId+"&&keyword=无";
+                window.location=Lib.constant.baseurl+"/views/product/list.html?categoryId="+categoryId;
             });
         },
 
