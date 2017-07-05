@@ -8,7 +8,7 @@ var env = {
 };
 var baseUrl;
 // baseUrl = "http://weixin.sanjiang.com/memberCenter";
-baseUrl  = "http://localhost:9090/";
+baseUrl  = "http://localhost:9090";
 var Constant = {
     baseurl : baseUrl,
     index:encodeWxUrl(baseUrl+"/#/index",'snsapi_base'),

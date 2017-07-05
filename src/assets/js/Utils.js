@@ -13,6 +13,15 @@ function go (url, $router) {
         window.location.href = url
     }
 }
+function go (url, $router) {
+
+
+    if ($router) {
+        url === 'BACK' ? $router.go(-1) : $router.push(url)
+    } else {
+        window.location.href = url
+    }
+}
 export default {
     getQueryString:GetQueryString,
     labelWidth (title) {
