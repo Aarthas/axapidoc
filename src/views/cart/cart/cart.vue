@@ -51,7 +51,10 @@
         components: {
             Group,
             XInput,
-            XButton, popup_radio,XNumber,numb
+            XButton,
+            popup_radio,
+            XNumber,
+            numb
 
 
         },
