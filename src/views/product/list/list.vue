@@ -47,9 +47,9 @@
             page = this;
 
             if(keyword=="无"){
-                loadData(categoryId);
+                loadData(categoryId,1);
             }else {
-                loadData(keyword);
+                loadData(keyword,1);
             }
 
         },
@@ -79,10 +79,11 @@
     var itemsData;
     function loadData(param,pageIndex){
         var urlString;
+
         if(keyword=="无"){
-            urlString= '/search?categoryId=' + param + "&&page" + pageIndex
+            urlString= '/search?categoryId=' + param + "&&page=" + pageIndex
         }else {
-            urlString= '/search?keyword=' + param + "&&page" + pageIndex
+            urlString= '/search?keyword=' + param + "&&page=" + pageIndex
         }
         Lib.axios.axios({
 
