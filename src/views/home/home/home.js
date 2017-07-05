@@ -1,23 +1,37 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-
+import Vuex from 'vuex'
+Vue.use(Vuex)
 
 import App from './home.vue'
-import category from '../category/category.vue'
-import mine from '../../mine/mine/mine.vue'
-import tab1 from './tab1.vue'
-import tab2 from './tab2.vue'
+
+
+
 import mall from '../mall/mall.vue'
+import category from '../category/category.vue'
+import cart from '../../cart/cart/cart.vue'
+import mine from '../../mine/mine/mine.vue'
 
 const routes = [
     { path: '/mall', component: mall },
     { path: '/category', component: category },
-    { path: '/tab2', component: tab2 },
+    { path: '/cart', component: cart },
     { path: '/mine', component: mine }
 ]
 
+import vuexI18n from 'vuex-i18n'
 
+
+let store = new Vuex.Store({
+    actions: {},
+    modules: {
+        i18n: vuexI18n.store
+
+    }
+})
+
+Vue.use(vuexI18n.plugin, store)
 
 const router = new VueRouter({
     routes:routes
@@ -28,5 +42,6 @@ const router = new VueRouter({
 
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
