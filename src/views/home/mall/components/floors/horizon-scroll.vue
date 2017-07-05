@@ -1,14 +1,20 @@
 <template>
-    <div class="allSort">
+    <div class="allSort" style="margin-top: 8px;">
+        <!--标题-->
+        <div style="display: flex;flex-direction: row;background-color: white;">
+            <div style="width: 5px;height: 15px;margin-top: 10px;margin-left: 5px;" :style="{backgroundColor:flag}"></div>
+            <div style="font-size: 15px;text-align: left;height: 35px;line-height: 35px;margin-left: 2px;" :style="{color:flag}">{{title}}</div>
+        </div>
         <div class="sortMenu clearfix">
             <ul class="sortMenu-ul" >
-                <li class="cell" v-for="item in sortMenu">
-                    <div>
-                        <div class="iconpane">
-                            <img class="img" style="" src="//img.alicdn.com/tps/i4/TB1kPBeRFXXXXXuXpXXwu0bFXXX.png_170x120Q50s50.jpg_.webp">
-                            <span class="info" style="">aa</span>
-                        </div>
-                    </div>
+                <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px; " v-for="item in list">
+                    <img  style="margin-top: 8px;margin-left:8px;margin-right:8px;height: 90px;" :src="item.img">
+                    <div style="margin-right: 8px;margin-left:8px;margin-top: 5px;color: #666666;text-align: center;font-size: 10px;word-break: break-all ;overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical; ">{{item.title}}</div>
+                    <div style="height: 20px;color: #f03838;text-align: center;font-size:10px;margin-top: 5px;">会员价￥{{item.pn}}</div>
                 </li>
             </ul>
 
@@ -20,36 +26,18 @@
     export default {
         name: 'allSort',
         data () {
-            return {
-                sortMenu: [
-                    { sortname: '全部' },
-                    { sortname: '家用电器' },
-                    { sortname: '大家电' },
-                    { sortname: '生活用品' },
-                    { sortname: '食品' },
-                    { sortname: '美妆' },
-                    { sortname: '书籍' },
-                    { sortname: '洗护用品' },
-                    { sortname: '母婴用品' },
-                    { sortname: '家居' }
-                ],
-                sortName: [
-                    { sortname: '家用电器' },
-                    { sortname: '母婴' },
-                    { sortname: '百货' },
-                    { sortname: '珠宝配饰' },
-                    { sortname: '运动户外' },
-                    { sortname: '食品' },
-                    { sortname: '美妆' },
-                    { sortname: '家装' },
-                    { sortname: '家居家纺' },
-                    { sortname: '鲜花宠物' },
-                    { sortname: '图书乐器' },
-                    { sortname: '生活服务' },
-                    { sortname: '游戏动漫' }
-                ],
-                subitemsExpanded: true
-            }
+            return {}
+        },
+        props:{
+            list: {
+                type: Array,
+                default () {
+                    return []
+                }
+            },
+            title:String,
+            flag:String
+
         }
     }
 </script>
@@ -71,6 +59,7 @@
         min-width:500px;
         display: flex;
         justify-content: flex-start;
+        background-color: #C5C5C5;
     }
     .sortMenu .cell{
         display: inline-block;

@@ -49,8 +49,8 @@
     }
 
     .img {
-        width: 28px;
-        height: 28px;
+        width: 40px;
+        height: 40px;
         margin:  auto;
     }
 

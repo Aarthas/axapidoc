@@ -1,7 +1,7 @@
 <template>
 
 
-    <div style="position: relative;  overflow: hidden;background-color: white;height: 187px">
+    <div style="position: relative;  overflow: hidden;background-color: white;height: 187px;">
 
         <span class="img" style="width:41.4%;height: 187px;    border-right: 1px solid #e1e1e1;" :style="{backgroundImage:'url('+list[0].img+')'}"></span>
 

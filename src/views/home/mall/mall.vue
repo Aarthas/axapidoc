@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex;flex-direction: column">
+    <div style="display: flex;flex-direction: column;margin-bottom: 55px;">
 
         <search2></search2>
         <div class="vux-demo" style="margin-top: 44px;">
@@ -17,13 +17,22 @@
         <!--<floor/>-->
 
         <div v-for="floor in malldata.floors">
-            <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
 
+            <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
+            <fourwhite v-else-if="floor.vt ==2||floor.vt ==3" :list="floor.data" :title="floor.title" :flag="floor.flag"></fourwhite>
+            <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag"></horizon_scroll>
+            <oneimage v-if="floor.vt ==6"></oneimage>
         </div>
-        <div style="height:8px;"></div>
-        <horizon_scroll></horizon_scroll>
-        <horizon_scroll></horizon_scroll>
-        <div style="height: 300px;"></div>
+        <div style="height:3px;"></div>
+
+        <div style="height: 30px;margin-top: 15px;text-align: center;">--热门推荐--</div>
+        <ul style="overflow:hidden;width:100%;">
+            <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in list">
+                <recommend_cell :item="item"></recommend_cell>
+            </li>
+
+        </ul>
+        <div style="height: 40px;margin-top: 15px;text-align: center;">--end--</div>
     </div>
 </template>
 
@@ -33,20 +42,30 @@
     import Lib from 'assets/js/Lib';
     import search2 from './components/search.vue' ;
     import hoticon from './components/hoticon.vue' ;
-
+    import recommend_cell from './components/recommend_cell.vue' ;
     import qiangxian from './components/floors/qiangxian.vue' ;
+    import fourwhite from './components/floors/fourwhite.vue' ;
+    import oneimage from './components/floors/oneimage.vue' ;
     import horizon_scroll from './components/floors/horizon-scroll.vue' ;
     var page;
     export default {
         components: {
-
-            Swiper, Search, search2, hoticon, qiangxian,horizon_scroll
+            Swiper,
+            Search,
+            search2,
+            hoticon,
+            qiangxian,
+            horizon_scroll,
+            fourwhite,
+            oneimage,
+            recommend_cell
         },
         data () {
             return {
                 malldata: {},
                 results: [],
-                value: 'test'
+                value: 'test',
+                list:[] //最下方推荐商品数据
             };
         },
         computed: {
@@ -90,18 +109,19 @@
 //                text: '亲爱'
 //            })
 // 隐藏
+          loadIndexData();
 
-            Lib.axios.axios({
-                url: '/home/index',
-                success: function (basebean) {
-                    let malldata = basebean.getData();
-                    page.malldata = malldata;
-
-                    page.$vux.loading.hide()
-                }
-            });
         },
         methods: {
+            loadRecommend:function () {
+                Lib.axios.axios({
+                    url: '/home/hotMarket',
+                    success: function (basebean) {
+                        page.list = basebean.getData().list;
+
+                    }
+                });
+            },
             setFocus () {
                 this.$refs.search.setFocus()
             },
@@ -155,6 +175,17 @@
         }
 
     }
+    function loadIndexData() {
+        Lib.axios.axios({
+            url: '/home/index',
+            success: function (basebean) {
+                let malldata = basebean.getData();
+                page.malldata = malldata;
+                page.$vux.loading.hide();
+                page.loadRecommend();
+            }
+        });
+   }
 </script>
 
 <style scoped>
