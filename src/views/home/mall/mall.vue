@@ -40,7 +40,7 @@
 
     import {Swiper, Search} from 'vux'
     import Lib from 'assets/js/Lib';
-    import search2 from './components/search.vue' ;
+    import search2 from '../../../components/search.vue' ;
     import hoticon from './components/hoticon.vue' ;
     import recommend_cell from './components/recommend_cell.vue' ;
     import qiangxian from './components/floors/qiangxian.vue' ;

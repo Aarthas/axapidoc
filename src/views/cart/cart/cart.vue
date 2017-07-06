@@ -75,7 +75,9 @@
         watch: {
             option1 (val) {
                 console.log(val)
-
+                let a = page.addresslist[val]
+console.log(a)
+                localStorage.setItem("currentAddress",a)
 
 
 

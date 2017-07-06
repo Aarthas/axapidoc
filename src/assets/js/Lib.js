@@ -7,7 +7,7 @@ import  {ToastPlugin} from 'vux'
 
 import {cookie} from 'vux'
 
-import VueScroller from 'vue-scroller'
+
 
 import Vue from 'vue';
 
@@ -17,7 +17,7 @@ Vue.use(LoadingPlugin); //全局注册alert事件，注册之后，不需要每�
 //--- VUX UI 注册 END --
 Vue.use(ConfirmPlugin)
 Vue.use(ToastPlugin)
-Vue.use(VueScroller)
+
 let Hub = new Vue(); //创建事件中心
 
 import C from './conf';

@@ -1,5 +1,5 @@
 <template>
-    <div style="display:flex;flex-direction: row;text-align: center;margin-top: 10px;background-color: #ffffff;width: 100vw;height: 105px;">
+    <div style="display:flex;flex-direction: row;text-align: center;background-color: #ffffff;width: 100vw;height: 105px;">
         <div  style="display:inline-block;margin-left: 8px;">
             <img :src="item.productImage"  class="ximg-demo" error-class="ximg-error" :offset="-100" container="#vux_view_box_body" ></img>
         </div>

@@ -21,6 +21,7 @@
 
 
 
+
         </div>
 
     </div>
@@ -55,7 +56,6 @@
                 listEmpty: false,
                 list: [],
 
-                showSuccess: false
             };
         },
         computed: {},
@@ -69,11 +69,15 @@
                 url: 'coupons',
                 success: function (basebean) {
                     console.log(basebean.getData())
-                    let list = basebean.getData().list;
+//
                     let listEmpty = basebean.isListEmpty();
                     console.log(listEmpty)
                     page.listEmpty = listEmpty;
-                    page.list = list;
+                    if (!page.listEmpty) {
+                        let list = basebean.getData().list;
+                        page.list = list;
+                    }
+
 
                 }
             });
@@ -82,9 +86,7 @@
 
         methods: {
 
-            exchange: function () {
 
-            },
             jt: function () {
 
             }
@@ -94,12 +96,12 @@
 
 <style lang="less">
     /*.custom-primary-blue {*/
-        /*border-color: #55b0f6!important;*/
-        /*color: #55b0f6!important;*/
-        /*&:active {*/
-            /*border-color:  #367eb5!important;*/
-            /*color:  #367eb5!important;*/
-            /*background-color: transparent;*/
-        /*}*/
+    /*border-color: #55b0f6!important;*/
+    /*color: #55b0f6!important;*/
+    /*&:active {*/
+    /*border-color:  #367eb5!important;*/
+    /*color:  #367eb5!important;*/
+    /*background-color: transparent;*/
+    /*}*/
     /*}*/
 </style>
