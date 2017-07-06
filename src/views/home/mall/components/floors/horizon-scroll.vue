@@ -14,11 +14,9 @@ text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical; ">{{item.title}}</div>
-                    <div style="height: 20px;color: #f03838;text-align: center;font-size:10px;margin-top: 5px;">会员价￥{{item.pn}}</div>
+                    <div style="height: 20px;color: #f03838;text-align: center;font-size:14px;margin-top: 5px;">￥{{item.pn}}</div>
                 </li>
             </ul>
-
-
         </div>
     </div>
 </template>
