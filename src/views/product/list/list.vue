@@ -4,6 +4,7 @@
         <YSearch  placeholder="搜索三江购物商品"></YSearch>
         <scroller style="margin-top: 40px;margin-bottom: 0px;"
                   ref="myScroller"
+                  :on-refresh="refresh"
                   :on-infinite="infinite">
 
 
@@ -59,7 +60,9 @@
 
         },
         methods: {
+            refresh:function () {
 
+            },
             infinite (done) {
 
                 console.log("infinite")
