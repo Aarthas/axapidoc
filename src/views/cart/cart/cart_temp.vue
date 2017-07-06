@@ -1,5 +1,5 @@
 <template>
-    <div style="margin-top: 10px;">
+    <div style="margin-top: 5px;">
         <!--活动信息-->
         <div v-show="item.typeId!=1" style="display: flex;flex-direction: row;background-color: white;height: 31px;">
             <div style="ine-height: 20px;height:20px;margin-top:5px;margin-left: 8px;text-align:center;background-color: #f03838;color: white;font-size: 12px;width: 50px;">{{item.type}}</div>

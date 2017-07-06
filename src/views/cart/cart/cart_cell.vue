@@ -2,7 +2,7 @@
     <div style="display: flex;flex-direction: row;height: 110px;margin-bottom: 10px;background-color: white;">
         <!--左 选中按钮-->
         <div style="width: 30px;">
-            <check-icon :value.sync="cellItem.isSelected" style="line-height: 110px;"></check-icon>
+            <check-icon :value.sync="isSelected" style="line-height: 110px;"></check-icon>
         </div>
         <!--中  商品图片-->
         <div style="width: 100px; ">
@@ -37,6 +37,14 @@
        },
         props:{
             cellItem:Object,
+        },
+        created(){
+            if (this.cellItem.isSelected==0){
+                this.isSelected=false;
+            } else{
+                this.isSelected=true
+            }
+
         }
     }
 </script>

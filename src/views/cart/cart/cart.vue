@@ -1,6 +1,6 @@
 <template>
 
-    <div style="margin-bottom: 70px;">
+    <div style="margin-bottom: 120px;">
 
         <div style="background-color: #FFFFFF;overflow: hidden;position: relative;">
             <popup_radio title="aaa" :options="addresslist" v-model="option1" is-transparent="true">
@@ -16,6 +16,9 @@
             </popup_radio>
         </div>
         <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
+        <div style="background-color: white;height: 30px; margin-top: 10px;">
+            <div  v-on:click="changeEdit" style="width: 60px;float:right;margin-right:8px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">{{editStatu}}</div>
+        </div>
         <ul>
             <li v-for="item in cartList">
                 <cart_temp :item="item">
@@ -23,11 +26,9 @@
             </li>
 
         </ul>
+        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData"></settle>
+        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData"></edit>
     </div>
-
-
-
-    <!--</transition>-->
 </template>
 
 
@@ -38,6 +39,9 @@
     import Lib from 'assets/js/Lib';
     import popup_radio from './popup-radio.vue'
     import cart_temp from './cart_temp.vue'
+    import settle from './settle.vue'
+    import edit from './edit.vue'
+
     var page
     export default {
 
@@ -47,13 +51,18 @@
             XButton,
             popup_radio,
             XNumber,
-            cart_temp
+            cart_temp,
+            settle,
+            edit
         },
         data () {
             return {
                 option1: 0,
                 addresslist: [],
                 cartList:[],
+                cartData:{},
+                isEdit:false,
+                editStatu:"编辑商品"
             };
         },
         computed: {},
@@ -116,7 +125,18 @@
 
         },
 
-        methods: {}
+        methods: {
+
+            changeEdit:function () {
+
+                page.isEdit=!page.isEdit;
+                if(page.isEdit==false){
+                    page.editStatu="编辑商品"
+                }else {
+                    page.editStatu="完成"
+                }
+            }
+        }
     }
     function loadCartData(address) {
 //        let address=localStorage.getItem("MyAddress");
@@ -136,6 +156,7 @@
             url: '/cartsV2?deliverType='+a,
 
             success: function (basebean) {
+                page.cartData = basebean.getData();
                 page.cartList = basebean.getData().appCarts;
             }
         });
