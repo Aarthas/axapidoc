@@ -1,19 +1,17 @@
 <template>
     <div>
         <!--<div style="height: ">aa</div>-->
-        <scroller  style="top: 0px"
-                  ref="myScroller"
-                  :on-infinite="infinite">
-        <ul style="display: inline-block;">
-            <li v-for="item in list">
-                <orderlist_cell @todetail="todetail" :item=item ></orderlist_cell>
-            </li>
-
-        </ul>
+        <scroller
+                ref="myScroller"
+                :on-infinite="infinite">
+            <div style="display: inline-block;">
+                <orderlist_cell v-for="item in list" @todetail="todetail" :item=item
+                                :key="item.orderId"></orderlist_cell>
+            </div>
 
         </scroller>
         <!--<div v-if="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-            <!--我的订单列表为空-->
+        <!--我的订单列表为空-->
         <!--</div>-->
     </div>
 </template>
@@ -59,8 +57,8 @@
                     }
                 }
             },
-            todetail:function (orderId) {
-                window.location=Lib.constant.baseurl+"/views/trade/detail.html?orderId="+orderId;
+            todetail: function (orderId) {
+                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
 
             }
 
@@ -69,21 +67,20 @@
 
     }
     var itemsData;
-    function loadData(pageindex){
-
+    function loadData(pageindex) {
 
 
         Lib.axios.axios({
-            url: 'orders?page=' + pageindex+"&&appOrderStatus=0",
+            url: 'orders?page=' + pageindex + "&&appOrderStatus=0",
 
             success: function (basebean) {
 //                let listEmpty = basebean.isListEmpty();
 //                page.listEmpty = listEmpty;
-                itemsData= basebean.getData();
+                itemsData = basebean.getData();
 //                basebean.getData().list = [];
-                if (basebean.isListEmpty()){
+                if (basebean.isListEmpty()) {
                     page.listEmpty = true;
-                }else {
+                } else {
                     page.listEmpty = false;
                     if (basebean.getData().isFirst) {
                         page.list = basebean.getData().list;
@@ -91,8 +88,6 @@
                         page.list = page.list.concat(basebean.getData().list);
                     }
                 }
-
-
 
 
                 if (basebean.getData().isLast) {
