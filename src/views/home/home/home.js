@@ -7,17 +7,16 @@ Vue.use(Vuex)
 import App from './home.vue'
 
 
-
 import mall from '../mall/mall.vue'
 import category from '../category/category.vue'
 import cart from '../../cart/cart/cart.vue'
 import mine from '../../mine/mine/mine.vue'
 
 const routes = [
-    { path: '/mall', component: mall },
-    { path: '/category', component: category },
-    { path: '/cart', component: cart },
-    { path: '/mine', component: mine }
+    {path: '/mall', meta: {id: 'mall'}, component: mall},
+    {path: '/category', meta: {id: 'category'}, component: category},
+    {path: '/cart', meta: {id: 'cart'}, component: cart},
+    {path: '/mine', meta: {id: 'mine'}, component: mine}
 ]
 
 import vuexI18n from 'vuex-i18n'
@@ -34,10 +33,8 @@ let store = new Vuex.Store({
 Vue.use(vuexI18n.plugin, store)
 
 const router = new VueRouter({
-    routes:routes
+    routes: routes
 })
-
-
 
 
 new Vue({

@@ -27,6 +27,8 @@
         props: ['id'],
         computed: {
             isActive(){
+//                console.log("id = "+this.id)
+//                console.log("$parent.id = "+this.$parent.value)
                 if (this.$parent.value === this.id) {
                     return true;
                 }

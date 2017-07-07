@@ -11,11 +11,15 @@
 
 
 
+
+
             </m-tabbar-item>
             <m-tabbar-item id='category'>
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
                 分类
+
+
 
 
 
@@ -36,12 +40,10 @@
 
 
 
+
+
             </m-tabbar-item>
-            <!--<m-tabbar-item id='tab5'>-->
-            <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">-->
-            <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">-->
-            <!--我的-->
-            <!--</m-tabbar-item>-->
+
         </m-tabbar>
 
     </div>
@@ -51,7 +53,7 @@
     import Lib from 'assets/js/Lib';
     import mTabbar from '../../../components/tabbar/tabbar'
     import mTabbarItem from '../../../components/tabbar/tabbar-item'
-    //    import {Group, Cell} from 'vux'
+
     export default {
         components: {
 
@@ -65,32 +67,15 @@
         },
         watch: {
             select: function (newVal, oldVal) {
+                console.log(newVal)
                 this.$router.replace({path: newVal})
             }
         },
         created () {
-            function timeout(ms) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(function () {
-                        resolve("asd")
-                    }, ms);
-                });
-            }
-
-            timeout(3000).then((value) => {
-                console.log(value);
-            });
-
-//            if(window.localStorage){
-//
-//                alert("support");
-//
-//            }else{
-//
-//                alert("not support");
-//
-//            }
-        }, methods: {}
+            let path = this.$route.path;
+            this.select = path.substr(1, path.length)
+        },
+        methods: {}
     }
 </script>
 <style scoped>

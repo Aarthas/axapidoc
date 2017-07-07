@@ -6,7 +6,11 @@
 <script>
     import mTabbarItem from './tabbar-item';
     export default {
-        props: ['value']
+        props: ['value'],
+
+        created:function () {
+//            console.log("pa v ="+this.value)
+        }
     }
 </script>
 <style lang="less">
