@@ -1,16 +1,17 @@
 <template>
 
-    <div>
-        <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
-        <scroller style="top: 40px"
+    <div style="display: flex;flex-direction: column">
+        <YSearch  placeholder="搜索三江购物商品"></YSearch>
+        <scroller style="margin-top: 40px;margin-bottom: 0px;"
                   ref="myScroller"
+                  :on-refresh="refresh"
                   :on-infinite="infinite">
-            <ul >
-                <li v-for="item in list">
-                    <favorite_cell :item=item></favorite_cell>
-                </li>
 
-            </ul>
+
+                    <favorite_cell v-for="item in list"  :item=item :key="item.erpGoodsId"></favorite_cell>
+
+
+
             <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
             <!--商品列表为空-->
             <!--</div>-->
@@ -19,17 +20,22 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import VueScroller from 'vue-scroller'
+    Vue.use(VueScroller)
+
     import Lib from 'assets/js/Lib';
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
+    import YSearch from '../../../components/search.vue' ;
     import { Search } from 'vux';
     let categoryId = Lib.Utils.getQueryString("categoryId");
     let keyword = Lib.Utils.getQueryString("keyword");
     var page;
     export default {
         components: {
-            Search,
-            favorite_cell
 
+            favorite_cell,
+            YSearch,
         },
         data () {
             return {
@@ -54,13 +60,17 @@
 
         },
         methods: {
+            refresh:function () {
 
+            },
             infinite (done) {
 
+                console.log("infinite")
+                console.log(itemsData)
                 if (itemsData) {
 
                     if (itemsData.isLast) {
-
+                        console.log("done")
                         done(true)
                     } else {
                         if(keyword==null){

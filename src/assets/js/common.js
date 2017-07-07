@@ -4,8 +4,8 @@ import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 var oproto = Object.prototype;
 var serialize = oproto.toString;
-var baseurl = 'http://193.0.1.157:20000';
-// var baseurl = 'http://app.sanjiang.com';
+// var baseurl = 'http://193.0.1.157:20000';
+var baseurl = 'http://app.sanjiang.com';
 var Rxports = {
 
     axios: function (opt) {
@@ -16,7 +16,13 @@ var Rxports = {
             alert('请填写接口地址');
             return false;
         }
-
+        if (opt.showload)
+        {
+            opt.page.$vux.loading.show({
+                text: opt.loadtext
+            })
+        }
+        console.log("localStorage.getItem(token)="+localStorage.getItem("token"))
         axios({
             method: opts.method || 'get',
             url: opts.url,
@@ -24,8 +30,8 @@ var Rxports = {
             data: opts.data,
             headers: opts.headers||{
                     "terminal": "50",
-                "x-auth-token": "f3dea06f-baac-4969-9cc3-e67e8cef742d",
-                // "x-auth-token": localStorage.getItem("token"),
+                // "x-auth-token": "f3dea06f-baac-4969-9cc3-e67e8cef742d",
+                "x-auth-token": localStorage.getItem("token")||"",
 
             },
 
@@ -62,6 +68,10 @@ var Rxports = {
             if (opts.onAfter) {
                 opts.onAfter();
             }
+            if (opt.showload)
+            {
+                opt.page.$vux.loading.hide()
+            }
 
         }).catch(function (error) {
             console.log(error);
@@ -72,6 +82,10 @@ var Rxports = {
             }
             if (opts.onAfter) {
                 opts.onAfter();
+            }
+            if (opt.showload)
+            {
+                opt.page.$vux.loading.hide()
             }
 
         });

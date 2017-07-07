@@ -4,9 +4,11 @@
         <!--<h1 class="title">Refresh & Infinite</h1>-->
         <!--</div>-->
 
+        <div style="height: 50px;">aaa</div>
 
-        <scroller style="top: 0px"
+        <scroller style="top: 50px;height: 617px;"
                   ref="myScroller"
+                  noDataText="asdsd"
                   :on-infinite="infinite">
             <!--<ul>-->
             <!--<li v-for="(item, index) in items" class="row" :class="{'grey-bg': index % 2 == 0}">-->
@@ -57,12 +59,13 @@
 
             },
             infinite (done) {
-
+                console.log("itemsData.isLast"+itemsData)
                 if (itemsData) {
 
                     if (itemsData.isLast) {
 
-                        done(true)
+                        console.log("itemsData.isLast")
+//                        done(true)
                     } else {
 
                         loadData(itemsData.page + 1);
@@ -77,7 +80,7 @@
    function loadData(pageindex){
 
         Lib.axios.axios({
-            url: 'collections?page=' + pageindex,
+            url: 'search?categoryId=157&page=' + pageindex,
 
             success: function (basebean) {
 
@@ -89,7 +92,7 @@
                     page.list = page.list.concat(basebean.getData().list);
                 }
                 if (basebean.getData().isLast) {
-                    page.$refs.myScroller.finishInfinite(true);
+                    page.$refs.myScroller.finishInfinite();
                 } else {
                     page.$refs.myScroller.finishInfinite();
                 }

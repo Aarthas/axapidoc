@@ -12,8 +12,8 @@
         <div style="height: 20px"/>
         <group title="请输入手机号与密码">
 
-            <x-input v-model="smscode" title="" placeholder="手机号"></x-input>
-            <x-input v-model="smscode" title="" placeholder="密码"></x-input>
+            <x-input v-model="uname" title="" placeholder="手机号"></x-input>
+            <x-input v-model="pwd" title="" placeholder="密码"></x-input>
         </group>
 
 
@@ -49,114 +49,52 @@
             Group,
             XInput,
             XButton,
-            vcodecell
-
-
         },
         data () {
             return {
-
-                mobile: '',
-                smscode: '',
-
+                uname: '13780082671',
+                pwd: '123456a',
             };
         },
         computed: {},
         created () {
             page = this;
-            console.log("created")
-
         },
         mounted () {
 
 
         },
-        updated () {
 
-
-        },
-        activated () {
-
-
-        },
-        deactivated () {
-
-            console.log("deactivated")
-        },
-        destroyed () {
-            console.log("destroyed")
-
-        },
 
         methods: {
 
 
-            startCount: function (v) {
-
-                console.log("aa")
-                console.log(v)
-                page.$refs.vcodecell.start();
-//        FineWork.UserService.smsForLogin({
-//          mobile: page.mobile.trim(),
-//        }, function (basebean) {
-//          basebean.showMessage();
-//          page.$refs.vcodePane.start();
-//        });
-            },
 
             doSubmit: function () {
-
-
                 let params = {
-                    mobile: page.mobile.trim(),
-                    smscode: page.smscode.trim(),
+                    username: page.uname,
+                    password: page.pwd,
                 };
+                console.log(params)
+                Lib.axios.axios({
+                    showload:true,
+                    page:page,
+                    loadtext:"加载中",
+                    method:'post',
+                    params:params,
+                    url: 'login',
+                    success: function (basebean) {
+                        console.log("localStorage.setItem(token)"+basebean.getData().sessionId);
+                        localStorage.setItem("token",basebean.getData().sessionId);
+                        Lib.go.go("/views/home/home.html#/mine");
+                    }
+                    ,onerrcode:function (basebean) {
 
-//        if (params.mobile.length == 0) {
-//          FineWork.MyToast.toast("手机号不能为空")
+                        Lib.vux.showtoast(page,basebean.getMessage());
+                    }
+                });
+
 //
-//          return;
-//        }
-//        if (params.smscode.length == 0) {
-//          FineWork.MyToast.toast("验证码不能为空")
-//          return;
-//        }
-
-//        FineWork.ApiUser.userApi.loginBySms(params, function (basebean) {
-//          FineWork.MyRoute.redirectCenter(basebean);
-//          let registerData = basebean.getData().registerData;
-//          if (registerData != null) {
-//
-//            FineWork.MyAlert.show({
-//              title: registerData.title,
-//              content: registerData.content,
-//              hideOnBlur: false,
-//              confirmText: "确定",
-//              cancelText: "去修改密码",
-//              onCancel () {
-//                FineWork.MyRoute.push({
-//                  path: "user/changepwd", query: {
-//                    mobile: basebean.getData().mobile,
-//                    username: basebean.getData().username
-//                  }
-//                });
-//              },
-//              onConfirm () {
-//
-//                FineWork.MyRoute.redirectCenter(basebean);
-//              }
-//            });
-//
-//          } else {
-
-
-//        });
-
-
-//        loginstore.dispatch('loginBySms', {
-//          mobile: page.mobile.trim(),
-//          smscode:page.smscode.trim(),
-//        })
 
             },
         }

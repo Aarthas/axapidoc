@@ -61,6 +61,14 @@
         right: 0;
         top: 0;
         z-index: 9;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 44px;
+        width: 100%;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
+        background-color: #fff;
+        z-index: 1000;
     }
 
     .is-fixed~.page-content {

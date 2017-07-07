@@ -84,7 +84,15 @@
         },
         methods: {
             logout:function () {
-                console.log("aaa")
+                Lib.axios.axios({
+                    showload:true,
+                    page:page,
+                    loadtext:"加载中",
+                    'url': 'logout',
+                    'success': function (basebean) {
+                        window.location.href = Lib.constant.baseurl+"/views/user/login.html"
+                    }
+                });
             }
         }
     }
