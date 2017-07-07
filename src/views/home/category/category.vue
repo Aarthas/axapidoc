@@ -28,16 +28,16 @@
 
 <script>
     import Lib from 'assets/js/Lib';
-    import { Tabbar, TabbarItem, Group, Cell,Search } from 'vux';
-    import collect from './components/collection_cell.vue';
-    import Vue from 'vue';
 
+    import collect from './components/collection_cell.vue';
+
+    import search from '../../../components/search.vue' ;
 
     var page;
     export default {
         components: {
             collect,
-            Search
+            search
         },
         data(){
             return {
