@@ -1,6 +1,7 @@
 <template>
     <div>
-        <scroller style="top: 0px"
+        <!--<div style="height: ">aa</div>-->
+        <scroller  style="top: 0px"
                   ref="myScroller"
                   :on-infinite="infinite">
         <ul style="display: inline-block;">
@@ -9,10 +10,11 @@
             </li>
 
         </ul>
-        <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
+
+        </scroller>
+        <!--<div v-if="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
             <!--我的订单列表为空-->
         <!--</div>-->
-        </scroller>
     </div>
 </template>
 
@@ -27,7 +29,7 @@
         data () {
             return {
 
-//                listEmpty: false,
+                listEmpty: false,
                 list: [],
 
 
@@ -78,12 +80,21 @@
 //                let listEmpty = basebean.isListEmpty();
 //                page.listEmpty = listEmpty;
                 itemsData= basebean.getData();
-
-                if (basebean.getData().isFirst) {
-                    page.list = basebean.getData().list;
-                } else {
-                    page.list = page.list.concat(basebean.getData().list);
+//                basebean.getData().list = [];
+                if (basebean.isListEmpty()){
+                    page.listEmpty = true;
+                }else {
+                    page.listEmpty = false;
+                    if (basebean.getData().isFirst) {
+                        page.list = basebean.getData().list;
+                    } else {
+                        page.list = page.list.concat(basebean.getData().list);
+                    }
                 }
+
+
+
+
                 if (basebean.getData().isLast) {
                     page.$refs.myScroller.finishInfinite(true);
                 } else {

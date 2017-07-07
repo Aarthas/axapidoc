@@ -5,7 +5,8 @@
 import Vue from 'vue'
 
 import App from './favorite.vue'
-
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
 new Vue({
     render: h => h(App)
 }).$mount('#app')
