@@ -8,7 +8,6 @@ import  {ToastPlugin} from 'vux'
 import {cookie} from 'vux'
 
 
-
 import Vue from 'vue';
 
 //------ VUX UI 注册，如果不需要  VUX UI 请删除以下注册 -------
@@ -20,22 +19,19 @@ Vue.use(ToastPlugin)
 
 let Hub = new Vue(); //创建事件中心
 
-import C from './conf';
+
 import M from './common';
 import Utils from './Utils';
 import uiutil from './uiutil';
 import constant from './constant';
 import avux from './avux';
-import vueFilter from './vueFilter';
+
 
 //解决click点击300毫秒延时问题
 import FastClick from 'fastclick';
 FastClick.attach(document.body);
 
 
-// import  YHead from '../../components/YHead.vue'
-// Vue.component("YHead",YHead)
-// var cookie = require("./cookie");
 var go = {
     go(url, $router){
         if ($router) {
@@ -43,11 +39,16 @@ var go = {
         } else {
             window.location.href = constant.baseurl + url
         }
+    },
+    getquery: function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return (r[2]);
+        return null;
     }
+
 }
 export default{
-    M,
-    C,
     Utils,
     uiutil,
     axios: M,

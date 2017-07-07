@@ -9,7 +9,7 @@
 
             <!--<img src="../../assets/images/ic_scan_gray.png" alt="">-->
         </div>
-        <span style="line-height: 44px;width:60px;text-align: center;color: #666666" v-on:click="muFunc">搜索</span>
+        <span style="line-height: 44px;width:80px;text-align: center;color: #666666" v-on:click="muFunc">搜索</span>
         <!--<div class="m-header-button is-right" style="text-align: center;width: 50px;">-->
         <!--<a href="javascript:;"><img class="m-icon-img" src="../../assets/images/ic_chat_white.png" /></a>-->
         <!--</div>-->

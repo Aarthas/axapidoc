@@ -10,12 +10,8 @@ var baseUrl;
 // baseUrl = "http://weixin.sanjiang.com/memberCenter";
 // baseUrl  = "http://localhost:9090";
 baseUrl  = "http://193.0.1.157:9090";
-var Constant = {
+var config = {
     baseurl : baseUrl,
-    index:encodeWxUrl(baseUrl+"/#/index",'snsapi_base'),
-    indexCode:encodeWxUrl(baseUrl+"/#/indexcard",'snsapi_base'),
-    indexWxbind:encodeWxUrl(baseUrl+"/#/indexwxbind",'snsapi_userinfo'),
-
 }
 
-module.exports = Constant;
+module.exports = config;

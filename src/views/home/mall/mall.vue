@@ -25,14 +25,16 @@
         </div>
         <div style="height:3px;"></div>
 
+        <div v-if="hotlist.length>0">
         <div style="height: 30px;margin-top: 15px;text-align: center;">--热门推荐--</div>
         <ul style="overflow:hidden;width:100%;">
-            <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in list">
+            <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in hotlist">
                 <recommend_cell :item="item"></recommend_cell>
             </li>
 
         </ul>
         <div style="height: 40px;margin-top: 15px;text-align: center;">--end--</div>
+        </div>
     </div>
 </template>
 
@@ -63,9 +65,9 @@
         data () {
             return {
                 malldata: {},
-                results: [],
-                value: 'test',
-                list:[] //最下方推荐商品数据
+
+
+                hotlist: [] //最下方推荐商品数据
             };
         },
         computed: {
@@ -79,8 +81,6 @@
                     })
                     return headbanner;
                 }
-
-
             },
             hoticondata: function () {
                 if (page.malldata.menu) {
@@ -100,81 +100,33 @@
         created () {
             page = this;
             Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
-                window.location=Lib.constant.baseurl+"/views/product/list.html?&keyword="+keyword;
+                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+
             });
 
         },
         mounted(){
-//            this.$vux.loading.show({
-//                text: '亲爱'
-//            })
-// 隐藏
-          loadIndexData();
+
+            loadIndexData();
 
         },
         methods: {
-            loadRecommend:function () {
+            loadRecommend: function () {
                 Lib.axios.axios({
                     url: '/home/hotMarket',
                     success: function (basebean) {
-                        page.list = basebean.getData().list;
-
+                        page.hotlist = basebean.getData().list;
                     }
                 });
             },
-            setFocus () {
-                this.$refs.search.setFocus()
-            },
-            resultClick (item) {
-                window.alert('you click the result item: ' + JSON.stringify(item))
-            },
-            getResult (val) {
-                this.results = val ? getResult(this.value) : []
-            },
-            onSubmit () {
-                this.$refs.search.setBlur()
-                this.$vux.toast.show({
-                    type: 'text',
-                    position: 'top',
-                    text: 'on submit'
-                })
-            },
-            onFocus () {
-                console.log('on focus')
-            },
-            onCancel () {
-                console.log('on cancel')
-            },
-            linkto: function (index) {
-                switch (index) {
-                    case 0:
-                        return Lib.constant.baseurl + "/views/trade/list.html"
-                        break;
-                    case 1:
-                        return Lib.constant.baseurl + "/views/mine/favorite.html"
-                        break;
-                    case 2:
-                        return Lib.constant.baseurl + "/views/coupon/list.html"
-                        break;
-                    case 3:
-                        return Lib.constant.baseurl + "/views/coupon/list.html"
-                        break;
-                    case 4:
-                        return Lib.constant.baseurl + "/views/mine/iccard.html"
-                        break;
-                    case 5:
-                        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fsjmarket%2Fviews%2Fcomplaint%2Fsubmit.html&response_type=code&scope=snsapi_base#wechat_redirect";
-                        break;
-                    case 6:
-                        return "http://h5.sanjiang.com/help/help.html";
-                        break;
-                    default:
 
-                }
-            }
         }
-
     }
+
+
+
+
+
     function loadIndexData() {
         Lib.axios.axios({
             url: '/home/index',

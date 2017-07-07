@@ -20,9 +20,7 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import VueScroller from 'vue-scroller'
-    Vue.use(VueScroller)
+
 
     import Lib from 'assets/js/Lib';
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
