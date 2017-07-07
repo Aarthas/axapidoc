@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex;flex-direction: column;margin-bottom: 55px;">
 
-        <search2></search2>
+        <search></search>
         <div class="vux-demo" style="margin-top: 44px;">
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
@@ -41,9 +41,9 @@
 
 <script>
 
-    import {Swiper, Search} from 'vux'
+    import {Swiper} from 'vux'
     import Lib from 'assets/js/Lib';
-    import search2 from '../../../components/search.vue' ;
+    import search from '../../../components/search.vue' ;
     import hoticon from './components/hoticon.vue' ;
     import recommend_cell from './components/recommend_cell.vue' ;
     import qiangxian from './components/floors/qiangxian.vue' ;
@@ -54,8 +54,8 @@
     export default {
         components: {
             Swiper,
-            Search,
-            search2,
+
+            search,
             hoticon,
             qiangxian,
             horizon_scroll,
@@ -101,6 +101,7 @@
         created () {
             page = this;
             Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+                console.log("search keyword")
                 Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
             });

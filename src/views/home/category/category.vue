@@ -49,7 +49,14 @@
         },
         created() {
             Lib.Hub.$on('change', (categoryId) => { //Hub接收事件
+                console.log("search2 change")
                 Lib.go.go("/views/product/list.html?categoryId=" + categoryId);
+            });
+
+            Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+                console.log("search2 keyword")
+                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+
             });
         },
 
