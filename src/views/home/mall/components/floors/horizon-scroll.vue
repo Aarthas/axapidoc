@@ -1,5 +1,5 @@
 <template>
-    <div class="allSort" style="margin-top: 8px;">
+    <div class="allSort">
         <!--标题-->
         <div style="display: flex;flex-direction: row;background-color: white;">
             <div style="width: 5px;height: 15px;margin-top: 10px;margin-left: 5px;" :style="{backgroundColor:flag}"></div>

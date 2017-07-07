@@ -12,13 +12,14 @@
 
         <hoticon :list="hoticondata"></hoticon>
         <!--<floor v-for="floor in floors" :floor="floor">-->
-        <div style="height:8px;"></div>
+        <!--<div style="height:8px;"></div>-->
         <!--<qiangxian :list="hoticondata"></qiangxian>-->
         <!--<floor/>-->
 
         <div v-for="floor in malldata.floors">
-
+            <div style="height:8px;"></div>
             <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
+
             <fourwhite v-else-if="floor.vt ==2||floor.vt ==3" :list="floor.data" :title="floor.title" :flag="floor.flag"></fourwhite>
             <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag"></horizon_scroll>
             <oneimage v-if="floor.vt ==6"></oneimage>
