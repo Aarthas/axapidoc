@@ -2,8 +2,8 @@
     <div>
         <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
         <div style="display: flex;flex-direction: row;margin-top: 50px;">
-
-            <div style="width: 25%;position:fixed; top:0; left: 0;">
+           <scroller style="width: 25%;position:fixed; top:0; left: 0;margin-top: 50px;">
+            <div >
                 <ul>
                     <!--<li v-for="item in list" style=" margin-top: 2px;background-color: #f4f4f4;"  >-->
                     <!--<div  @click="clickLeft(item.id)" style="text-align: center;color: #999999;height:44px;line-height: 44px;font-size: 14px;">{{item.appCategoryName}}</div>-->
@@ -14,6 +14,7 @@
                 </ul>
 
             </div>
+           </scroller>
             <div style="width: 75%;background-color: white;margin-left: 25%;margin-bottom: 49px;">
 
                 <ul>
@@ -32,12 +33,13 @@
     import Lib from 'assets/js/Lib';
     import search from '../../../components/search.vue' ;
     import collect from './components/collection_cell.vue';
-
+    import { Scroller } from 'vux'
     var page;
     export default {
         components: {
             collect,
-            search
+            search,
+            Scroller
         },
         data(){
             return {
