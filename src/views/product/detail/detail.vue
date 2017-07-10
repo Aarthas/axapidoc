@@ -18,7 +18,10 @@
             <div style="line-height: 40px;width: 50%;text-align: center">商品介绍</div>
             <div style="line-height: 40px;width: 50%;text-align: center">包装售后</div>
         </div>
-    </div>
+
+        <introduction></introduction>
+        <guarantee></guarantee>
+            </div>
     <bottom style="position:fixed; bottom:0; left: 0;"></bottom>
     </div>
 
@@ -30,12 +33,14 @@
     import recommend from './components/recommend.vue'
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
+    import introduction from './components/introduction.vue'
+    import guarantee from './components/guarantee.vue'
     import {Swiper} from 'vux'
     let productId = Lib.Utils.getQueryString("productId");
     let isScoreItem = Lib.Utils.getQueryString("isScoreItem");
     var page;
     export default {
-        components: {Swiper,recommend,bottom,info},
+        components: {Swiper,recommend,bottom,info,introduction,guarantee},
        data(){
             return{
                 itemsData:{},
