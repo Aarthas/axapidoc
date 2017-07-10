@@ -24,7 +24,7 @@
         <div style="display: flex;justify-content: flex-end;flex-direction: row">
 
             <!--<router-link :to="{ path: '/loginbypwd'}">-->
-            <span style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;">重置密码</span>
+            <div style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;" v-on:click="goRest">重置密码</div>
             <!--</router-link>-->
         </div>
 
@@ -68,7 +68,9 @@
 
         methods: {
 
-
+            goRest:function () {
+              Lib.go.go( '/views/user/reset.html')
+            },
 
             doSubmit: function () {
                 let params = {

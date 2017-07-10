@@ -31,7 +31,7 @@
 <script>
 
     import vcodecell from '../../../components/vcodecell.vue'
-    import {Group, XInput, XButton} from 'vux'
+    import {Group, XInput, XButton,Alert,Toast} from 'vux'
     import Lib from 'assets/js/Lib';
 
     var page
@@ -43,7 +43,9 @@
             Group,
             XInput,
             XButton,
-            vcodecell
+            vcodecell,
+            Alert,
+            Toast
 
 
         },
@@ -83,74 +85,53 @@
         },
 
         methods: {
-
-
             startCount: function (v) {
+                Lib.axios.axios({
+                    showload:true,
+                    page:page,
+                    loadtext:"加载中",
+                    method:'get',
+                    url: 'users/smsCaptcha?mobile='+page.mobile+'&action=findPwd',
+                    success: function (basebean) {
+                        page.$refs.vcodecell.start();
+                        page.$vux.toast.show({
 
-                console.log("aa")
-                console.log(v)
-                page.$refs.vcodecell.start();
-//        FineWork.UserService.smsForLogin({
-//          mobile: page.mobile.trim(),
-//        }, function (basebean) {
-//          basebean.showMessage();
-//          page.$refs.vcodePane.start();
-//        });
+                            text:'验证码发送成功'
+                        })
+                    }
+                    ,onerrcode:function (basebean) {
+
+                        Lib.vux.showtoast(page,basebean.getMessage());
+                    }
+                });
             },
 
             doSubmit: function () {
 
+                Lib.axios.axios({
+                    showload:true,
+                    page:page,
+                    loadtext:"加载中",
+                    method:'post',
+                    url: '/users/findPwd?smsCaptcha='+page.sms+"&mobile="+page.mobile+"&newPwd="+page.pwd,
+                    success: function (basebean) {
+                        page.$vux.alert.show({
+                            title: '提示',
+                            content: '新密码设置成功',
+                            onShow () {
 
-                let params = {
-                    mobile: page.mobile.trim(),
-                    smscode: page.smscode.trim(),
-                };
+                            },
+                            onHide () {
+                               Lib.go.go('/views/user/login2.html');
+                            }
+                        })
+                    }
+                    ,onerrcode:function (basebean) {
 
-//        if (params.mobile.length == 0) {
-//          FineWork.MyToast.toast("手机号不能为空")
-//
-//          return;
-//        }
-//        if (params.smscode.length == 0) {
-//          FineWork.MyToast.toast("验证码不能为空")
-//          return;
-//        }
+                        Lib.vux.showtoast(page,basebean.getMessage());
+                    }
+                });
 
-//        FineWork.ApiUser.userApi.loginBySms(params, function (basebean) {
-//          FineWork.MyRoute.redirectCenter(basebean);
-//          let registerData = basebean.getData().registerData;
-//          if (registerData != null) {
-//
-//            FineWork.MyAlert.show({
-//              title: registerData.title,
-//              content: registerData.content,
-//              hideOnBlur: false,
-//              confirmText: "确定",
-//              cancelText: "去修改密码",
-//              onCancel () {
-//                FineWork.MyRoute.push({
-//                  path: "user/changepwd", query: {
-//                    mobile: basebean.getData().mobile,
-//                    username: basebean.getData().username
-//                  }
-//                });
-//              },
-//              onConfirm () {
-//
-//                FineWork.MyRoute.redirectCenter(basebean);
-//              }
-//            });
-//
-//          } else {
-
-
-//        });
-
-
-//        loginstore.dispatch('loginBySms', {
-//          mobile: page.mobile.trim(),
-//          smscode:page.smscode.trim(),
-//        })
 
             },
         }
