@@ -62,7 +62,14 @@
                 }
             },
             goDetail:function (item) {
-                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+
+                var isScoreItem;
+                if (item.score>0){
+                    isScoreItem=1
+                }else{
+                    isScoreItem=0
+                }
+                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem="+isScoreItem)
             }
 
         }

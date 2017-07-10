@@ -10,7 +10,7 @@
         <div style="display:inline-block;flex: 1;" >
             <div style="display:flex;text-align: left;margin-left:10px;margin-right:8px;margin-top: 5px;height: 30px;color: #999999;">{{item.name}}</div>
             <div style="display:flex;flex-direction: row;width: 100%;margin-bottom: 5px;">
-                <div style="flex:2;text-align:left;color: #666666;margin-left: 10px;width: 70%;margin-top: 17px;">¥{{item.pn}}</div>
+                <div style="flex:2;text-align:left;color: #666666;margin-left: 10px;width: 70%;margin-top: 17px;">¥{{item.displayPrice}}</div>
                 <div style="height:30px;border-radius:50%;margin-top: 17px;margin-right: 18px;color: #666666;">x{{item.number}}</div>
             </div>
         </div>
