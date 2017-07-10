@@ -21,7 +21,7 @@
             <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
 
             <fourwhite v-else-if="floor.vt ==2||floor.vt ==3" :list="floor.data" :title="floor.title" :flag="floor.flag"></fourwhite>
-            <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag"></horizon_scroll>
+            <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag" @goToDetail="goToDetail"></horizon_scroll>
             <oneimage v-if="floor.vt ==6"></oneimage>
         </div>
         <div style="height:3px;"></div>
@@ -30,7 +30,7 @@
         <div style="height: 30px;margin-top: 15px;text-align: center;">--热门推荐--</div>
         <ul style="overflow:hidden;width:100%;">
             <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in hotlist">
-                <recommend_cell :item="item"></recommend_cell>
+                <recommend_cell :item="item" @goDetail="goDetail"></recommend_cell>
             </li>
 
         </ul>
@@ -121,6 +121,14 @@
                     }
                 });
             },
+            goDetail:function (item) {
+
+                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            },
+            goToDetail:function (item) {
+
+                Lib.go.go("/views/product/detail.html?productId="+item.aim+"&isScoreItem=0")
+            }
 
         }
     }

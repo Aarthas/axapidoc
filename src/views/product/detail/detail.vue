@@ -1,9 +1,10 @@
 <template>
     <div>
-    <div style="display: flex;flex-direction: column;margin-bottom: 60px;">
+
+    <div style="display: flex;flex-direction: column;margin-bottom: 60px;" >
         <swiper :list="bannerdata" :show-desc-mask="false"  style="width:100%;overflow: hidden;margin-top: 0px;height: auto;"
                 dots-class="custom-bottom"
-                dots-position="center" :aspect-ratio="210/375"></swiper>
+                dots-position="center" :aspect-ratio="1/1"></swiper>
         <info :item="itemsData"></info>
         <div style="background-color: white;height: 40px;margin-top: 10px;">
             <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">服务： 商品10kg以内满88元，20kg以内满176元 包邮</div>
@@ -13,16 +14,23 @@
             <div style="font-size: 13px;line-height: 40px;margin-left: 8px;color: #f03838">库存：{{stock}}件</div>
             <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
         </div>
-        <recommend :list="itemsData.recommendItemList" ></recommend>
-        <div style="height: 40px;display: flex;flex-direction: row;background-color: white;margin-top: 10px;">
-            <div style="line-height: 40px;width: 50%;text-align: center">商品介绍</div>
-            <div style="line-height: 40px;width: 50%;text-align: center">包装售后</div>
-        </div>
 
-        <introduction></introduction>
-        <guarantee></guarantee>
-            </div>
-    <bottom style="position:fixed; bottom:0; left: 0;"></bottom>
+
+
+         <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row; " id='introduction' v-on:click="toIntroduction">
+            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">商品介绍</div>
+            <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
+         </div>
+         <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;" id='guarantee' v-on:click="toGuarantee">
+            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;" >包装售后</div>
+            <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
+         </div>
+
+
+        <recommend :list="itemsData.recommendItemList" @goDetail="goDetail"  ></recommend>
+
+    </div>
+    <bottom style="position:fixed; bottom:0; left: 0;"  ></bottom>
     </div>
 
 
@@ -33,18 +41,17 @@
     import recommend from './components/recommend.vue'
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
-    import introduction from './components/introduction.vue'
-    import guarantee from './components/guarantee.vue'
-    import {Swiper} from 'vux'
+    import {Swiper,Alert} from 'vux'
     let productId = Lib.Utils.getQueryString("productId");
     let isScoreItem = Lib.Utils.getQueryString("isScoreItem");
     var page;
     export default {
-        components: {Swiper,recommend,bottom,info,introduction,guarantee},
+        components: {Swiper,recommend,bottom,info,Alert},
        data(){
             return{
                 itemsData:{},
-                stock:0
+                stock:0,
+
 
             }
        },
@@ -62,12 +69,29 @@
 
             }
         },
+        methods:{
+            toIntroduction:function () {
+
+                this.$router.push({path: '/introduction',
+                    query: {
+                    introduction: page.itemsData.introduction
+                }
+                })
+            } ,
+            toGuarantee:function () {
+
+                this.$router.push({path: '/guarantee'})
+            },
+            goDetail:function (item) {
+                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            }
+        },
         created(){
             page = this;
         },
         mounted(){
 
-            loadData(212536,0);
+            loadData(productId,isScoreItem);
         },
     }
     function loadData(productId,isScoreItem){
@@ -80,6 +104,20 @@
 
                 page.itemsData= basebean.getData();
                 loadStock(page.itemsData.erpGoodsId);
+
+            },
+            onerrcode:function (basebean) {
+
+                page.$vux.alert.show({
+                    title: '提示',
+                    content: basebean.getMessage(),
+                    onShow () {
+
+                    },
+                    onHide () {
+                        page.$router.back(-1);
+                    }
+                })
 
             }
         });

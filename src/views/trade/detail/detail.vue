@@ -27,7 +27,7 @@
         <!--商品信息-->
         <ul style="margin-top: 8px;">
             <li v-for="item in goodsList">
-                <good :item=item style="background-color: #ffffff;"></good>
+                <good :item=item style="background-color: #ffffff;" @goDetail="goDetail"></good>
             </li>
         </ul>
         <!--支付方式-配送方式-订单备注-->
@@ -70,7 +70,11 @@
 
             loadData(orderId);
         },
-
+     methods:{
+         goDetail:function (item) {
+             Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+         }
+     }
 
     }
 

@@ -6,7 +6,7 @@
                   ref="myScroller"
                   :on-infinite="infinite">
             <div style="height: 44px;"></div>
-            <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @click.native="clickitem(item)"></favorite_cell>
+            <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @goDetail="goDetail" ></favorite_cell>
         </scroller>
     </div>
 </template>
@@ -50,10 +50,6 @@
 
         },
         methods: {
-            clickitem:function (item) {
-                console.log(item)
-               Lib.go.go("/views/product/detail.html?sn="+item.sn)
-            },
 
             infinite (done) {
 
@@ -75,7 +71,9 @@
                 }
             },
 
-
+            goDetail:function (item) {
+                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            }
         }
     }
     var itemsData;

@@ -7,7 +7,7 @@
         </div>
         <div class="sortMenu clearfix">
             <ul class="sortMenu-ul" >
-                <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px; " v-for="item in list">
+                <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px; " v-for="item in list"  v-on:click="toDetail(item)">
                     <img  style="margin-top: 8px;margin-left:8px;margin-right:8px;height: 90px;" :src="item.img">
                     <div style="margin-right: 8px;margin-left:8px;margin-top: 5px;color: #666666;text-align: center;font-size: 10px;word-break: break-all ;overflow: hidden;
 text-overflow: ellipsis;
@@ -36,6 +36,12 @@ display: -webkit-box;
             title:String,
             flag:String
 
+        },
+        methods:{
+            toDetail: function (item) {
+                let that =this;
+                that.$emit('goToDetail', item)
+            }
         }
     }
 </script>

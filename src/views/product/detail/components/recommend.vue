@@ -1,12 +1,12 @@
 <template>
-    <div class="allSort" style="margin-top: 10px;">
+    <div class="allSort" style="margin-top: 10px;" >
         <!--标题-->
         <div style="display: flex;flex-direction: row;background-color: white;">
             <div style="font-size: 15px;text-align: left;height: 35px;line-height: 35px;margin-left: 8px;color: #666666;" >商品推荐</div>
         </div>
         <div class="sortMenu clearfix">
             <ul class="sortMenu-ul" >
-                <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px; " v-for="item in list">
+                <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px; " v-for="item in list" @click="toDetail(item)">
                     <img  style="margin-top: 8px;margin-left:8px;margin-right:8px;height: 90px;" :src="item.productImage">
                     <div style="margin-right: 8px;margin-left:8px;margin-top: 5px;color: #666666;text-align: center;font-size: 10px;word-break: break-all ;overflow: hidden;
 text-overflow: ellipsis;
@@ -33,6 +33,12 @@ display: -webkit-box;
                 }
             },
 
+        },
+        methods:{
+            toDetail: function (item) {
+                let that = this;
+                that.$emit('goDetail', item)
+            }
         }
     }
 </script>

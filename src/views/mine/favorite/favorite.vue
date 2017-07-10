@@ -7,7 +7,7 @@
                   :on-infinite="infinite">
         <ul >
             <li v-for="item in list">
-                <favorite_cell :item=item></favorite_cell>
+                <favorite_cell :item=item @goDetail="goDetail"></favorite_cell>
             </li>
 
         </ul>
@@ -61,7 +61,9 @@
                     }
                 }
             },
-
+            goDetail:function (item) {
+                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            }
 
         }
 
