@@ -6,7 +6,7 @@
                   ref="myScroller"
                   :on-infinite="infinite">
             <div style="height: 44px;"></div>
-            <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId"></favorite_cell>
+            <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @click.native="clickitem(item)"></favorite_cell>
         </scroller>
     </div>
 </template>
@@ -50,9 +50,11 @@
 
         },
         methods: {
-            refresh: function () {
-
+            clickitem:function (item) {
+                console.log(item)
+               Lib.go.go("/views/product/detail.html?sn="+item.sn)
             },
+
             infinite (done) {
 
                 console.log("infinite")
