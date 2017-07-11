@@ -47,6 +47,16 @@ var go = {
     }
 
 }
+
+var localStorage={
+    getCurrentAddress:function(){
+       return localStorage.getItem("currentAddress");
+    }
+,
+    setCurrentAddress:function(address){
+        localStorage.setItem("currentAddress",address);
+    }
+}
 export default{
     Utils,
     uiutil,
@@ -54,5 +64,6 @@ export default{
     constant,
     Hub,
     vux: avux,
-    go
+    go,
+    localStorage
 }

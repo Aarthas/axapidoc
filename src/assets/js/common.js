@@ -3,8 +3,8 @@
 import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 
-var baseurl = 'http://193.0.1.157:20000';
-// var baseurl = 'http://app.sanjiang.com';
+// var baseurl = 'http://193.0.1.157:20000';
+var baseurl = 'http://app.sanjiang.com';
 var Rxports = {
 
     axios: function (opt) {

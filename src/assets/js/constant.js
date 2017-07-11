@@ -6,10 +6,11 @@ function encodeWxUrl(url,scope) {
 var env = {
     isDev:true
 };
-var baseUrl;
-// baseUrl = "http://weixin.sanjiang.com/memberCenter";
-// baseUrl  = "http://localhost:9090";
-baseUrl  = "http://193.0.1.157:9090";
+
+//var baseUrl = "http://weixin.sanjiang.com/memberCenter";
+//var baseUrl  = "http://localhost:9090";
+var baseUrl  = "http://193.0.1.157:9090";
+
 var config = {
     baseurl : baseUrl,
 }

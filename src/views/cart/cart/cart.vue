@@ -3,12 +3,12 @@
     <div style="margin-bottom: 120px;">
 
         <div style="background-color: #FFFFFF;overflow: hidden;position: relative;">
-            <popup_radio title="aaa" :options="addresslist" v-model="option1" is-transparent="true">
+            <popup_radio title="aaa" :options="addresslist" v-model="addressIndex" is-transparent="true" @jt_add_address="jt_add_address" >
                 <p slot="popup-header" class="vux-1px-b demo3-slot">收货地址</p>
                 <template scope="props" slot="each-item">
                     <p style="line-height: 30px;">
                         {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
-
+                            <br/>
                         <span style="color:#666;">  {{addresslist[props.index].area }}  </span>
                     </p>
                 </template>
@@ -57,7 +57,7 @@
         },
         data () {
             return {
-                option1: 0,
+                addressIndex: 0,
                 addresslist: [],
                 cartList:[],
                 cartData:{},
@@ -72,7 +72,7 @@
 
         },
         watch: {
-            option1 (val) {
+            addressIndex (val) {
                 console.log("地址"+val);
                 let address=page.addresslist[val];
                 localStorage.setItem("MyAddress",address);
@@ -81,29 +81,28 @@
 
         },
         mounted () {
+
+            Lib.local.get
+
             Lib.axios.axios({
                 url: 'address',
                 success: function (basebean) {
                     console.log(basebean.getData())
                     let list = basebean.getData();
-//                    let listEmpty = basebean.isListEmpty();
-//                    console.log(listEmpty)
-//                    page.listEmpty = listEmpty;
-//                    page.addresslist = list;
                     page.addresslist = list.map(function (item,index) {
                         item.value = item.id;
                         item.key = index;
-
                         return item;
                     });
-                    if (  page.addresslist.length!=0 ) {
-                      loadCartData( page.addresslist[0]);
-                    }
-                    else{
-                      loadCartData( null);
-                    }
                 }
             });
+
+            if (  page.addresslist.length!=0 ) {
+                loadCartData( page.addresslist[0]);
+            }
+            else{
+                loadCartData( null);
+            }
 
 
 
@@ -126,7 +125,9 @@
         },
 
         methods: {
-
+            jt_add_address:function () {
+                Lib.go.go("/views/address/showlist.html#/add")
+            },
             changeEdit:function () {
 
                 page.isEdit=!page.isEdit;

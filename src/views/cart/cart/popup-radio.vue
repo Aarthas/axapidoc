@@ -1,11 +1,17 @@
 <template>
-    <div style="" @click="show"  >
+    <div style=""  >
 
-        <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+        <a v-if="options&&options.length>0"  @click="show" href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
             <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
             <div class="weui-cell__bd"  style="margin-right: 20px;color: #333333;line-height: 30px;">  {{options[currentValue].consignee }}     {{options[currentValue].mobile }}<br> {{options[currentValue].area }}</div>
             <span class="weui-cell__ft"></span>
 
+        </a>
+
+        <a  v-else href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link" @click="$emit('jt_add_address')">
+            <div class="weui-cell__hd" style="margin-right: 20px;color: #666666"></div>
+            <div class="weui-cell__bd" style="text-align: center;line-height: 40px;">新增收货地址<br></div>
+            <span class="weui-cell__ft"></span>
         </a>
 
         <div v-transfer-dom>
@@ -90,7 +96,8 @@
             },
             hide () {
                 this.showPopup = false
-            }
+            },
+
         },
         watch: {
             value (val) {
@@ -108,6 +115,10 @@
                 showPopup: false,
                 currentValue: this.value
             }
+        },
+        created(){
+            console.log("this.options=")
+            console.log(this.options)
         }
     }
 </script>
