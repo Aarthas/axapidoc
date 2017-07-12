@@ -2,7 +2,7 @@
 
     <div>
 
-        <ul v-if="!listEmpty" style="margin-bottom: 60px;">
+        <ul style="margin-bottom: 60px;">
             <li v-for="item in list">
 
                 <address_cell :address="item" @toEdit="toEdit"></address_cell>
@@ -10,9 +10,8 @@
             </li>
 
         </ul>
-        <div v-else style="display: flex;justify-content: center;align-items: center;height: 400px;">
+        <div  v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
             地址为空
-
         </div>
         <div style="position:fixed; bottom:0; width: 100%;">
             <x-button @click.native="toAdd" type="primary"> +添加新地址</x-button>
@@ -62,9 +61,9 @@
                 success: function (basebean) {
                     console.log(basebean.getData())
                     let list = basebean.getData();
-//                    let listEmpty = basebean.isListEmpty();
-//                    console.log(listEmpty)
-//                    page.listEmpty = listEmpty;
+                    if (list ==null || list.length==0){
+                        page.listEmpty = true;
+                    }
                     page.list = list;
 
                 }

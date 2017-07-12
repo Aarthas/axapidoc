@@ -10,9 +10,9 @@
             </div>
 
         </scroller>
-        <!--<div v-if="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-        <!--我的订单列表为空-->
-        <!--</div>-->
+        <div v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
+        我的订单列表为空
+        </div>
     </div>
 </template>
 
@@ -74,12 +74,13 @@
             url: 'orders?page=' + pageindex + "&&appOrderStatus=0",
 
             success: function (basebean) {
-//                let listEmpty = basebean.isListEmpty();
-//                page.listEmpty = listEmpty;
+
+
                 itemsData = basebean.getData();
-//                basebean.getData().list = [];
-                if (basebean.isListEmpty()) {
+
+                if (itemsData.list ==null || itemsData.list.length==0) {
                     page.listEmpty = true;
+                    page.$refs.myScroller.finishInfinite(true);
                 } else {
                     page.listEmpty = false;
                     if (basebean.getData().isFirst) {

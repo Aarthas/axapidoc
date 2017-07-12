@@ -8,6 +8,9 @@
             <div style="height: 44px;"></div>
             <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @goDetail="goDetail" ></favorite_cell>
         </scroller>
+        <div v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
+            商品列表为空
+        </div>
     </div>
 </template>
 
@@ -30,7 +33,7 @@
         data () {
             return {
 
-//                listEmpty: false,
+                listEmpty: false,
                 list: [],
                 pageIndex: 1,
 
@@ -90,9 +93,13 @@
             url: urlString,
 
             success: function (basebean) {
-//                let listEmpty = basebean.isListEmpty();
-//                page.listEmpty = listEmpty;
+
                 itemsData = basebean.getData();
+
+                if (itemsData==null||itemsData.list ==null || itemsData.list.length==0) {
+                    page.listEmpty = true;
+                    page.$refs.myScroller.finishInfinite(true);
+                }
 
                 if (basebean.getData().isFirst) {
                     page.list = basebean.getData().list;

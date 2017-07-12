@@ -16,7 +16,7 @@
       },
         mounted(){
 
-          this.introduction=this.$route.query.introduction;
+              this.introduction=this.$route.query.introduction;
         }
     }
 </script>

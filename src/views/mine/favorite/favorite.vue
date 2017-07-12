@@ -11,9 +11,9 @@
             </li>
 
         </ul>
-        <!--<div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-            <!--我的收藏为空-->
-        <!--</div>-->
+        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">
+            我的收藏为空
+        </div>
         </scroller>
     </div>
 </template>
@@ -32,7 +32,7 @@
         data () {
             return {
 
-//                listEmpty: false,
+                listEmpty: false,
                 list: [],
 
 
@@ -84,8 +84,12 @@
             url: 'collections?page=' + pageindex,
 
             success: function (basebean) {
-//                let listEmpty = basebean.isListEmpty();
-//                page.listEmpty = listEmpty;
+                let listEmpty = basebean.isListEmpty();
+                if(listEmpty ){
+                    page.$refs.myScroller.finishInfinite(true);
+                }
+                page.listEmpty = listEmpty;
+
                 itemsData= basebean.getData();
 
                 if (basebean.getData().isFirst) {
