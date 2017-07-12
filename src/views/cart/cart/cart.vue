@@ -6,8 +6,11 @@
             <div v-if="selectAddress!=null"  href="javascript:void(0);"
                class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
-                <div class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}<br> {{selectAddress.area }}
+                <div v-if="selectAddress.area" class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
+                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.area }}
+                </div>
+                <div v-else class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
+                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName }} {{selectAddress.address }}
                 </div>
                 <span class="weui-cell__ft"></span>
 
@@ -95,8 +98,8 @@
                     url: '/cartsV2?deliverType=' + deliverType,
                     success: function (basebean) {
                         console.log(basebean.getData())
-                        page.carts = basebean.getData().carts;
-
+                        page.cartData = basebean.getData();
+                        page.cartList = basebean.getData().appCarts;
                     }
                 });
             } else {
@@ -106,7 +109,8 @@
                         console.log(basebean.getData())
                         page.selectAddress = basebean.getData().address;
                         Lib.localStorage.setCurrentAddress(page.selectAddress)
-                        page.carts = basebean.getData().carts;
+                        page.cartData = basebean.getData();
+                        page.cartList = basebean.getData().carts;
 
                     }
                 });

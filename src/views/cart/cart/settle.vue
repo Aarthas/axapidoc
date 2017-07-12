@@ -13,7 +13,7 @@
             <div style=" height :25px;line-height:20px;color: #666666;font-size: 12px;margin-left: 5px;">{{item.cartV2PriceInfo.memberPriceTip}} ￥{{item.cartV2PriceInfo.memberPriceCut}}{{item.cartV2PriceInfo.scoreAmountInfo}}{{item.cartV2PriceInfo.scoreAmount}}</div>
 
         </div>
-        <div  style="width: 32vw;margin-right: 0px;background-color: #04BE02;line-height: 50px;font-size: 17px;color: white;text-align: center;">去结算({{item.selectCount}})</div>
+        <div  style="width: 32vw;margin-right: 0px;background-color: #04BE02;line-height: 50px;font-size: 17px;color: white;text-align: center;" v-on:click="myFun">去结算({{item.selectCount}})</div>
     </div>
 </template>
 
@@ -32,6 +32,12 @@
         },
         created(){
 
+        },
+        methods:{
+            myFun:function () {
+                let that =this;
+
+            }
         }
     }
 </script>

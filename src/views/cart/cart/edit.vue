@@ -6,8 +6,8 @@
         </div>
         <div style="width:42vw;"></div>
         <div style="width:50vw;flex: 1;">
-        <x-button type="primary" mini style="margin-right: 10px;">加入收藏</x-button>
-        <x-button type="primary" mini style="margin-right: 8px;">删除</x-button>
+        <x-button type="primary" mini style="margin-right: 5px;margin-top: 10px;">加入收藏</x-button>
+        <x-button type="primary" mini style="margin-right: 8px;margin-top: 10px;">删除</x-button>
         </div>
     </div>
 </template>
