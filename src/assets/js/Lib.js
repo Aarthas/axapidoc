@@ -50,11 +50,14 @@ var go = {
 
 var localStorage={
     getCurrentAddress:function(){
-       return localStorage.getItem("currentAddress");
+        let item = window.localStorage.getItem("currentAddress");
+        return JSON.parse(item);
     }
     ,
     setCurrentAddress:function(address){
-        localStorage.setItem("currentAddress",address);
+        let stringify = JSON.stringify(address);
+
+        window.localStorage.setItem("currentAddress",stringify);
     }
 }
 export default{

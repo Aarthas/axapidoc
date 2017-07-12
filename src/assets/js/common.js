@@ -3,8 +3,8 @@
 import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 
-// var baseurl = 'http://193.0.1.157:20000';
-var baseurl = 'http://app.sanjiang.com';
+var baseurl = 'http://193.0.1.157:20000';
+// var baseurl = 'http://app.sanjiang.com';
 var Rxports = {
 
     axios: function (opt) {
@@ -29,8 +29,8 @@ var Rxports = {
             data: opts.data,
             headers: opts.headers||{
                     "terminal": "50",
-                // "x-auth-token": "f3dea06f-baac-4969-9cc3-e67e8cef742d",
-                "x-auth-token": localStorage.getItem("token")||"",
+                "x-auth-token": "c6a1fb7f-984f-41ce-bf67-8516e57e2683",
+                // "x-auth-token": localStorage.getItem("token")||"",
 
             },
 
