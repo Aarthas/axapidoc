@@ -2,7 +2,7 @@
 
 
     <div style="position: relative;  overflow: hidden;padding-left: 6px;padding-right: 6px;background-color: white">
-        <div class="iconpane" v-for="item in list ">
+        <div class="iconpane" v-for="item in list " @click="clickicon(item)">
             <img class="img" style="" :src="item.img">
             <span class="info" style="">{{item.title}}</span>
         </div>
@@ -27,9 +27,11 @@
         }
         ,
         methods: {
-            myfunc: function () {
-                let that = this;
-                that.$emit('exchange', this.item)
+            clickicon:function (item) {
+                console.log(item)
+
+                window.location.href = item.url;
+
             }
         }
     }

@@ -3,13 +3,13 @@
 
     <div style="position: relative;  overflow: hidden;background-color: white;height: 187px;">
 
-        <span class="img" style="width:41.4%;height: 187px;    border-right: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[0].img+')'}"></span>
+        <span class="img" style="width:41.4%;height: 187px;    border-right: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[0].img+')'}" @click="jt_anywhere(0)"></span>
 
-        <span class="img" style="width:58.6%;height: 78px;    border-bottom: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[1].img+')'}"></span>
+        <span class="img" style="width:58.6%;height: 78px;    border-bottom: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[1].img+')'} "  @click="jt_anywhere(1)"></span>
 
-        <span class="img" style="width:29.3%;height: 109px ;    border-right: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[2].img+')'}"></span>
+        <span class="img" style="width:29.3%;height: 109px ;    border-right: 1px solid #eeeeee;" :style="{backgroundImage:'url('+list[2].img+')'}"  @click="jt_anywhere(2)"></span>
 
-        <span class="img" style="width:29.3%;height: 109px ;" :style="{backgroundImage:'url('+list[3].img+')'}"></span>
+        <span class="img" style="width:29.3%;height: 109px ;" :style="{backgroundImage:'url('+list[3].img+')'}"  @click="jt_anywhere(3)"></span>
 
     </div>
 
@@ -31,9 +31,8 @@
         }
         ,
         methods: {
-            myfunc: function () {
-                let that = this;
-                that.$emit('exchange', this.item)
+            jt_anywhere: function (index) {
+                window.location.href = this.list[index].aim;
             }
         }
     }

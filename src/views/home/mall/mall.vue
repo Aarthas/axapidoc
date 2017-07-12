@@ -86,11 +86,34 @@
             hoticondata: function () {
                 if (page.malldata.menu) {
                     let array = page.malldata.menu.map(function (value, index) {
-                        return {
-                            url: value.aim,
-                            img: value.img,
-                            title: value.title
-                        };
+                        if (value.jt == 191){
+                            return {
+                                url: value.aim,
+                                img: value.img,
+                                title: value.title
+                            };
+                        }else if(value.jt == 91){
+                          let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fmembercard%2F%23%2Findex&response_type=code&scope=snsapi_base&state=sunlight#wechat_redirect'
+                            return {
+                                url: url,
+                                img: value.img,
+                                title: value.title
+                            };
+                        }else if(value.jt == 41){
+                            return {
+                                url: Lib.constant.baseurl+"/views/trade/list.html",
+                                img: value.img,
+                                title: value.title
+                            };
+                        }
+                        else if(value.jt == 71){
+                            return {
+                                url: Lib.constant.baseurl+"/views/mine/favorite.html",
+                                img: value.img,
+                                title: value.title
+                            };
+                        }
+
                     })
                     return array;
                 }
