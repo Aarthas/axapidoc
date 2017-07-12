@@ -52,7 +52,7 @@ var localStorage={
     getCurrentAddress:function(){
        return localStorage.getItem("currentAddress");
     }
-,
+    ,
     setCurrentAddress:function(address){
         localStorage.setItem("currentAddress",address);
     }
