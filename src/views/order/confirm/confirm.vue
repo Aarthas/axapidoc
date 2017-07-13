@@ -5,8 +5,10 @@
         <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
             <div  class="orderInfo">联系电话：{{address.mobile}}</div>
-            <div  class="orderInfo">收货地址：{{address.detailAddress}}</div>
-            <div  class="orderInfo">配送方式：</div>
+            <div v-if="address.isDeliver" class="orderInfo">取货方式：配送</div>
+            <div v-else class="orderInfo">取货方式：自提</div>
+            <div v-if="address.isDeliver" class="orderInfo">收货地址：{{address.area}}{{address.detailAddress}}</div>
+            <div v-else class="orderInfo">自提地址：{{address.shopName}}  {{address.address}}</div>
             <div  style="height: 8px;background-color: white;"></div>
         </div>
         <!--支付方式-->
@@ -85,23 +87,28 @@
         mounted(){
 
             page = this;
-
-            loadData();
+            page.address = Lib.localStorage.getCurrentAddress();
+            loadData(page.address);
         },
         methods:{
 
         }
     }
-    function loadData(){
-
-
+    function loadData(address){
+        var deliverType;
+        if (address.isDeliver==true){
+            deliverType="deliver";
+        }else {
+            deliverType="pick_shop";
+        }
+        console.log("dadas"+address.addressId,address.shopId,deliverType)
         Lib.axios.axios({
             method: "post",
             url: "/orders/goToConfirmOrder",
             data:{
-                addressId : "15859",
-                shopId : "00008",
-                deliverType : "deliver"
+                addressId : address.id,
+                shopId : address.shopId,
+                deliverType : deliverType
             },
             success: function (basebean) {
 
@@ -127,6 +134,7 @@
         color: #666666;
         margin-left: 8px;
         margin-top: 8px;
+        margin-right: 8px;
     }
     .cell{
         font-size: 14px;
