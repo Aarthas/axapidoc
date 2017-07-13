@@ -7,7 +7,7 @@
         </div>
         <div style="display: flex;flex-direction: row;margin: 0px 8px 8px 8px;">
            <div style="color: #f03838;font-size: 15px;text-align: left;flex: 1;margin-top: 10px;" @click="toDetail">￥{{item.pn}}</div>
-           <img style="margin-bottom: 0;margin-right: 0;width: 30px;height: 30px;margin-top: 10px;" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" @click="action_addtocart">
+           <img style="margin-bottom: 0;margin-right: 0;width: 30px;height: 30px;margin-top: 10px;" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" @click="action_addToCart">
         </div>
     </div>
 
@@ -26,7 +26,7 @@
                 let that = this;
                 that.$emit('goDetail', this.item)
             },
-            action_addtocart:function () {
+            action_addToCart:function () {
 
                 Lib.axios.addtocart({
                     number:1,

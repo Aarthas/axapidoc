@@ -28,11 +28,12 @@
 </template>
 
 <script>
-
+    import Lib from 'assets/js/Lib';
     const Big = require('big.js')
     export default {
         components: {},
         props: {
+            item:Object,
             min: Number,
             max: Number,
             readonly: Boolean,
@@ -69,10 +70,10 @@
                 type: String,
                 default: 'right'
             },
-            item:Object,
+
         },
         created () {
-            this.currentValue = this.value
+            this.currentValue = this.item.number;
         },
         data () {
             return {
@@ -107,16 +108,22 @@
         },
         methods: {
             add () {
-                if (!this.disabledMax) {
-                    const x = new Big(this.currentValue)
-                    this.currentValue = x.plus(this.step) * 1
-                }
+//                if (!this.disabledMax) {
+//                    const x = new Big(this.currentValue)
+//                    this.currentValue = x.plus(this.step) * 1
+//                }
+
+                    Lib.Hub.$emit('add',this.item); //Hub触发事件
+
             },
             sub () {
-                if (!this.disabledMin) {
-                    const x = new Big(this.currentValue)
-                    this.currentValue = x.minus(this.step) * 1
-                }
+//                if (!this.disabledMin) {
+//                    const x = new Big(this.currentValue)
+//                    this.currentValue = x.minus(this.step) * 1
+//                }
+
+                    Lib.Hub.$emit('sub',this.item); //Hub触发事件
+
             },
             blur () {
                 if (this.currentValue === '') {

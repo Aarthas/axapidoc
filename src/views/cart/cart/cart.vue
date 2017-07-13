@@ -23,12 +23,15 @@
         </div>
         <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
 
-        <div style="background-color: white;height: 30px; margin-top: 10px;">
-            <div v-on:click="changeEdit"
+        <div style="background-color: white;height: 30px; margin-top: 10px;" >
+            <div  v-on:click="changeEdit"
                  style="width: 60px;float:right;margin-right:8px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
                 {{editStatu}}
             </div>
         </div>
+        <!--<div  v-show="cartList.length==0" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
+            <!--购物车列表为空-->
+        <!--</div>-->
         <ul>
             <li v-for="item in cartList">
                 <cart_temp :item="item">
@@ -36,8 +39,8 @@
             </li>
 
         </ul>
-        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSettle="goSettle"></settle>
-        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData"></edit>
+        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSettle="goSettle" @goSelectAll="goSelectAll"></settle>
+        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll" @addToFav="addToFav" @deleteAll="deleteAll"></edit>
     </div>
 </template>
 
@@ -45,7 +48,7 @@
 <script>
 
 
-    import {Group, XInput, XButton, XNumber} from 'vux'
+    import {Group, XInput, XButton, XNumber,Toast} from 'vux'
     import Lib from 'assets/js/Lib';
     import popup_radio from './popup-radio.vue'
     import cart_temp from './cart_temp.vue'
@@ -63,7 +66,8 @@
             XNumber,
             cart_temp,
             settle,
-            edit
+            edit,
+            Toast
         },
         data () {
             return {
@@ -71,7 +75,8 @@
                 cartList: [],
                 cartData: {},
                 isEdit: false,
-                editStatu: "编辑商品"
+                editStatu: "编辑商品",
+
             };
         },
         watch: {
@@ -82,10 +87,10 @@
         created () {
             page = this;
 
-            Lib.Hub.$on('selectSingle', (cellItem) => { //Hub接收事件
+            Lib.Hub.$on('selectSingle', (cellItem) => { //Hub接收 选中单个 事件
                 selectSingle(cellItem);
             });
-            Lib.Hub.$on('goDetail', (cellItem) => { //Hub接收事件
+            Lib.Hub.$on('goDetail', (cellItem) => { //Hub接收 去商品详情 事件
                 if(cellItem.score>0) {
                     Lib.go.go("/views/product/detail.html?productId="+cellItem.sn+"&isScoreItem=0")
                 }else{
@@ -93,14 +98,64 @@
                 }
 
             });
+            Lib.Hub.$on('add', (item) => { //Hub接收 + 事件
+                var newNumber=item.number+1
+                console.log("比较"+newNumber,item.stock);
+                if (newNumber>item.stock){
+                    newNumber=item.stock;
+                    page.$vux.toast.show({
+                        type:'cancel',
+                        text: '就这么多啦！'
+                    })
+                }
+                var score;
+                if (item.score==null){
+                    score=0;
+                }else{
+                    score=item.score;
+                }
+                var deliverType = page.selectAddress.isDeliver?1:2;
+              var param = {
+                    id: item.erpGoodsId,
+                    number: newNumber,
+                    deliverType:deliverType,
+                    cartStatus: score >0 ? 3 :1
+                };
+              updateNumber(param);
+
+            });
+            Lib.Hub.$on('sub', (item) => { //Hub接收 - 事件
+                 var newNumber=item.number-1;
+                 if(newNumber<1){
+                     page.$vux.toast.show({
+                         type:'cancel',
+                         text: '不能少于1件哦！'
+                     })
+                     return;
+                 }else if(newNumber > item.stock){
+                     newNumber=item.stock;
+                 };
+                var score;
+                if (item.score==null){
+                    score=0;
+                }else{
+                    score=item.score;
+                }
+                var deliverType = page.selectAddress.isDeliver?1:2;
+                var param = {
+                    id: item.erpGoodsId,
+                    number: newNumber,
+                    deliverType:deliverType,
+                    cartStatus: score >0 ? 3 :1
+                };
+                updateNumber(param);
+            });
 
         },
 
         mounted () {
 
             let currentAddress = Lib.localStorage.getCurrentAddress();
-//            console.log("currentAddress")
-//            console.log(JSON.stringify(currentAddress))
             if (currentAddress != null) {
                 page.selectAddress = currentAddress;
                 let deliverType = currentAddress.isDeliver ? 1 : 2;
@@ -127,14 +182,15 @@
                 });
             }
 
-
         },
 
 
         methods: {
+//            选择地址
             jt_select_address: function () {
                 Lib.go.go("/views/address/selectaddress.html")
             },
+//            改变编辑商品状态
             changeEdit: function () {
 
                 page.isEdit = !page.isEdit;
@@ -144,9 +200,105 @@
                     page.editStatu = "完成"
                 }
             },
+//            去结算
             goSettle:function () {
                 Lib.go.go("/views/order/confirm.html")
-            }
+            },
+//            全选
+            goSelectAll:function (item) {
+                var deliverType = page.selectAddress.isDeliver?1:2;
+                var selectAll = item.selectAll?0:1 ;
+                Lib.axios.axios({
+                    method: "post",
+                    url:"/cartsV2/selectAllOrCancel",
+                    data:{
+                        selectAll:selectAll,
+                        deliverType:deliverType,
+
+                    },
+                    success: function (basebean) {
+                        console.log('返回的'+basebean.getData())
+                        page.cartData = basebean.getData();
+                        page.cartList = basebean.getData().appCarts;
+
+                    },
+                    onerrcode:function (basebean) {
+                        page.$vux.toast.show({
+                          type:'cancel',
+                          text: basebean.getMessage()
+                         })
+
+                    }
+
+                });
+            },
+//            加入收藏
+            addToFav:function (item) {
+                var newSelectedData=[];
+                item.appCarts.filter(function (item) {
+
+                      if (item.typeId != -1) {
+                          var list = item.list;
+                          list.filter(function (itemObject) {
+                              if (itemObject.isSelected==1) {
+                                  newSelectedData.push(itemObject.erpGoodsId);
+                              }
+                          })
+                      }
+                  });
+               if (newSelectedData.length==0){
+                   page.$vux.toast.show({
+                    type:'cancel',
+                    text: '至少选择一件商品'
+                })
+               };
+                Lib.axios.axios({
+                    method: "post",
+                    url:"/collections/addItems",
+                    data:{
+                        ids:newSelectedData,
+                    },
+                    success: function (basebean) {
+                        page.$vux.toast.show({
+                            text: basebean.getMessage()
+                        })
+
+                    },
+                    onerrcode:function (basebean) {
+                         page.$vux.toast.show({
+                              type:'cancel',
+                              text: basebean.getMessage()
+                         })
+
+                    }
+
+                });
+            },
+//            删除选中
+            deleteAll:function (item) {
+                var deliverType = page.selectAddress.isDeliver?1:2;
+                Lib.axios.axios({
+                    method: "post",
+                    url:"/cartsV2/deleteSelects",
+                    params:{
+                        deliverType:deliverType,
+                    },
+                    success: function (basebean) {
+                        console.log('返回的'+basebean.getData())
+                        page.cartData = basebean.getData();
+                        page.cartList = basebean.getData().appCarts;
+
+                    },
+                    onerrcode:function (basebean) {
+                        page.$vux.toast.show({
+                           type:'cancel',
+                           text: basebean.getMessage()
+                        })
+
+                    }
+
+                });
+            },
         }
     }
     function loadCartData() {
@@ -160,6 +312,7 @@
             }
         });
     }
+    //选中单个
     function selectSingle(cellItem) {
        var score;
         if (cellItem.score==null){
@@ -167,18 +320,8 @@
         }else{
             score=cellItem.score;
         }
-        var deliverType;
-        if (page.selectAddress.isDeliver){
-            deliverType=1;
-        }else{
-            deliverType=0;
-        }
-        var isSelect;
-        if(cellItem.isSelected){
-            isSelect=0;
-        }else{
-            isSelect=1;
-        }
+        var deliverType = page.selectAddress.isDeliver?1:2;
+        var isSelect = cellItem.isSelected?0:1 ;
         Lib.axios.axios({
             method: "post",
             url:"/cartsV2/selectOrCancel",
@@ -189,16 +332,40 @@
                 cartStatus:score>0?3:1
             },
             success: function (basebean) {
-                  console.log('返回的'+basebean.getData())
-                page.cartData = basebean.getData();
-                page.cartList = basebean.getData().appCarts;
 
+                page.cartData=basebean.getData() ;
+//                Todo:数组改变不会被检测到 用set
+                page.cartList=[...basebean.getData().appCarts];
+//                vm.$set(page.cartList,1,null)
             },
             onerrcode:function (basebean) {
-//                page.$vux.toast.show({
-//                    type:'cancel',
-//                    text: basebean.getMessage()
-//                })
+                page.$vux.toast.show({
+                    type:'cancel',
+                    text: basebean.getMessage()
+                })
+
+            }
+
+        });
+    }
+    //加减数量
+    function updateNumber(param){
+        Lib.axios.axios({
+            method: "post",
+            url:"/cartsV2/updateNum",
+            data:param,
+            success: function (basebean) {
+
+                page.cartData=basebean.getData() ;
+//                Todo:数组改变不会被检测到 用set
+                page.cartList=[...basebean.getData().appCarts];
+//                vm.$set(page.cartList,1,null)
+            },
+            onerrcode:function (basebean) {
+                page.$vux.toast.show({
+                    type:'cancel',
+                    text: basebean.getMessage()
+                })
 
             }
 

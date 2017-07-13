@@ -30,7 +30,7 @@
         <recommend :list="itemsData.recommendItemList" @goDetail="goDetail"  ></recommend>
 
     </div>
-    <bottom style="position:fixed; bottom:0; left: 0;"  ></bottom>
+    <bottom style="position:fixed; bottom:0; left: 0;" @addCart="addCart" ></bottom>
     </div>
 
 
@@ -84,6 +84,13 @@
             },
             goDetail:function (item) {
                 Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            },
+            addCart:function () {
+                Lib.axios.addtocart({
+                    number:1,
+                    cartStatus:1,
+                    data:page.itemsData.erpGoodsId,
+                } ,this)
             }
         },
         created(){

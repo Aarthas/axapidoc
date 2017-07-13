@@ -7,7 +7,7 @@
             <div style="display:flex;text-align: left;margin-left:5px;margin-right:8px;margin-top: 10px;height: 40px;" v-on:click="toDetail">{{item.name}}</div>
             <div style="display:flex;flex-direction: row;">
                 <div style="flex:2;text-align:left;color: #f03838;margin-left: 10px;width: 70%;margin-top: 10px;" v-on:click="toDetail">¥{{item.pn}}</div>
-                <img style="height:34px;margin-top: 10px;margin-right: 10px;" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png">
+                <img style="height:34px;margin-top: 10px;margin-right: 10px;" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" @click="action_addToCart">
 
             </div>
         </div>
@@ -16,7 +16,8 @@
 </template>
 
 <script>
-    import { XImg } from 'vux'
+    import { XImg } from 'vux';
+    import Lib from 'assets/js/Lib';
     export default {
 
         components: {
@@ -31,6 +32,16 @@
 
                 let that = this;
                 that.$emit('goDetail', this.item)
+            },
+            action_addToCart:function () {
+
+                Lib.axios.addtocart({
+                    number:1,
+                    cartStatus:1,
+                    data:this.item.erpGoodsId,
+
+
+                } ,this)
             }
         }
 

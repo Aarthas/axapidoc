@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex;flex-direction: row;height: 110px;margin-bottom: 10px;background-color: white;">
+    <div style="display: flex;flex-direction: row;height: 110px;margin-bottom: 1px;background-color: white;">
         <!--左 选中按钮-->
         <div v-if="typedId !=-1" style="width: 30px;" v-on:click="single">
             <img v-if="isSelected==1" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 45px;" />
@@ -19,7 +19,7 @@
             <!--下  价格+加减-->
             <div style="display: flex;flex-direction: row;flex: 1;">
                 <div style="color: #f03838;margin-top: 17px;" v-on:click="myFun">￥{{cellItem.displayPrice}}</div>
-                <add_sub v-show="typedId !=-1" style="margin-right: 8px;flex: 1;"></add_sub>
+                <add_sub v-show="typedId !=-1" :item="cellItem" style="margin-right: 8px;flex: 1;"></add_sub>
             </div>
         </div>
     </div>
