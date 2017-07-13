@@ -24,7 +24,7 @@ import Utils from './Utils';
 import uiutil from './uiutil';
 import constant from './constant';
 import avux from './avux';
-
+import localstorage from './localstorage';
 
 //解决click点击300毫秒延时问题
 import FastClick from 'fastclick';
@@ -48,18 +48,7 @@ var go = {
 
 }
 
-var localStorage={
-    getCurrentAddress:function(){
-        let item = window.localStorage.getItem("currentAddress");
-        return JSON.parse(item);
-    }
-    ,
-    setCurrentAddress:function(address){
-        let stringify = JSON.stringify(address);
 
-        window.localStorage.setItem("currentAddress",stringify);
-    }
-}
 export default{
     Utils,
     uiutil,
@@ -68,5 +57,5 @@ export default{
     Hub,
     vux: avux,
     go,
-    localStorage
+    localStorage:localstorage
 }

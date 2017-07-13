@@ -79,9 +79,10 @@
                 };
                 console.log(params)
                 Lib.axios.axios({
-                    showload:true,
-                    page:page,
-                    loadtext:"加载中",
+                    loading:{
+                        loadtext:'请稍等',
+                        page:page
+                    },
                     method:'post',
                     params:params,
                     url: 'login',

@@ -85,9 +85,10 @@
             startCount: function (v) {
 
                 Lib.axios.axios({
-                    showload:true,
-                    page:page,
-                    loadtext:"加载中",
+                    loading:{
+                        loadtext:'请稍等',
+                        page:page
+                    },
                     method:'post',
                     url: 'users/smsForLogin?mobile='+page.mobile,
                     success: function (basebean) {
@@ -103,9 +104,10 @@
             doSubmit: function () {
 
                 Lib.axios.axios({
-                    showload:true,
-                    page:page,
-                    loadtext:"加载中",
+                    loading:{
+                        loadtext:'请稍等',
+                        page:page
+                    },
                     method:'post',
                     url: 'users/loginBySms?mobile='+page.mobile+"&smscode="+page.smscode,
                     success: function (basebean) {
