@@ -78,7 +78,7 @@
         </group>
 
         <div style="margin: 30px  12px;">
-            <x-button @click.native="submit" type="primary"> 提交</x-button>
+            <x-button @click.native="submit" type="primary" :disabled="submitDisabled"> 提交</x-button>
 
         </div>
     </div>
@@ -122,7 +122,7 @@
                 p_content: "",
                 p_contact: "",
                 p_mobile: "",
-
+                submitDisabled:false,
                 previewimages: [],
 //                previewimagesBase64: [],
             };
@@ -133,6 +133,7 @@
 
         },
         mounted () {
+            console.log("getComplaintPreData")
             Lib.axios.axios({
                 url: 'complaint/getComplaintPreData',
                 success: function (basebean) {
@@ -188,6 +189,12 @@
             ,
             submit: function () {
                 console.log("submit")
+                page.submitDisabled = true;
+
+                setTimeout(function () {
+                    page.submitDisabled = false;
+                },1500)
+                console.log("submit")
                 console.log("submit p_platform = " + page.p_platform)
                 console.log("submit p_type = " + page.p_type)
                 console.log("submit p_platform = " + page.p_platform)
@@ -203,10 +210,12 @@
 
                 if (page.p_platform <= 0) {
                     Lib.uiutil.showtoast(page, '请选择平台')
+
                     return;
                 }
                 if (page.p_type <= 0) {
                     Lib.uiutil.showtoast(page, '请选择投诉类型')
+
                     return;
                 }
 
@@ -220,10 +229,12 @@
 //                }
                 if (page.p_content == null || page.p_content.length == 0) {
                     Lib.uiutil.showtoast(page, '请输入投诉的内容')
+
                     return;
                 }
                 if (page.p_mobile == null || page.p_mobile.length == 0) {
                     Lib.uiutil.showtoast(page, '请输入联系电话')
+
                     return;
                 }
                 let shopid
@@ -238,6 +249,7 @@
 
 
                 if (page.previewimages.length > 0) {
+                    Lib.vux.showLoad(page,'正在提交')
                     let localIds = [];
 
                     page.previewimages.forEach(function (value, index, array) {
@@ -246,6 +258,7 @@
                     if (showalert)
                         alert("localIds=" + JSON.stringify(localIds))
                     let serverIds = [];
+
                     page.syncUploadImage(localIds, serverIds, function (serverIds) {
                         if (showalert)
                             alert("syncUpload  SUCCESS")
@@ -273,6 +286,7 @@
 
                     });
                 } else {
+                    Lib.vux.showLoad(page,'正在提交')
                     let data = {
 
                         platform: page.p_platform,
@@ -310,6 +324,9 @@
                             width: "19em"
                         })
 
+                    },
+                    onAfert:function () {
+                        Lib.vux.hideLoad(page)
                     }
                 })
             },
@@ -335,7 +352,8 @@
                             finish(serverIds);
 
                         }
-                    }
+                    },
+
                 });
             },
             chooseImage: function () {

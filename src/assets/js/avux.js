@@ -4,10 +4,8 @@ export default {
             text: text
         })
     },
-    hideLoad:function (page, text) {
-        page.$vux.loading.show({
-            text: text
-        })
+    hideLoad:function (page) {
+        page.$vux.loading.hide()
     },
     showtoast:function (page, text,type) {
         page.$vux.toast.show({
