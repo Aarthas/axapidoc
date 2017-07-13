@@ -1,10 +1,9 @@
-
-
 import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
-var baseurl = 'http://193.0.1.157:20000';
+// var baseurl = 'http://193.0.1.157:20000';
 // var baseurl = 'http://app.sanjiang.com';
+var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
     /*
@@ -12,31 +11,31 @@ var Rxports = {
      params.put("data", erpGoodsId);
      params.put("cartStatus", cartStatus);
      */
-    addtocart:function (data,page) {
+    addtocart: function (data, page) {
         this.axios({
-            method:'post',
+            method: 'post',
             url: '/cartsV2/v2/add',
-            data:data,
-            loading:{
-                loadtext:'请稍等',
-                page:page
+            data: data,
+            loading: {
+                loadtext: '请稍等',
+                page: page
             },
-            success:function (basebean) {
-                if (basebean.isSuccess()){
+            success: function (basebean) {
+                if (basebean.isSuccess()) {
                     page.$vux.toast.show({
                         text: basebean.getMessage(),
                         width: "14em"
                     })
                 }
             },
-            onerrcode:function (basebean) {
+            onerrcode: function (basebean) {
                 page.$vux.toast.show({
                     text: basebean.getMessage(),
-                    type:'text',
+                    type: 'text',
                     width: "19em"
                 })
             }
-            
+
         })
     },
 
@@ -44,24 +43,23 @@ var Rxports = {
 
         var opts = opt || {};
 
-
-        if (opt.loading)
-        {
+        if (opt.loading) {
             opt.loading.page.$vux.loading.show({
                 text: opt.loading.loadtext
             })
         }
-        console.log("localStorage.getItem(token)="+localStorage.getItem("token"))
+        console.log("localStorage.getItem(token)=" + localStorage.getItem("token"))
+        let shopid = localstorage.getCurrentAddress()==null ? "00023":localstorage.getCurrentAddress().shopId;
         axios({
             method: opts.method || 'get',
             url: opts.url,
             params: opts.params || {},
             data: opts.data,
-            headers: opts.headers||{
-                    "terminal": "50",
-                "shopId": localstorage.getCurrentAddress().shopId,
-                "x-auth-token": "bedc8b82-ccdb-4b55-a7b9-2742d76d4af2",
-                // "x-auth-token": localStorage.getItem("token")||"",
+            headers: opts.headers || {
+                "terminal": "50",
+                "shopId": shopid,
+                // "x-auth-token": "bedc8b82-ccdb-4b55-a7b9-2742d76d4af2",
+                "x-auth-token": localStorage.getItem("token") || "",
 
             },
 
@@ -98,8 +96,7 @@ var Rxports = {
             if (opts.onAfter) {
                 opts.onAfter();
             }
-            if (opt.loading)
-            {
+            if (opt.loading) {
                 opt.loading.page.$vux.loading.hide()
             }
 
@@ -113,8 +110,7 @@ var Rxports = {
             if (opts.onAfter) {
                 opts.onAfter();
             }
-            if (opt.loading)
-            {
+            if (opt.loading) {
                 opt.loading.page.$vux.loading.hide()
             }
 

@@ -9,6 +9,7 @@ import exchange from './exchange.vue'
 
 
 const routes = [
+    { path: '/', component: list },
     { path: '/list', component: list },
     { path: '/exchange', component: exchange },
 

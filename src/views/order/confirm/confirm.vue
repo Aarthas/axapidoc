@@ -1,6 +1,7 @@
 <template>
     <div style="margin-bottom: 70px;">
 
+
         <!--收货信息-->
         <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
@@ -39,7 +40,7 @@
         </div>
         <!--优惠券-->
         <group style="margin-top: -10px;">
-            <cell style="font-size: 14px;margin-left: -8px;" title="优惠券" is-link>
+            <cell style="font-size: 14px;margin-left: -8px;" title="优惠券" is-link @click.native="jt_usecoupon">
                 <div style="background-color: #f03838;font-size: 12px;color: white;text-align: left;border-radius: 2%; ">{{coupons_able_count}}张可用</div>
             </cell>
         </group>
@@ -59,7 +60,9 @@
         </ul>
 
         <bottom  style="position:fixed; bottom:0; left: 0;" :item="priceInfo"></bottom>
-    </div>
+        </div>
+
+
 </template>
 
 <script>
@@ -67,10 +70,11 @@
     import good from  '../../../views/trade/components/goodsitem.vue'
     import priceDetail from  '../../../views/trade/components/priceDetail.vue'
     import bottom from './components/bottom.vue'
+     import selectcoupons from '../selectcoupons/list.vue'
     import { Group, Cell,XButton,Toast,XInput} from 'vux';
     var page;
     export default {
-        components: {good,priceDetail,Group,Cell,XButton,bottom,Toast,XInput},
+        components: {good,priceDetail,Group,Cell,XButton,bottom,Toast,XInput,selectcoupons},
         data () {
             return {
                 priceInfo:{},
@@ -79,7 +83,8 @@
                 payType:{},
                 address:{},
                 coupons_able_count:0,
-                remarket:"" //备注
+                remarket:"" ,//备注
+
 
             }
         },
@@ -91,7 +96,9 @@
             loadData(page.address);
         },
         methods:{
-
+            jt_usecoupon:function () {
+                this.$router.push({path:"list"})
+            }
         }
     }
     function loadData(address){
