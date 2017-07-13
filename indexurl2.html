@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <meta name="format-detection" content="telephone=no">
+  <title>三江购物</title>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.7/vue.min.js"></script>
+</head>
+
+
+<body>
+
+<div id="aapp">
+  <p>product</p><br>
+  <p>{{ pro0 }}</p><br>
+  <p>{{ pro1 }}</p><br>
+
+  <p>dev</p><br>
+  <p>{{ dev0 }}</p><br>
+  <p>{{ dev1 }}</p><br>
+
+</div>
+
+
+<script>
+
+  var app = new Vue({
+    el: '#aapp',
+    data: {
+        pro0: "http://weixin.sanjiang.com/sjmarket/views/complaint/submit.html",
+        pro1: encodeWxUrl("http://weixin.sanjiang.com/sjmarket/views/complaint/submit.html"),
+        dev0: "http://weixin.sanjiang.com/memberCenter/views/complaint/submit.html",
+        dev1: encodeWxUrl("http://weixin.sanjiang.com/memberCenter/views/complaint/submit.html"),
+    }
+  })
+
+
+
+
+  function encodeWxUrl(url) {
+    let encodeurl = encodeURIComponent(url)
+    let authedUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri="+encodeurl+"&response_type=code&scope=snsapi_base&state=sunlight#wechat_redirect"
+    return authedUrl;
+  }
+
+
+
+</script >
+
+
+
+</body>
+</html>

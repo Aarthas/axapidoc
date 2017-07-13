@@ -4,6 +4,11 @@
 周五，调试，修改bug,部署
 http://localhost:9090/views/user/login.html
 
+ttps://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fsjmarket%2Fviews%2Fcomplaint%2Fsubmit.html&response_type=code&scope=snsapi_base#wechat_redirect
+
+
+http://weixin.sanjiang.com/sjmarket/views/complaint/submit.html
+
 
 
 
