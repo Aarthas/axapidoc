@@ -2,7 +2,7 @@
 
     <div style="margin-bottom: 120px;">
 
-        <div  style="background-color: #FFFFFF;overflow: hidden;position: relative;" @click="jt_select_address">
+        <div  style="background-color: lightyellow;overflow: hidden;position: relative;" @click="jt_select_address">
             <div v-if="selectAddress!=null"  href="javascript:void(0);"
                class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
@@ -49,6 +49,7 @@
 
 
     import {Group, XInput, XButton, XNumber,Toast} from 'vux'
+    import Vue from 'vue';
     import Lib from 'assets/js/Lib';
     import popup_radio from './popup-radio.vue'
     import cart_temp from './cart_temp.vue'
@@ -86,11 +87,12 @@
         computed: {},
         created () {
             page = this;
-
-            Lib.Hub.$on('selectSingle', (cellItem) => { //Hub接收 选中单个 事件
+            //Hub接收 选中单个 事件
+            Lib.Hub.$on('selectSingle', (cellItem) => {
                 selectSingle(cellItem);
             });
-            Lib.Hub.$on('goDetail', (cellItem) => { //Hub接收 去商品详情 事件
+            //Hub接收 去商品详情 事件
+            Lib.Hub.$on('goDetail', (cellItem) => {
                 if(cellItem.score>0) {
                     Lib.go.go("/views/product/detail.html?productId="+cellItem.sn+"&isScoreItem=0")
                 }else{
@@ -98,7 +100,8 @@
                 }
 
             });
-            Lib.Hub.$on('add', (item) => { //Hub接收 + 事件
+            //Hub接收 + 事件
+            Lib.Hub.$on('add', (item) => {
                 var newNumber=item.number+1
                 console.log("比较"+newNumber,item.stock);
                 if (newNumber>item.stock){
@@ -124,7 +127,8 @@
               updateNumber(param);
 
             });
-            Lib.Hub.$on('sub', (item) => { //Hub接收 - 事件
+            //Hub接收 - 事件
+            Lib.Hub.$on('sub', (item) => {
                  var newNumber=item.number-1;
                  if(newNumber<1){
                      page.$vux.toast.show({
@@ -150,11 +154,8 @@
                 };
                 updateNumber(param);
             });
-
         },
-
         mounted () {
-
             let currentAddress = Lib.localStorage.getCurrentAddress();
             if (currentAddress != null) {
                 page.selectAddress = currentAddress;
@@ -183,8 +184,6 @@
             }
 
         },
-
-
         methods: {
 //            选择地址
             jt_select_address: function () {
@@ -336,7 +335,7 @@
                 page.cartData=basebean.getData() ;
 //                Todo:数组改变不会被检测到 用set
                 page.cartList=[...basebean.getData().appCarts];
-//                vm.$set(page.cartList,1,null)
+
             },
             onerrcode:function (basebean) {
                 page.$vux.toast.show({

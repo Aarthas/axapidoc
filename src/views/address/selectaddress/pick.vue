@@ -1,7 +1,12 @@
 <template>
     <div>
         <div>
-
+            <!--收货信息-->
+            <div style="display:flex;flex-direction:column;background-color: lightyellow;margin-top: 8px;" @click="choosePick">
+                <div  class="orderInfo">[历史自提] {{historyPickAddress.consignee}}   {{historyPickAddress.mobile}}</div>
+                <div  class="orderInfo">自提地址：{{historyPickAddress.shopName}} | {{historyPickAddress.detailAddress}}</div>
+                <div  style="height: 8px;background-color: white;"></div>
+            </div>
             <group title="请输入用户信息">
                 <YInput :item="{placeholder:'联系人',title:'联系人'}" v-model="p_contact"></YInput>
                 <YInput :item="{placeholder:'联系电话',title:'联系电话',istype:'number'}"  v-model="p_mobile"></YInput>
@@ -50,6 +55,7 @@
                 pickValue: [],
                 detail_address: '',
                 shopId:"",
+                historyPickAddress:{}
             }
         },
         computed: {},
@@ -60,7 +66,7 @@
         },
 
         mounted(){
-
+           //门店选择器数据
             Lib.axios.axios({
                 url: '/pickShops',
                 success: function (basebean) {
@@ -80,6 +86,13 @@
                     console.log(newAreaData)
                     page.newAreaData = newAreaData;
 
+                }
+            });
+            //历史自提门店
+            Lib.axios.axios({
+                url: 'pickShops/getShopPick',
+                success: function (basebean) {
+                    page.historyPickAddress = basebean.getData();
                 }
             });
         },
@@ -145,18 +158,10 @@
                 });
 
             },
-//            change:function (newvalue) {
-//                console.log('new Value', newvalue);
-//
-//                function findshopid(element) {
-//
-//                    return element.value == newvalue[1];
-//                }
-//
-//                let find = page.newAreaData.find(findshopid);
-//
-//                page.shopId=find.shopId;
-//            }
+            choosePick:function () {
+                Lib.localStorage.setCurrentAddress(page.historyPickAddress);
+                history.go(-1)
+            }
         },
 
 
@@ -165,5 +170,9 @@
 
 
 <style lang="less">
-
+    .orderInfo{
+        color: #666666;
+        margin-left: 8px;
+        margin-top: 8px;
+    }
 </style>
