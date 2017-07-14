@@ -336,6 +336,7 @@
 //                Todo:数组改变不会被检测到 用set
                 page.cartList=page.cartData.appCarts;
 //               page.$set(page,page.cartList,basebean.getData().appCarts);
+//                page.$data.cartList=basebean.getData().appCarts;
             },
             onerrcode:function (basebean) {
                 page.$vux.toast.show({
