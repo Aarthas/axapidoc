@@ -70,11 +70,10 @@
     import good from  '../../../views/trade/components/goodsitem.vue'
     import priceDetail from  '../../../views/trade/components/priceDetail.vue'
     import bottom from './components/bottom.vue'
-     import selectcoupons from '../selectcoupons/list.vue'
     import { Group, Cell,XButton,Toast,XInput} from 'vux';
     var page;
     export default {
-        components: {good,priceDetail,Group,Cell,XButton,bottom,Toast,XInput,selectcoupons},
+        components: {good,priceDetail,Group,Cell,XButton,bottom,Toast,XInput},
         data () {
             return {
                 priceInfo:{},
@@ -97,7 +96,7 @@
         },
         methods:{
             jt_usecoupon:function () {
-                this.$router.push({path:"list"})
+                this.$router.push({path:"usecoupon"})
             }
         }
     }

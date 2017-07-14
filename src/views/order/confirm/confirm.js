@@ -10,14 +10,12 @@ Vue.use(VueRouter)
 import App from './app.vue'
 
 import confirm from './confirm.vue'
-
-import list from '../selectcoupons/list.vue'
 import usecoupon from '../selectcoupons/usecoupon.vue'
 const routes = [
     { path: '/', component: confirm },
     { path: '/confirm', component: confirm },
     { path: '/usecoupon', component: usecoupon },
-    { path: '/list', component: list },
+
 ]
 
 
