@@ -8,7 +8,7 @@
             <div  style="height: 8px;background-color: white;"> </div>
         </div>
         <div style="background-color: white;margin-top: 8px;flex: 1;text-align: center;" @click="click">
-            <img style=" height:28px;border-radius:50%;margin-top: 50%;" src="http://onpxz5rdd.bkt.clouddn.com/ic_edit_2.png">
+            <img style=" height:24px;margin-top: 50%;" src="http://onpxz5rdd.bkt.clouddn.com/ic_edit_2.png">
 
         </div>
     </div>
