@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import YIcon from '../../../../src/components/YIcon.vue'
+    import YIcon from '../../../../components/YIcon.vue'
     import { CheckIcon } from 'vux'
     export default {
         components: {CheckIcon,YIcon},

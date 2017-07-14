@@ -16,7 +16,7 @@
 
 <script>
     import { CheckIcon,XButton } from 'vux';
-    import YIcon from '../../../../src/components/YIcon.vue';
+    import YIcon from '../../../../components/YIcon.vue';
     export default {
         components: {
             CheckIcon,

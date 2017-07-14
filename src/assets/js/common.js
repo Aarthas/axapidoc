@@ -1,9 +1,9 @@
 import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
-// var baseurl = 'http://193.0.1.157:20000';
+var baseurl = 'http://193.0.1.157:20000';
 // var baseurl = 'http://app.sanjiang.com';
-var baseurl = 'http://app.dev.sanjiang.info';
+// var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
     /*
@@ -89,9 +89,9 @@ var Rxports = {
                 // 	opts.success(res.data,res);
                 // }
 
-            } else {
+            } else    if (res.status == 401){
 
-
+                opts.forunlogin();
             }
             if (opts.onAfter) {
                 opts.onAfter();

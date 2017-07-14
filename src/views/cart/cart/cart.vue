@@ -51,10 +51,10 @@
     import {Group, XInput, XButton, XNumber,Toast} from 'vux'
     import Vue from 'vue';
     import Lib from 'assets/js/Lib';
-    import popup_radio from './popup-radio.vue'
-    import cart_temp from './cart_temp.vue'
-    import settle from './settle.vue'
-    import edit from './edit.vue'
+//    import popup_radio from './components/popup-radio.vue'
+    import cart_temp from './components/cart_temp.vue'
+    import settle from './components/settle.vue'
+    import edit from './components/edit.vue'
 
     var page
     export default {
@@ -63,7 +63,7 @@
             Group,
             XInput,
             XButton,
-            popup_radio,
+//            popup_radio,
             XNumber,
             cart_temp,
             settle,
