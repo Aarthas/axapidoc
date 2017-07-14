@@ -2,12 +2,22 @@
     <div style="display: flex;flex-direction: column;margin-bottom: 55px;">
 
         <search></search>
-        <div class="vux-demo" style="margin-top: 44px;">
+        <div class="vux-demo" style="margin-top: 44px;position:relative;display: flex;justify-content: center">
+
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
 
-
+            <div style="   position:absolute;
+                    top: 14px;
+                    padding: 1px 18px;
+                    height: 24px;
+                    line-height: 24px;
+                    border-radius: 12px;
+                    z-index:999;
+                    color: white;
+                    font-size: 13px;
+                    background: rgba(179, 54, 54, 0.2);"> {{address_detail}}</div>
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
@@ -67,7 +77,7 @@
             return {
                 malldata: {},
 
-
+                address_detail:"",
                 hotlist: [] //最下方推荐商品数据
             };
         },
@@ -128,7 +138,9 @@
                 Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
             });
-
+            let currentAddress = Lib.localStorage.getCurrentAddress();
+            console.log(currentAddress)
+            page.address_detail = currentAddress.area;
         },
         mounted(){
 
