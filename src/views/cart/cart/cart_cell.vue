@@ -2,8 +2,9 @@
     <div style="display: flex;flex-direction: row;height: 110px;margin-bottom: 1px;background-color: white;">
         <!--左 选中按钮-->
         <div v-if="typedId !=-1" style="width: 30px;" v-on:click="single">
-            <img v-if="isSelected==1" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 45px;" />
-            <img v-else src=""  style="width: 20px;margin-left: 5px;margin-top: 45px;background-color: black;" />
+            <!--<img v-if="isSelected==1" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 45px;" />-->
+            <!--<img v-else src=""  style="width: 20px;margin-left: 5px;margin-top: 45px;background-color: black;" />-->
+            <y-icon style="line-height: 100px;" v-model="isSelected"></y-icon>
         </div>
         <div v-else style="width: 30px;">
             <img  src=""  style="width: 20px;margin-left: 5px;margin-top: 45px;background-color: yellow;" />
@@ -28,11 +29,13 @@
 <script>
     import Lib from 'assets/js/Lib';
     import { CheckIcon } from 'vux'
-    import add_sub  from './addsub.vue'
+    import add_sub  from './addsub.vue';
+    import YIcon from '../../../../src/components/YIcon.vue';
     export default {
         components: {
             add_sub,
-            CheckIcon
+            CheckIcon,
+            YIcon
         },
        data () {
         return {
