@@ -1,18 +1,13 @@
 <template>
     <div>
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
         <m-tabbar v-model="select">
             <m-tabbar-item id='mall'>
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
                 首页
-
-
-
-
-
-
-
             </m-tabbar-item>
             <m-tabbar-item id='category'>
                 <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">

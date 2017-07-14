@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <div style="background-color: white">
+            <div style="background-color: white;margin-bottom: 100px;">
 
                 <radio :options="addresslist" v-model="currentValue" :fill-mode="false" >
                     <template scope="props" slot="each-item">
@@ -15,7 +15,7 @@
 
 
             </div>
-            <div   style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;">
+            <div   style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
                 <x-button @click.native="jt_add_address" type="primary"> 添加地址</x-button>
             </div>
         </div>

@@ -3,8 +3,9 @@
         <!--左 选中按钮-->
         <div style="width: 8vw;margin-left: 0px;" v-on:click="myFunOne">
 
-            <img v-if="item.selectAll" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 10px;" />
-            <img v-else src=""  style="width: 20px;margin-left: 5px;margin-top: 10px;background-color: black;" />
+            <!--<img v-if="item.selectAll" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 10px;" />-->
+            <!--<img v-else src=""  style="width: 20px;margin-left: 5px;margin-top: 10px;background-color: black;" />-->
+            <y-icon style="margin-top: 10px;" v-model="item.selectAll"></y-icon>
         </div>
         <div style="display: flex;flex-direction: column;width:60vw;">
             <div style="height: 25px;display: flex;flex-direction: row;" v-if="item.cartV2PriceInfo">
@@ -22,10 +23,10 @@
 </template>
 
 <script>
-
+    import YIcon from '../../../../src/components/YIcon.vue'
     import { CheckIcon } from 'vux'
     export default {
-        components: {CheckIcon},
+        components: {CheckIcon,YIcon},
         data(){
             return{
 

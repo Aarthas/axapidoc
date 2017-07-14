@@ -13,7 +13,7 @@
         <div  v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
             地址为空
         </div>
-        <div style="position:fixed; bottom:0; width: 100%;">
+        <div style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
             <x-button @click.native="toAdd" type="primary"> +添加新地址</x-button>
         </div>
 
