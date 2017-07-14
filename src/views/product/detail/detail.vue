@@ -1,36 +1,38 @@
 <template>
     <div>
 
-    <div style="display: flex;flex-direction: column;margin-bottom: 60px;" >
-        <swiper :list="bannerdata" :show-desc-mask="false"  style="width:100%;overflow: hidden;margin-top: 0px;height: auto;"
-                dots-class="custom-bottom"
-                dots-position="center" :aspect-ratio="1/1"></swiper>
-        <info :item="itemsData"></info>
-        <div style="background-color: white;height: 40px;margin-top: 10px;">
-            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">服务： 商品10kg以内满88元，20kg以内满176元 包邮</div>
+        <div style="display: flex;flex-direction: column;margin-bottom: 60px;">
+            <swiper :list="bannerdata" :show-desc-mask="false"
+                    style="width:100%;overflow: hidden;margin-top: 0px;height: auto;"
+                    dots-class="custom-bottom"
+                    dots-position="center" :aspect-ratio="1/1"></swiper>
+            <info :item="itemsData"></info>
+            <div style="background-color: white;height: 40px;margin-top: 10px;">
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">服务： 商品10kg以内满88元，20kg以内满176元 包邮</div>
+            </div>
+            <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;">
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">送至： xxxx</div>
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;color: #f03838">库存：{{stock}}件</div>
+                <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
+            </div>
+
+
+            <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row; "
+                 id='introduction' v-on:click="toIntroduction">
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">商品介绍</div>
+                <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
+            </div>
+            <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;"
+                 id='guarantee' v-on:click="toGuarantee">
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">包装售后</div>
+                <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
+            </div>
+
+
+            <recommend :list="itemsData.recommendItemList" @goDetail="goDetail"></recommend>
+
         </div>
-        <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;">
-            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">送至： xxxx</div>
-            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;color: #f03838">库存：{{stock}}件</div>
-            <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
-        </div>
-
-
-
-         <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row; " id='introduction' v-on:click="toIntroduction">
-            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">商品介绍</div>
-            <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
-         </div>
-         <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;" id='guarantee' v-on:click="toGuarantee">
-            <div style="font-size: 13px;line-height: 40px;margin-left: 8px;" >包装售后</div>
-            <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
-         </div>
-
-
-        <recommend :list="itemsData.recommendItemList" @goDetail="goDetail"  ></recommend>
-
-    </div>
-    <bottom style="position:fixed; bottom:0; left: 0;" @addCart="addCart" ></bottom>
+        <bottom :item="itemsData" style="position:fixed; bottom:0; left: 0;" @addCart="addCart" ref="bottombar"></bottom>
     </div>
 
 
@@ -41,20 +43,20 @@
     import recommend from './components/recommend.vue'
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
-    import {Swiper,Alert} from 'vux'
+    import {Swiper, Alert} from 'vux'
     let productId = Lib.Utils.getQueryString("productId");
     let isScoreItem = Lib.Utils.getQueryString("isScoreItem");
     var page;
     export default {
-        components: {Swiper,recommend,bottom,info,Alert},
-       data(){
-            return{
-                itemsData:{},
-                stock:0,
+        components: {Swiper, recommend, bottom, info, Alert},
+        data(){
+            return {
+                itemsData: {},
+                stock: 0,
 
 
             }
-       },
+        },
         computed: {
             bannerdata: function () {
                 if (page.itemsData.productImages) {
@@ -69,28 +71,29 @@
 
             }
         },
-        methods:{
-            toIntroduction:function () {
+        methods: {
+            toIntroduction: function () {
 
-                this.$router.push({path: '/introduction',
+                this.$router.push({
+                    path: '/introduction',
                     query: {
-                    introduction: page.itemsData.introduction
-                }
+                        introduction: page.itemsData.introduction
+                    }
                 })
-            } ,
-            toGuarantee:function () {
+            },
+            toGuarantee: function () {
 
                 this.$router.push({path: '/guarantee'})
             },
-            goDetail:function (item) {
-                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+            goDetail: function (item) {
+                Lib.go.go("/views/product/detail.html?productId=" + item.sn + "&isScoreItem=0")
             },
-            addCart:function () {
+            addCart: function () {
                 Lib.axios.addtocart({
-                    number:1,
-                    cartStatus:1,
-                    data:page.itemsData.erpGoodsId,
-                } ,this)
+                    number: 1,
+                    cartStatus: 1,
+                    data: page.itemsData.erpGoodsId,
+                }, this)
             }
         },
         created(){
@@ -98,22 +101,22 @@
         },
         mounted(){
 
-            loadData(productId,isScoreItem);
+            loadData(productId, isScoreItem);
         },
     }
-    function loadData(productId,isScoreItem){
+    function loadData(productId, isScoreItem) {
 
         Lib.axios.axios({
 
-            url: '/products/'+productId+'?isScoreItem='+isScoreItem,
+            url: '/products/' + productId + '?isScoreItem=' + isScoreItem,
 
             success: function (basebean) {
 
-                page.itemsData= basebean.getData();
+                page.itemsData = basebean.getData();
                 loadStock(page.itemsData.erpGoodsId);
-
+                page.$refs.bottombar.loadFav(page.itemsData.erpGoodsId)
             },
-            onerrcode:function (basebean) {
+            onerrcode: function (basebean) {
 
                 page.$vux.alert.show({
                     title: '提示',
@@ -130,13 +133,13 @@
         });
 
     }
-    function loadStock(erpGoodsId){
+    function loadStock(erpGoodsId) {
         Lib.axios.axios({
 
-            url: '/stocks/'+erpGoodsId+'?shopId='+'00023',
+            url: '/stocks/' + erpGoodsId + '?shopId=' + '00023',
 
             success: function (basebean) {
-                page.stock= basebean.getData().stockCount;
+                page.stock = basebean.getData().stockCount;
             }
         });
     }
