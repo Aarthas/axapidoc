@@ -17,7 +17,7 @@
                     z-index:999;
                     color: white;
                     font-size: 13px;
-                    background: rgba(179, 54, 54, 0.2);"> {{address_detail}}</div>
+                    background: rgba(0, 0, 0, 0.2);"> {{address_detail}}</div>
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
@@ -138,13 +138,24 @@
                 Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
             });
-            let currentAddress = Lib.localStorage.getCurrentAddress();
-            console.log(currentAddress)
-            page.address_detail = currentAddress.area;
+
         },
         mounted(){
 
             loadIndexData();
+
+            Lib.axios.axios({
+                url: '/address/getDefault',
+                success: function (basebean) {
+                    let address = basebean.getData();
+                    page.address_detail =address.areaDesc
+                   Lib.localStorage.setCurrentAddress(address);
+
+                },
+                forunlogin:function () {
+                    page.address_detail = "请选择收货地址"
+                }
+            });
 
         },
         methods: {
