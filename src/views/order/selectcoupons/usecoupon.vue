@@ -2,10 +2,10 @@
 
     <div>
 
-        <ul v-if="!listEmpty">
+        <ul v-if="!listEmpty" style="margin-bottom: 100px;">
             <li v-for="(item,index) in coupons_able">
                 <coupon_blue  :item=item v-if="item.isUnused&&item.isReduce" :index="index" v-model="item.isSelected" @clickItem="clickItem"></coupon_blue>
-                <!--<coupon_orange :item=item v-else-if="item.isUnused&&item.isCach"></coupon_orange>-->
+                <coupon_orange :item=item v-else-if="item.isUnused&&item.isCach"  :index="index" v-model="item.isSelected" @clickItem="clickItem"></coupon_orange>
             </li>
             <li v-for="item in coupons_unable">
                 <coupon_gray  :item=item ></coupon_gray>
@@ -15,7 +15,9 @@
         <div v-else style="display: flex;justify-content: center;align-items: center;height: 400px;">
             优惠券为空
         </div>
-
+        <div style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;">
+            <x-button v-on:click.native="useCoupon" type="primary">使用</x-button>
+        </div>
     </div>
 </template>
 
@@ -36,11 +38,9 @@
         components: {
 
             XButton,
-
             coupon_blue,
             coupon_orange,
             coupon_gray,
-
         },
         props: {
             item: Object,
@@ -100,12 +100,59 @@
             clickItem:function (item,index) {
 //                console.log(item)
 //                console.log(index)
-                item.isSelected = 1-  item.isSelected;
+                //                page.$set(this.coupons_able,index,item)
+                let currentAddress = Lib.localStorage.getCurrentAddress();
+                let isSelected=item.isSelected==0?1:0;
+                Lib.axios.axios({
+                    method: "post",
+                    url:"/coupons/checkVolume",
+                    data:{
+                        shopId:currentAddress.shopId,
+                        volumeNumber:item.volumeNumber,
+                        isSelected:isSelected
+                    },
+                    success: function (basebean) {
+                        item.isSelected = 1-  item.isSelected;
+                    },
+                    onerrcode:function (basebean) {
+                        page.$vux.toast.show({
+                            type:'cancel',
+                            text: basebean.getMessage()
+                        })
 
-//                page.$set(this.coupons_able,index,item)
+                    }
+
+                });
 
             },
+            useCoupon:function () {
 
+                let address=Lib.localStorage.getCurrentAddress();
+
+                var deliverType=address.isDeliver?"deliver":"pick_shop";
+                console.log("lalala"+address.id,deliverType,address.shopId);
+                Lib.axios.axios({
+                    method: "post",
+                    url:"/orders/useCoupons",
+                    data:{
+                        shopId:address.shopId,
+                        deliverType:deliverType,
+                        addressId:address.id
+                    },
+                    success: function (basebean) {
+                         Lib.Hub.$emit('useCouponSuccess',(basebean.getData().priceInfo)); //Hub触发事件
+                        history.go(-1);
+                    },
+                    onerrcode:function (basebean) {
+                        page.$vux.toast.show({
+                            type:'cancel',
+                            text: basebean.getMessage()
+                        })
+
+                    }
+
+                });
+            }
 
         }
     }

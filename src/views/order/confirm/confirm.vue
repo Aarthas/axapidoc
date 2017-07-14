@@ -87,12 +87,19 @@
 
             }
         },
-
+      created(){
+          //Hub接收 使用优惠券 事件
+          Lib.Hub.$on('useCouponSuccess', (responObject) => {
+              console.log("使用优惠券成功返回"+responObject.quantity);
+              useCouponSuccess(responObject);
+          });
+      },
         mounted(){
 
             page = this;
             page.address = Lib.localStorage.getCurrentAddress();
             loadData(page.address);
+
         },
         methods:{
             jt_usecoupon:function () {
@@ -122,6 +129,7 @@
                 page.goodsList = basebean.getData().list;
                 page.payType   = basebean.getData().payType;
                 page.priceInfo = basebean.getData().priceInfo;
+                page.coupons_able_count=basebean.getData().coupons_able.length;
             },
             onerrcode:function (basebean) {
                 page.$vux.toast.show({
@@ -132,6 +140,9 @@
             }
         });
 
+    }
+    function useCouponSuccess(responObject){
+       page.priceInfo=responObject;
     }
 </script>
 

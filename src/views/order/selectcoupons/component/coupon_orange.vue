@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="pane" v-on:click="myfunc">
+    <div class="pane" v-on:click="myFunc">
         <div
                 class="pane_lf">
             <div class="pane_lf_info1">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="pane_rt" >
-         <y-icon></y-icon>
+         <y-icon v-model="checked"></y-icon>
 
         </div>
     </div>
@@ -39,15 +39,31 @@
         data () {
             return {}
         },
+        computed:{
+            checked(){
+                return this.item.isSelected==1
+            }
+        },
         props: {
+
             item: Object,
+            index:Number,
+            value: {
+                default: '',
+            },
+        },
+        watch:{
+            checked(newVal){
+                console.log(newVal)
+                this.$emit( 'input',newVal);
+            },
 
         },
         methods: {
 
-            myfunc: function () {
-                let that = this;
-                that.$emit('exchange', this.item)
+            myFunc: function () {
+
+                this.$emit('clickItem', this.item,this.index)
             }
         }
     }
