@@ -7,7 +7,7 @@
                class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
                 <div v-if="selectAddress.isDeliver" class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.area }}
+                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.areaDesc }} {{selectAddress.detailAddress}}
                 </div>
                 <div v-else class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
                     {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName }} {{selectAddress.address }}
