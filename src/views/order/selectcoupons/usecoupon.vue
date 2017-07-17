@@ -16,7 +16,7 @@
             优惠券为空
         </div>
         <div v-if="!listEmpty" style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
-            <x-button v-on:click.native="useCoupon" type="primary">使用</x-button>
+            <x-button v-on:click.native="useCoupon" type="primary" :disabled="coupons_able.length == 0">使用</x-button>
         </div>
     </div>
 </template>
@@ -49,7 +49,7 @@
         data () {
             return {
                 itemsData:{},
-                listEmpty: true,
+                listEmpty: false,
                 coupons_able:[],
                 coupons_unable: [],
 
@@ -81,9 +81,10 @@
                 success: function (basebean) {
 
                     page.itemsData = basebean.getData();
-                    page.coupons_able =  page.itemsData.coupons_able;
-                    page.coupons_unable =  page.itemsData.coupons_unable;
-                    page.listEmpty =  page.itemsData.coupons_able.length+ page.itemsData.coupons_unable.length == 0
+                    page.coupons_able =  page.itemsData.coupons_able||[];
+                    page.coupons_unable =  page.itemsData.coupons_unable||[];
+//                    console.log(   page.coupons_able .length+   page.coupons_unable.length)
+                    page.listEmpty =   page.coupons_able .length+   page.coupons_unable.length == 0
                 },
                 onerrcode:function (basebean) {
                     page.$vux.toast.show({
