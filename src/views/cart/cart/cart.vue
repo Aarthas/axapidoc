@@ -167,6 +167,9 @@
                 let deliverType = currentAddress.isDeliver ? 1 : 2;
                 Lib.axios.axios({
                     url: '/cartsV2?deliverType=' + deliverType,
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         console.log(basebean.getData())
                         page.cartData = basebean.getData();
@@ -177,6 +180,9 @@
 
                 Lib.axios.axios({
                     url: '/cartsV2/getCartsInFirstTime',
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         console.log(basebean.getData())
                         page.selectAddress = basebean.getData().address;
@@ -219,6 +225,9 @@
                         selectAll: selectAll,
                         deliverType: deliverType,
 
+                    },
+                    loading:{
+                        page:page,
                     },
                     success: function (basebean) {
                         console.log('返回的' + basebean.getData())
@@ -263,6 +272,9 @@
                     data: {
                         ids: newSelectedData,
                     },
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.$vux.toast.show({
                             text: basebean.getMessage()
@@ -287,6 +299,9 @@
                     url: "/cartsV2/deleteSelects",
                     params: {
                         deliverType: deliverType,
+                    },
+                    loading:{
+                        page:page,
                     },
                     success: function (basebean) {
                         console.log('返回的' + basebean.getData())
@@ -335,6 +350,9 @@
                 isSelected: isSelect,
                 deliverType: deliverType,
                 cartStatus: score > 0 ? 3 : 1
+            },
+            loading:{
+                page:page,
             },
             success: function (basebean) {
 
