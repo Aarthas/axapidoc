@@ -91,7 +91,7 @@
                     'url': 'logout',
                     'success': function (basebean) {
                         window.location.href = Lib.constant.baseurl+"/views/user/login.html"
-
+                        Lib.localStorage.setCurrentAddress(null);
                     }
                 });
             }

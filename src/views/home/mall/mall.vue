@@ -17,7 +17,7 @@
                     z-index:999;
                     color: white;
                     font-size: 13px;
-                    background: rgba(0, 0, 0, 0.2);"> {{address_detail}}</div>
+                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}</div>
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
@@ -143,19 +143,23 @@
         mounted(){
 
             loadIndexData();
+            let selectedAddress = Lib.localStorage.getCurrentAddress();
+          if(selectedAddress){
+              page.address_detail =selectedAddress.areaDesc
+          }else {
+              Lib.axios.axios({
+                  url: '/address/getDefault',
+                  success: function (basebean) {
+                      let address = basebean.getData();
+                      page.address_detail = address.areaDesc
+                      Lib.localStorage.setCurrentAddress(address);
 
-            Lib.axios.axios({
-                url: '/address/getDefault',
-                success: function (basebean) {
-                    let address = basebean.getData();
-                    page.address_detail =address.areaDesc
-                   Lib.localStorage.setCurrentAddress(address);
-
-                },
-                forunlogin:function () {
-                    page.address_detail = "请选择收货地址"
-                }
-            });
+                  },
+                  forunlogin: function () {
+                      page.address_detail = "请选择收货地址"
+                  }
+              });
+          }
 
         },
         methods: {
@@ -174,7 +178,11 @@
             goToDetail:function (item) {
 
                 Lib.go.go("/views/product/detail.html?productId="+item.aim+"&isScoreItem=0")
-            }
+            },
+            //            选择地址
+            jt_select_address: function () {
+                Lib.go.go("/views/address/selectaddress.html")
+            },
 
         }
     }

@@ -337,6 +337,8 @@
                 page.cartList=page.cartData.appCarts;
 //               page.$set(page,page.cartList,basebean.getData().appCarts);
 //                page.$data.cartList=basebean.getData().appCarts;
+
+
             },
             onerrcode:function (basebean) {
                 page.$vux.toast.show({
