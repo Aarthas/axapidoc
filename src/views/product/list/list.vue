@@ -91,7 +91,9 @@
         Lib.axios.axios({
 
             url: urlString,
-
+            loading:{
+              page:page
+            },
             success: function (basebean) {
 
                 itemsData = basebean.getData();

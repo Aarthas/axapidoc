@@ -5,7 +5,7 @@
                 ref="myScroller"
                 :on-infinite="infinite">
             <div style="display: inline-block;">
-                <orderlist_cell v-for="item in list" @todetail="todetail" :item=item
+                <orderlist_cell v-for="item in list" @todetail="toDetail" :item=item
                                 :key="item.orderId"></orderlist_cell>
             </div>
 
@@ -57,7 +57,7 @@
                     }
                 }
             },
-            todetail: function (orderId) {
+            toDetail: function (orderId) {
                 window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
 
             }
@@ -72,7 +72,9 @@
 
         Lib.axios.axios({
             url: 'orders?page=' + pageindex + "&&appOrderStatus=0",
-
+            loading:{
+                page:page,
+            },
             success: function (basebean) {
 
 

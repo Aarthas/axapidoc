@@ -52,6 +52,9 @@
 
             Lib.axios.axios({
                 url: '/users/me',
+                loading:{
+                    page:page,
+                },
                 success: function (basebean) {
                     let data = basebean.getData();
                     page.userinfo = data;

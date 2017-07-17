@@ -112,7 +112,9 @@
         Lib.axios.axios({
 
             url: '/products/' + productId + '?isScoreItem=' + isScoreItem,
-
+            loading:{
+                page:page,
+            },
             success: function (basebean) {
 
                 page.itemsData = basebean.getData();

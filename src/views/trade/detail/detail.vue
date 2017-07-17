@@ -7,11 +7,11 @@
             <div  class="orderInfo">下单时间：{{itemsData.createdDate}}</div>
             <div  style="height: 8px;background-color: white;"></div>
             <div  v-if="itemsData.orderStatus==5" style="display: flex;flex-direction: row;height: 50px;">
-                <x-button    style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">取消订单</x-button>
-                <x-button  style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="warn" >去支付</x-button>
+                <x-button  @click.native="cancelOrder(itemsData.orderId)"  style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">取消订单</x-button>
+                <x-button @click.native="goPay" style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="warn" >去支付</x-button>
             </div>
             <div  v-else-if="itemsData.orderStatus!=5&&itemsData.orderStatus>0" style="display: flex;flex-direction: row;height: 50px;text-align: center">
-                <x-button    style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">查看物流</x-button>
+                <x-button  @click.native="checkLogistics(itemsData.orderId)"  style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">查看物流</x-button>
             </div>
 
 
@@ -48,11 +48,11 @@
     import Lib from 'assets/js/Lib';
     import good from '../components/goodsitem.vue';
     import priceDetail from '../components/priceDetail.vue';
-    import { Group, Cell,XButton } from 'vux';
+    import { Group, Cell,XButton,Confirm ,Toast} from 'vux';
     let orderId = Lib.Utils.getQueryString("orderId");
     var page;
     export default {
-        components: {good,priceDetail,Group,Cell,XButton},
+        components: {good,priceDetail,Group,Cell,XButton,Confirm,Toast},
         name:"orderDetail",
         data () {
             return {
@@ -79,7 +79,49 @@
                  isScoreItem=0
              }
              Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem="+isScoreItem)
+         },
+         //取消订单
+         cancelOrder:function (orderId) {
+             this.$vux.confirm.show({
+                 title: '提示',
+                 content: '确认取消订单吗？',
+                 onConfirm () {
+                     Lib.axios.axios({
+                         method: "post",
+                         url: "/orders/cancel",
+                         params: {
+                             orderId: orderId,
+                         },
+                         loading:{
+                             page:page,
+                         },
+                         success: function (basebean) {
+                             page.$vux.toast.show({
+                                 text: '取消订单成功'
+                             })
+                             loadData(orderId);
+                         },
+                         onerrcode: function (basebean) {
+                             page.$vux.toast.show({
+                                 type: 'cancel',
+                                 text: basebean.getMessage()
+                             })
+
+                         }
+
+                     });
+                 }
+             });
+         },
+         //去支付
+         goPay:function () {
+
+         },
+         //查看物流
+         checkLogistics:function (orderId) {
+             window.location = Lib.constant.baseurl + "/views/trade/logistics.html?orderId=" + orderId;
          }
+
      }
 
     }
@@ -89,7 +131,9 @@
 
         Lib.axios.axios({
             url: "/orders/"+orderId+"/detail",
-
+            loading:{
+                page:page,
+            },
             success: function (basebean) {
 
                 page.itemsData = basebean.getData();

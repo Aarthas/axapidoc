@@ -82,6 +82,9 @@
 
             Lib.axios.axios({
                 url: '/area',
+                loading:{
+                    page:page,
+                },
                 success: function (basebean) {
                     let data = basebean.getData();
                     var newAreaData = [];
@@ -125,6 +128,9 @@
                         isDefault:"false",
                         shopId:page.shopId
                     },
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.$vux.alert.show({
                             title: '提示',
@@ -152,7 +158,9 @@
                 Lib.axios.axios({
                     method: "delete",
                     url:"/address/delete/"+page.addressId,
-
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.$vux.alert.show({
                             title: '提示',
