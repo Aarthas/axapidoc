@@ -46,6 +46,6 @@
     }
 
     .vux-check-icon > .weui-icon-success:before, .vux-check-icon > .weui-icon-success-circle:before {
-        color: #d1ad0a;
+        color: rgb(4, 190, 2);
     }
 </style>

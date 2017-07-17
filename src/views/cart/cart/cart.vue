@@ -2,15 +2,20 @@
 
     <div style="margin-bottom: 120px;">
 
-        <div  style="background-color: lightyellow;overflow: hidden;position: relative;" @click="jt_select_address">
-            <div v-if="selectAddress!=null"  href="javascript:void(0);"
-               class="weui-cell weui-cell_access weui-cell_link">
+        <div style="background-color: white;overflow: hidden;position: relative;" @click="jt_select_address">
+            <div v-if="selectAddress!=null" href="javascript:void(0);"
+                 class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
-                <div v-if="selectAddress.isDeliver" class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.areaDesc }} {{selectAddress.detailAddress}}
+                <div v-if="selectAddress.isDeliver" class="weui-cell__bd"
+                     style="margin-right: 20px;color: #333333;line-height: 30px;">
+                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.areaDesc
+                    }} {{selectAddress.detailAddress}}
+
                 </div>
                 <div v-else class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName }} {{selectAddress.address }}
+                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName
+                    }} {{selectAddress.address }}
+
                 </div>
                 <span class="weui-cell__ft"></span>
 
@@ -23,24 +28,26 @@
         </div>
         <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
 
-        <div style="background-color: white;height: 30px; margin-top: 10px;" >
-            <div  v-on:click="changeEdit"
+        <div style="background-color: white;height: 30px; margin-top: 10px;">
+            <div v-on:click="changeEdit"
                  style="width: 60px;float:right;margin-right:8px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
                 {{editStatu}}
+
             </div>
         </div>
         <!--<div  v-show="cartList.length==0" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-            <!--购物车列表为空-->
+        <!--购物车列表为空-->
         <!--</div>-->
         <ul>
             <li v-for="item in cartList">
-                <cart_temp :item="item">
-                </cart_temp>
+                <cart_temp :item="item">  </cart_temp>
             </li>
 
         </ul>
-        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSettle="goSettle" @goSelectAll="goSelectAll"></settle>
-        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll" @addToFav="addToFav" @deleteAll="deleteAll"></edit>
+        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSettle="goSettle"
+                @goSelectAll="goSelectAll"></settle>
+        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll"
+              @addToFav="addToFav" @deleteAll="deleteAll"></edit>
     </div>
 </template>
 
@@ -48,10 +55,10 @@
 <script>
 
 
-    import {Group, XInput, XButton, XNumber,Toast} from 'vux'
+    import {Group, XInput, XButton, XNumber, Toast} from 'vux'
     import Vue from 'vue';
     import Lib from 'assets/js/Lib';
-//    import popup_radio from './components/popup-radio.vue'
+
     import cart_temp from './components/cart_temp.vue'
     import settle from './components/settle.vue'
     import edit from './components/edit.vue'
@@ -80,10 +87,7 @@
 
             };
         },
-        watch: {
-
-
-        },
+        watch: {},
         computed: {},
         created () {
             page = this;
@@ -93,64 +97,65 @@
             });
             //Hub接收 去商品详情 事件
             Lib.Hub.$on('goDetail', (cellItem) => {
-                if(cellItem.score>0) {
-                    Lib.go.go("/views/product/detail.html?productId="+cellItem.sn+"&isScoreItem=0")
-                }else{
-                    Lib.go.go("/views/product/detail.html?productId="+cellItem.sn+"&isScoreItem=1")
+                if (cellItem.score > 0) {
+                    Lib.go.go("/views/product/detail.html?productId=" + cellItem.sn + "&isScoreItem=0")
+                } else {
+                    Lib.go.go("/views/product/detail.html?productId=" + cellItem.sn + "&isScoreItem=1")
                 }
 
             });
             //Hub接收 + 事件
             Lib.Hub.$on('add', (item) => {
-                var newNumber=item.number+1
-                console.log("比较"+newNumber,item.stock);
-                if (newNumber>item.stock){
-                    newNumber=item.stock;
+                var newNumber = item.number + 1
+                console.log("比较" + newNumber, item.stock);
+                if (newNumber > item.stock) {
+                    newNumber = item.stock;
                     page.$vux.toast.show({
-                        type:'cancel',
+                        type: 'cancel',
                         text: '就这么多啦！'
                     })
                 }
                 var score;
-                if (item.score==null){
-                    score=0;
-                }else{
-                    score=item.score;
+                if (item.score == null) {
+                    score = 0;
+                } else {
+                    score = item.score;
                 }
-                var deliverType = page.selectAddress.isDeliver?1:2;
-              var param = {
+                var deliverType = page.selectAddress.isDeliver ? 1 : 2;
+                var param = {
                     id: item.erpGoodsId,
                     number: newNumber,
-                    deliverType:deliverType,
-                    cartStatus: score >0 ? 3 :1
+                    deliverType: deliverType,
+                    cartStatus: score > 0 ? 3 : 1
                 };
-              updateNumber(param);
+                updateNumber(param);
 
             });
             //Hub接收 - 事件
             Lib.Hub.$on('sub', (item) => {
-                 var newNumber=item.number-1;
-                 if(newNumber<1){
-                     page.$vux.toast.show({
-                         type:'cancel',
-                         text: '不能少于1件哦！'
-                     })
-                     return;
-                 }else if(newNumber > item.stock){
-                     newNumber=item.stock;
-                 };
-                var score;
-                if (item.score==null){
-                    score=0;
-                }else{
-                    score=item.score;
+                var newNumber = item.number - 1;
+                if (newNumber < 1) {
+                    page.$vux.toast.show({
+                        type: 'cancel',
+                        text: '不能少于1件哦！'
+                    })
+                    return;
+                } else if (newNumber > item.stock) {
+                    newNumber = item.stock;
                 }
-                var deliverType = page.selectAddress.isDeliver?1:2;
+                ;
+                var score;
+                if (item.score == null) {
+                    score = 0;
+                } else {
+                    score = item.score;
+                }
+                var deliverType = page.selectAddress.isDeliver ? 1 : 2;
                 var param = {
                     id: item.erpGoodsId,
                     number: newNumber,
-                    deliverType:deliverType,
-                    cartStatus: score >0 ? 3 :1
+                    deliverType: deliverType,
+                    cartStatus: score > 0 ? 3 : 1
                 };
                 updateNumber(param);
             });
@@ -200,62 +205,63 @@
                 }
             },
 //            去结算
-            goSettle:function () {
+            goSettle: function () {
                 Lib.go.go("/views/order/confirm.html")
             },
 //            全选
-            goSelectAll:function (item) {
-                var deliverType = page.selectAddress.isDeliver?1:2;
-                var selectAll = item.selectAll?0:1 ;
+            goSelectAll: function (item) {
+                var deliverType = page.selectAddress.isDeliver ? 1 : 2;
+                var selectAll = item.selectAll ? 0 : 1;
                 Lib.axios.axios({
                     method: "post",
-                    url:"/cartsV2/selectAllOrCancel",
-                    data:{
-                        selectAll:selectAll,
-                        deliverType:deliverType,
+                    url: "/cartsV2/selectAllOrCancel",
+                    data: {
+                        selectAll: selectAll,
+                        deliverType: deliverType,
 
                     },
                     success: function (basebean) {
-                        console.log('返回的'+basebean.getData())
+                        console.log('返回的' + basebean.getData())
                         page.cartData = basebean.getData();
                         page.cartList = basebean.getData().appCarts;
 
                     },
-                    onerrcode:function (basebean) {
+                    onerrcode: function (basebean) {
                         page.$vux.toast.show({
-                          type:'cancel',
-                          text: basebean.getMessage()
-                         })
+                            type: 'cancel',
+                            text: basebean.getMessage()
+                        })
 
                     }
 
                 });
             },
 //            加入收藏
-            addToFav:function (item) {
-                var newSelectedData=[];
+            addToFav: function (item) {
+                var newSelectedData = [];
                 item.appCarts.filter(function (item) {
 
-                      if (item.typeId != -1) {
-                          var list = item.list;
-                          list.filter(function (itemObject) {
-                              if (itemObject.isSelected==1) {
-                                  newSelectedData.push(itemObject.erpGoodsId);
-                              }
-                          })
-                      }
-                  });
-               if (newSelectedData.length==0){
-                   page.$vux.toast.show({
-                    type:'cancel',
-                    text: '至少选择一件商品'
-                })
-               };
+                    if (item.typeId != -1) {
+                        var list = item.list;
+                        list.filter(function (itemObject) {
+                            if (itemObject.isSelected == 1) {
+                                newSelectedData.push(itemObject.erpGoodsId);
+                            }
+                        })
+                    }
+                });
+                if (newSelectedData.length == 0) {
+                    page.$vux.toast.show({
+                        type: 'cancel',
+                        text: '至少选择一件商品'
+                    })
+                }
+                ;
                 Lib.axios.axios({
                     method: "post",
-                    url:"/collections/addItems",
-                    data:{
-                        ids:newSelectedData,
+                    url: "/collections/addItems",
+                    data: {
+                        ids: newSelectedData,
                     },
                     success: function (basebean) {
                         page.$vux.toast.show({
@@ -263,35 +269,35 @@
                         })
 
                     },
-                    onerrcode:function (basebean) {
-                         page.$vux.toast.show({
-                              type:'cancel',
-                              text: basebean.getMessage()
-                         })
+                    onerrcode: function (basebean) {
+                        page.$vux.toast.show({
+                            type: 'cancel',
+                            text: basebean.getMessage()
+                        })
 
                     }
 
                 });
             },
 //            删除选中
-            deleteAll:function (item) {
-                var deliverType = page.selectAddress.isDeliver?1:2;
+            deleteAll: function (item) {
+                var deliverType = page.selectAddress.isDeliver ? 1 : 2;
                 Lib.axios.axios({
                     method: "post",
-                    url:"/cartsV2/deleteSelects",
-                    params:{
-                        deliverType:deliverType,
+                    url: "/cartsV2/deleteSelects",
+                    params: {
+                        deliverType: deliverType,
                     },
                     success: function (basebean) {
-                        console.log('返回的'+basebean.getData())
+                        console.log('返回的' + basebean.getData())
                         page.cartData = basebean.getData();
                         page.cartList = basebean.getData().appCarts;
 
                     },
-                    onerrcode:function (basebean) {
+                    onerrcode: function (basebean) {
                         page.$vux.toast.show({
-                           type:'cancel',
-                           text: basebean.getMessage()
+                            type: 'cancel',
+                            text: basebean.getMessage()
                         })
 
                     }
@@ -313,28 +319,28 @@
     }
     //选中单个
     function selectSingle(cellItem) {
-       var score;
-        if (cellItem.score==null){
-            score=0;
-        }else{
-            score=cellItem.score;
+        var score;
+        if (cellItem.score == null) {
+            score = 0;
+        } else {
+            score = cellItem.score;
         }
-        var deliverType = page.selectAddress.isDeliver?1:2;
-        var isSelect = cellItem.isSelected?0:1 ;
+        var deliverType = page.selectAddress.isDeliver ? 1 : 2;
+        var isSelect = cellItem.isSelected ? 0 : 1;
         Lib.axios.axios({
             method: "post",
-            url:"/cartsV2/selectOrCancel",
-            data:{
-                id:cellItem.erpGoodsId,
-                isSelected:isSelect,
-                deliverType:deliverType,
-                cartStatus:score>0?3:1
+            url: "/cartsV2/selectOrCancel",
+            data: {
+                id: cellItem.erpGoodsId,
+                isSelected: isSelect,
+                deliverType: deliverType,
+                cartStatus: score > 0 ? 3 : 1
             },
             success: function (basebean) {
 
-                page.cartData=basebean.getData() ;
+                page.cartData = basebean.getData();
 //                Todo:数组改变不会被检测到 用set
-                page.cartList=basebean.getData().appCarts;
+                page.cartList = basebean.getData().appCarts;
 
 //               this.$set(this,this.cartList,basebean.getData().appCarts);
 
@@ -345,9 +351,9 @@
 
 //                Lib.Hub.$emit('arrChange',basebean.getData().appCarts); //Hub触发事件
             },
-            onerrcode:function (basebean) {
+            onerrcode: function (basebean) {
                 page.$vux.toast.show({
-                    type:'cancel',
+                    type: 'cancel',
                     text: basebean.getMessage()
                 })
 
@@ -356,21 +362,21 @@
         });
     }
     //加减数量
-    function updateNumber(param){
+    function updateNumber(param) {
         Lib.axios.axios({
             method: "post",
-            url:"/cartsV2/updateNum",
-            data:param,
+            url: "/cartsV2/updateNum",
+            data: param,
             success: function (basebean) {
 
-                page.cartData=basebean.getData() ;
+                page.cartData = basebean.getData();
 //                Todo:数组改变不会被检测到 用set
-                page.cartList=[...basebean.getData().appCarts];
+                page.cartList = [...basebean.getData().appCarts];
 //                vm.$set(page.cartList,1,null)
             },
-            onerrcode:function (basebean) {
+            onerrcode: function (basebean) {
                 page.$vux.toast.show({
-                    type:'cancel',
+                    type: 'cancel',
                     text: basebean.getMessage()
                 })
 
