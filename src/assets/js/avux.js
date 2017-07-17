@@ -7,11 +7,11 @@ export default {
     hideLoad:function (page) {
         page.$vux.loading.hide()
     },
-    showtoast:function (page, text,type) {
+    showtoast:function (page, text,type,width) {
         page.$vux.toast.show({
             text: text,
             type:type||'text',
-            width:'18em'
+            width:width||'18em'
         })
 
     }
