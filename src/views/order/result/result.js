@@ -4,13 +4,7 @@ import Vue from 'vue'
 
 
 
-import App from './pay.vue'
-
-
-
-
-
-
+import App from './result.vue'
 
 
 new Vue({
