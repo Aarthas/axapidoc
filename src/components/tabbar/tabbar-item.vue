@@ -33,11 +33,13 @@
             },
             isImg: {
                 type: Boolean,
-                required: true
+                required: false,
+                default: false
             },
             isIcon: {
                 type: Boolean,
-                required: false
+                required: false,
+                default: false
             },
         },
         computed: {
