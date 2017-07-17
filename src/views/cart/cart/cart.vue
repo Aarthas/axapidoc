@@ -366,6 +366,9 @@
         Lib.axios.axios({
             method: "post",
             url: "/cartsV2/updateNum",
+            loading:{
+                page:page,
+            },
             data: param,
             success: function (basebean) {
 

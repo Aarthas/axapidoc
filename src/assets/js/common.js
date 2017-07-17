@@ -45,7 +45,7 @@ var Rxports = {
 
         if (opt.loading) {
             opt.loading.page.$vux.loading.show({
-                text: opt.loading.loadtext
+                text: opt.loading.loadtext||'正在加载'
             })
         }
         console.log("localStorage.getItem(token)=" + localStorage.getItem("token"))
