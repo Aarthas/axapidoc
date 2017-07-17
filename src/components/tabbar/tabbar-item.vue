@@ -1,7 +1,8 @@
 <template>
     <a class="m-tabbar-item" :class="{'is-active':isActive}" @click="$parent.$emit('input',id)">
-        <span class="m-tabbar-item-icon" v-show="!isActive"><slot name="icon-normal"></slot></span>
-        <span class="m-tabbar-item-icon" v-show="isActive"><slot name="icon-active"></slot></span>
+        <span class="m-tabbar-item-icon" v-show="!isActive" v-if="isImg"><slot name="icon-normal"></slot></span>
+        <span class="m-tabbar-item-icon" v-show="isActive" v-if="isImg"><slot name="icon-active"></slot></span>
+        <span class="m-tabbar-item-icon" v-if="isIcon" ><slot name="icon"></slot></span>
         <span class="m-tabbar-item-text"><slot></slot></span>
     </a>
 </template>
@@ -24,7 +25,21 @@
      * </m-tabbar-item>
      */
     export default{
-        props: ['id'],
+        props: {
+            id:String,
+            isImg: {
+                type: Boolean,
+                required: true
+            },
+            isImg: {
+                type: Boolean,
+                required: true
+            },
+            isIcon: {
+                type: Boolean,
+                required: false
+            },
+        },
         computed: {
             isActive(){
 //                console.log("id = "+this.id)
@@ -41,9 +56,11 @@
         flex: 1;
         text-align: center;
         margin-top: 3px;
+        display: flex;
+        flex-direction: column;
         .m-tabbar-item-icon {
             display: block;
-            padding-top: 2px;
+            padding-top: 1px;
             img {
                 width: 22px;
                 height: 22px;
@@ -56,6 +73,8 @@
             color: #949494;
         }
         &.is-active {
+
+            color: #42bd56;
             .m-tabbar-item-text {
                 color: #42bd56;
             }

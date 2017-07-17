@@ -1,17 +1,17 @@
 <template>
     <div>
+
         <keep-alive>
             <router-view></router-view>
         </keep-alive>
         <m-tabbar v-model="select">
-            <m-tabbar-item id='mall'>
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
+            <m-tabbar-item id='mall' isIcon="true">
+                <i style="font-size: 28px;line-height: 1" class="iconfont icon-shouye" slot="icon"></i>
+
                 首页
             </m-tabbar-item>
-            <m-tabbar-item id='category'>
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
+            <m-tabbar-item id='category' isIcon="true">
+                <i style="font-size: 28px;line-height: 1" class="iconfont icon-fenlei" slot="icon"></i>
                 分类
 
 
@@ -21,16 +21,14 @@
 
 
             </m-tabbar-item>
-            <m-tabbar-item id='cart'>
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">
+            <m-tabbar-item id='cart' isIcon="true">
+                <i style="font-size: 28px;line-height: 1" class="iconfont icon-icon" slot="icon"></i>
                 <div>购物车</div>
 
 
             </m-tabbar-item>
-            <m-tabbar-item id='mine'>
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab5.png" alt="" slot="icon-normal">
-                <img src="http://onpxz5rdd.bkt.clouddn.com/tab5.png" alt="" slot="icon-active">
+            <m-tabbar-item id='mine' isIcon="true">
+                <i style="font-size: 28px;line-height: 1" class="iconfont icon-gerenzhongxin1" slot="icon"></i>
                 我的
 
 
