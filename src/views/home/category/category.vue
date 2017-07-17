@@ -71,6 +71,9 @@
 
                 Lib.axios.axios({
                     url: 'categorys/' + itemId + '/childs',
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.categoryModelList = basebean.getData().categoryModelList;
                     }
@@ -92,7 +95,6 @@
 
         Lib.axios.axios({
             url: '/categorys/findByGrade?grade=1',
-
             success: function (basebean) {
 
                 page.list = basebean.getData();

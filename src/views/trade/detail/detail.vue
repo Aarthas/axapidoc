@@ -89,7 +89,9 @@
 
         Lib.axios.axios({
             url: "/orders/"+orderId+"/detail",
-
+            loading:{
+                page:page,
+            },
             success: function (basebean) {
 
                 page.itemsData = basebean.getData();

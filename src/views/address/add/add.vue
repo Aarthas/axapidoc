@@ -112,6 +112,9 @@
                         isDefault:"false",
                         shopId:page.shopId
                     },
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.$vux.alert.show({
                             title: '提示',

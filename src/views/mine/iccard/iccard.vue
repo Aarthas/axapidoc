@@ -58,7 +58,9 @@
                 Lib.axios.axios({
 
                     url:"/iccard/getICCardInfo?cardNo="+page.icnumber,
-
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
 
                         page.icqueryReturnData = basebean.getData();

@@ -72,7 +72,9 @@
 
         Lib.axios.axios({
             url: 'orders?page=' + pageindex + "&&appOrderStatus=0",
-
+            loading:{
+                page:page,
+            },
             success: function (basebean) {
 
 

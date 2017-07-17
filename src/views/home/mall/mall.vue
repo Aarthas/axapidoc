@@ -166,6 +166,9 @@
             loadRecommend: function () {
                 Lib.axios.axios({
                     url: '/home/hotMarket',
+                    loading:{
+                        page:page,
+                    },
                     success: function (basebean) {
                         page.hotlist = basebean.getData().list;
                     }

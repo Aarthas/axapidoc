@@ -91,6 +91,9 @@
             //历史自提门店
             Lib.axios.axios({
                 url: 'pickShops/getShopPick',
+                loading:{
+                    page:page,
+                },
                 success: function (basebean) {
                     page.historyPickAddress = basebean.getData();
                 }
@@ -140,6 +143,9 @@
                         consignee:page.p_contact,
                         mobile:page.p_mobile,
                         shopId:page.shopId
+                    },
+                    loading:{
+                        page:page,
                     },
                     success: function (basebean) {
                         console.log('返回的'+basebean.getData())

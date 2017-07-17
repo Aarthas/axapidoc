@@ -58,6 +58,9 @@
         mounted(){
             Lib.axios.axios({
                 url: '/address',
+                loading:{
+                    page:page,
+                },
                 success: function (basebean) {
                     console.log(basebean.getData())
                     page.addresslist = basebean.getData().map(function (item, index) {
