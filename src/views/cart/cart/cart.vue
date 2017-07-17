@@ -357,17 +357,9 @@
             success: function (basebean) {
 
                 page.cartData = basebean.getData();
-//                Todo:数组改变不会被检测到 用set
+
                 page.cartList = basebean.getData().appCarts;
 
-//               this.$set(this,this.cartList,basebean.getData().appCarts);
-
-//                page.$data.cartList=basebean.getData().appCarts;
-
-//                page.cartList=[];
-//                page.cartList.push(...basebean.getData().appCarts);
-
-//                Lib.Hub.$emit('arrChange',basebean.getData().appCarts); //Hub触发事件
             },
             onerrcode: function (basebean) {
                 page.$vux.toast.show({

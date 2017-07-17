@@ -2,7 +2,7 @@
 <!--订单列表、详情页用到的商品信息-->
 <template>
 
-    <div style="display:flex;flex-direction: row;margin-top: 3px;background-color: #ffffff;width: 100vw;height: 79px;" v-on:click="toDetail">
+    <div style="display:flex;flex-direction: row;margin-top: 1px;background-color: #ffffff;width: 100vw;height: 79px;" v-on:click="toDetail">
         <div  style="display:inline-block;margin-left: 8px;">
             <img style="width:69px;height: 69px;margin-top: 5px;" :src="item.productImage">
 
