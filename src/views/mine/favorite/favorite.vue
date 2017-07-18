@@ -27,7 +27,6 @@
         components: {
             Search,
             favorite_cell
-
         },
         data () {
             return {

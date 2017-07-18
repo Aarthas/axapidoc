@@ -4,7 +4,7 @@
             <div style="line-height: 50px;margin-left: 10px;">订单号：{{orderId}}</div>
         </div>
         <timeline style="background-color: white;margin-top: 10px;">
-            <timeline-item v-for="item in logisticsData" >
+            <timeline-item v-for="item in logisticsData" :key="item.orderId">
                 <h4 >{{item.message}}</h4>
                 <p >{{item.time}}</p>
             </timeline-item>

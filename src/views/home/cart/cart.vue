@@ -95,6 +95,10 @@
             Lib.Hub.$on('selectSingle', (cellItem) => {
                 selectSingle(cellItem);
             });
+            //Hub接收 删除单个无效商品 事件
+            Lib.Hub.$on('deleteSingle', (cellItem) => {
+                deleteSingle(cellItem);
+            });
             //Hub接收 去商品详情 事件
             Lib.Hub.$on('goDetail', (cellItem) => {
                 if (cellItem.score > 0) {
@@ -358,6 +362,42 @@
 
                 page.cartData = basebean.getData();
 
+                page.cartList = basebean.getData().appCarts;
+
+            },
+            onerrcode: function (basebean) {
+                page.$vux.toast.show({
+                    type: 'cancel',
+                    text: basebean.getMessage()
+                })
+
+            }
+
+        });
+    }
+    //删除单个
+    function deleteSingle(cellItem){
+        var deliverType = page.selectAddress.isDeliver ? 1 : 2;
+        var score;
+        if (cellItem.score == null) {
+            score = 0;
+        } else {
+            score = cellItem.score;
+        }
+        Lib.axios.axios({
+            method: "post",
+            url: "/cartsV2/deleteSingle",
+            params: {
+                skuId:cellItem.erpGoodsId,
+                deliverType: deliverType,
+                cartStatus: score > 0 ? 3 : 1
+            },
+            loading:{
+                page:page,
+            },
+            success: function (basebean) {
+
+                page.cartData = basebean.getData();
                 page.cartList = basebean.getData().appCarts;
 
             },

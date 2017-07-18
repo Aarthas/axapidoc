@@ -4,6 +4,13 @@ Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+
+
+
+
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
+
 import App from './home.vue'
 
 

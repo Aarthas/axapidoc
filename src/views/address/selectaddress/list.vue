@@ -8,7 +8,7 @@
                         <p style="line-height: 30px;">
                             {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
                          <br/>
-                            <span style="color:#666;">  {{addresslist[props.index].areaDesc }}  </span>
+                            <span style="color:#666;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}  </span>
                         </p>
                     </template>
                 </radio>
