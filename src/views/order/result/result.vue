@@ -3,15 +3,15 @@
         <!--<x-header>会员卡绑定微信</x-header>-->
         <div class="weui-msg">
             <div class="weui-msg__icon-area">
-                <i class="weui-icon-success weui-icon_msg"></i>
-                <i class="weui-icon-warn weui-icon_msg-primary"></i>
+                <i v-if="resultCode==1" class="weui-icon-success weui-icon_msg"></i>
+                <i  v-else class="weui-icon-warn weui-icon_msg-primary"></i>
 
 
             </div>
             <div class="weui-msg__text-area">
-                <h2 class="weui-msg__title">提交成功</h2>
+                <h2  v-if="resultCode==1" class="weui-msg__title">提交成功</h2>
                 <!--<br/>-->
-                <p class="weui-msg__desc">未检测到支付结果，请稍后再试</p>
+                <p v-else class="weui-msg__desc">{{errMessage}}</p>
             </div>
             <div class="weui-msg__opr-area">
 
@@ -32,7 +32,7 @@
 
     import Lib from 'assets/js/Lib';
     var page;
-
+    let orderId = Lib.Utils.getQueryString("orderId");
 
     import {XButton} from 'vux'
     export default {
@@ -41,7 +41,11 @@
             XButton
         },
         data () {
-            return {};
+            return {
+
+                resultCode:1,
+                errMessage:""
+            };
         },
         created () {
             page = this;
@@ -51,14 +55,28 @@
 
         },
         mounted(){
+            Lib.axios.axios({
+                url: "/orders/submitResult?orderId=" + orderId,
+                loading: {
+                    page: page,
+                },
+                success: function (basebean) {
+                   page.resultCode=1;
 
+                },
+                onerrcode: function (basebean) {
+                    page.resultCode=0
+                    page.errMessage=basebean.getMessage();
+
+                }
+            })
         },
-        methods: {
+       methods:{
             doOnNext1: function () {
-
+                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
             },
             doOnNext2: function () {
-
+                window.location.href = Lib.constant.baseurl+"/views/home/home.html#/mall";
             },
 
         }

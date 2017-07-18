@@ -146,8 +146,16 @@
                         payType:page.p_payType,
                         comment:page.remarket,
                     },
-                    success: function (basebean) {
+                    loading:{
+                        page:page
 
+                    },
+                    success: function (basebean) {
+                        if (page.p_payType==1){
+                           window.location = Lib.constant.baseurl + "/views/order/result.html?orderId=" + basebean.getData().orderId;
+                        }else {
+                            window.location = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + basebean.getData().orderId+"&payAmount="+ basebean.getData().payAmount;
+                        }
 
                     },
                     onerrcode:function (basebean) {
