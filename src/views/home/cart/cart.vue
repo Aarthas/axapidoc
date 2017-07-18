@@ -187,8 +187,8 @@
                         console.log(basebean.getData())
                         page.selectAddress = basebean.getData().address;
                         Lib.localStorage.setCurrentAddress(page.selectAddress)
-                        page.cartData = basebean.getData();
-                        page.cartList = basebean.getData().carts;
+                        page.cartData = basebean.getData().carts;
+                        page.cartList = basebean.getData().carts.appCarts;
 
                     }
                 });
