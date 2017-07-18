@@ -1,9 +1,9 @@
 <template>
     <div class="vux-check-icon" @click="updateValue">
 
-            <i class="weui-icon-success" v-show="type === 'default' && value"></i>
-            <i class="weui-icon-circle" v-show="!value"></i>
-            <i class="weui-icon-cancel" v-show="type === 'cancel'"></i>
+            <i class="weui-icon-success" v-show="type == 'default' && value"></i>
+            <i class="weui-icon-circle" v-show="type == 'default' && !value"></i>
+            <i class="weui-icon-cancel" v-show="type == 'cancel'"></i>
 
     </div>
 </template>
