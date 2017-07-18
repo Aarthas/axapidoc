@@ -46,11 +46,11 @@ var Rxports = {
 
         if (opt.loading) {
             opt.loading.page.$vux.loading.show({
-                text: opt.loading.loadtext||'正在加载'
+                text: opt.loading.loadtext || '正在加载'
             })
         }
         console.log("localStorage.getItem(token)=" + localStorage.getItem("token"))
-        let shopid = localstorage.getCurrentAddress()==null ? "00023":localstorage.getCurrentAddress().shopId;
+        let shopid = localstorage.getCurrentAddress() == null ? "00023" : localstorage.getCurrentAddress().shopId;
         axios({
             method: opts.method || 'get',
             url: opts.url,
@@ -69,7 +69,7 @@ var Rxports = {
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
-            console.log('then')
+            console.log('then '+opts.url)
 
             // console.log(res)
             // console.log(res.status)
@@ -94,11 +94,11 @@ var Rxports = {
                 // }
 
 
-            } else   if (res.status == 401){
+            } else if (res.status == 401) {
 
-                if (opts.forunlogin){
+                if (opts.forunlogin) {
                     opts.forunlogin();
-                }else {
+                } else {
                     go.jt_login()
                 }
 
@@ -111,22 +111,22 @@ var Rxports = {
             }
 
         }).catch(function (error) {
-            console.log('error');
+            console.log('error  ' +opts.url);
             console.log(error);
             console.log(error.response.status);
 
-            if (error.response.status == 401){
+            if (error.response.status == 401) {
 
-                if (opts.forunlogin){
-                    console.log("forunlogin");
+                if (opts.forunlogin) {
+                    console.log("forunlogin"+opts.url);
                     opts.forunlogin();
-                }else {
+                } else {
                     console.log("jt_login");
                     go.jt_login()
                 }
             }
 
-            if (opts.error) {
+            else if (opts.error) {
                 opts.error(error);
             } else {
                 // alert('好多人在访问呀，请重新试试[timeout]');

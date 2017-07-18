@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <div >
+        <div>
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
@@ -12,6 +12,12 @@
 
                 首页
 
+
+
+
+
+
+
             </m-tabbar-item>
             <m-tabbar-item id='category' isIcon>
                 <!--<i class="iconfont icon-cart"  slot="icon"></i>-->
@@ -20,6 +26,12 @@
                 <!--<use xlink:href="#icon-xxx"></use>-->
                 <!--</svg>-->
                 分类
+
+
+
+
+
+
 
 
 
@@ -38,6 +50,12 @@
             <m-tabbar-item id='mine' isIcon>
                 <i style="font-size: 26px;line-height: 1" class="iconfont icon-gerenzhongxin1" slot="icon"></i>
                 我的
+
+
+
+
+
+
 
 
 
@@ -76,9 +94,55 @@
         created () {
             let path = this.$route.path;
             this.select = path.substr(1, path.length)
+
+
+            let token = localStorage.getItem("token");
+            console.log("has token "+(token != null && token != ''))
+            if (token != null && token != '') {
+                Lib.axios.axios({
+                    url: '/users/me',
+                    success: function (basebean) {
+
+                    },
+                    forunlogin: function (basebean) {
+                        checkCode();
+                    },
+                    error: function (error) {
+                        checkCode();
+                    }
+                });
+            }else {
+                checkCode();
+            }
+
         },
         methods: {}
     }
+
+    var checkCode = function () {
+        let code = Lib.Utils.getQueryString("code");
+        console.log('checkCode code = ' + code)
+
+        if (code != null && code.length > 0) {
+            Lib.axios.axios({
+                url: '/wechat/getTokenByWxcode?code=' + code + '&userinfo=userinfo',
+                success: function (basebean) {
+                    console.log("getTokenByWxcode success token="+(basebean.getSessionId()))
+                    let data = basebean.getData();
+                    localStorage.setItem("token", basebean.getSessionId())
+                },
+                forunlogin: function (basebean) {
+
+                },
+                error: function (error) {
+
+                }
+            });
+        }
+
+    }
+
+
 </script>
 <style>
 
