@@ -1,10 +1,10 @@
 <template>
     <div class="vux-header">
-        <div style="display: flex;align-items: center;width:50px;padding-left: 14px;height: 40px;" @click="jt_home">
+        <div style="display: flex;align-items: center;width:35px;padding-left: 14px;height: 40px;" @click="jt_home">
             <i style="font-size: 30px;line-height: 1;color: white" class="iconfont icon-shouye" slot="icon"></i>
         </div>
-        <h1 class="vux-header-title">
-            <span v-show="title">{{title}}</span>
+        <h1 class="vux-header-title" @click="jt_home">
+            <span v-show="title">首页</span>
         </h1>
         <div class="vux-header-right">
             <a class="vux-header-more" @click.preventDefault @click="$emit('on-click-more')"
@@ -68,10 +68,8 @@
     .vux-header .vux-header-title, .vux-header h1 {
         line-height: 40px;
         height: 40px;
-        font-size: 17px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        font-size: 15px;
+        margin-top: 5px;
         color: #ffffff;
     }
 
