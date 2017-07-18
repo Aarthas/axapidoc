@@ -11,7 +11,7 @@
                 <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">服务： 商品10kg以内满88元，20kg以内满176元 包邮</div>
             </div>
             <div style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;" @click="jt_select_address">
-                <div v-if="selectedAddress.isDeliver" style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： {{selectedAddress.area}}</div>
+                <div v-if="selectedAddress.isDeliver" style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： {{selectedAddress.areaDesc}}</div>
                 <div v-else style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： {{selectedAddress.shopName}}</div>
                 <div style="font-size: 13px;line-height: 40px;margin-left: 8px;color: #f03838">库存：{{stock}}件</div>
                 <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
