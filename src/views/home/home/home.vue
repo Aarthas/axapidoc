@@ -6,13 +6,13 @@
         </keep-alive>
         <m-tabbar v-model="select">
             <m-tabbar-item id='mall' isIcon>
-                <i style="font-size: 28px;line-height: 1" class="iconfont icon-shouye" slot="icon"></i>
+                <i style="font-size: 26px;line-height: 1" class="iconfont icon-shouye" slot="icon"></i>
 
                 首页
             </m-tabbar-item>
             <m-tabbar-item id='category' isIcon>
                 <!--<i class="iconfont icon-cart"  slot="icon"></i>-->
-                <i style="font-size: 28px;line-height: 1" class="iconfont icon-category" slot="icon"></i>
+                <i style="font-size: 26px;line-height: 1" class="iconfont icon-fenlei" slot="icon"></i>
                 <!--<svg class="icon" aria-hidden="true">-->
                     <!--<use xlink:href="#icon-xxx"></use>-->
                 <!--</svg>-->
@@ -26,13 +26,13 @@
 
             </m-tabbar-item>
             <m-tabbar-item id='cart' isIcon>
-                <i style="font-size: 28px;line-height: 1" class="iconfont icon-cart" slot="icon"></i>
+                <i style="font-size: 24px;line-height: 1.2" class="iconfont icon-gouwuche" slot="icon"></i>
                 <div>购物车</div>
 
 
             </m-tabbar-item>
             <m-tabbar-item id='mine' isIcon>
-                <i style="font-size: 28px;line-height: 1" class="iconfont icon-gerenzhongxin1" slot="icon"></i>
+                <i style="font-size: 26px;line-height: 1" class="iconfont icon-gerenzhongxin1" slot="icon"></i>
                 我的
 
 
