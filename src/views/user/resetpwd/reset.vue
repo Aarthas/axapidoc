@@ -1,7 +1,7 @@
 <template>
 
     <div>
-
+        <YHead title="重置密码"></YHead>
         <!--<YHead title="登录"></YHead>-->
         <div style="height: 30px"/>
         <div style="display: flex;justify-content: center;align-items: center;">
@@ -33,6 +33,7 @@
     import vcodecell from '../../../components/vcodecell.vue'
     import {Group, XInput, XButton,Alert,Toast} from 'vux'
     import Lib from 'assets/js/Lib';
+    import YHead from '../../../components/YHead.vue'
 
     var page
 
@@ -45,7 +46,7 @@
             XButton,
             vcodecell,
             Alert,
-            Toast
+            Toast,YHead
 
 
         },

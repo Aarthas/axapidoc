@@ -26,7 +26,7 @@
 
             </m-tabbar-item>
             <m-tabbar-item id='cart' isIcon>
-                <i style="font-size: 24px;line-height: 1.2" class="iconfont icon-gouwuche" slot="icon"></i>
+                <i style="font-size: 22px;line-height: 1.2" class="iconfont icon-gouwuche" slot="icon"></i>
                 <div>购物车</div>
 
 

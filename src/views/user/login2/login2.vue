@@ -1,8 +1,8 @@
 <template>
 
     <div>
+        <YHead title="登录"></YHead>
 
-        <!--<YHead title="登录"></YHead>-->
         <div style="height: 30px"/>
         <div style="display: flex;justify-content: center;align-items: center;">
             <img style="width: 90px;height: 90px;border-radius: 50%"
@@ -39,7 +39,7 @@
     import vcodecell from '../../../components/vcodecell.vue'
     import {Group, XInput, XButton} from 'vux'
     import Lib from 'assets/js/Lib';
-
+    import YHead from '../../../components/YHead.vue'
     var page
 
 
@@ -48,7 +48,7 @@
         components: {
             Group,
             XInput,
-            XButton,
+            XButton,YHead
         },
         data () {
             return {

@@ -25,28 +25,13 @@ import uiutil from './uiutil';
 import constant from './constant';
 import avux from './avux';
 import localstorage from './localstorage';
-
+import go from './go';
 //解决click点击300毫秒延时问题
 import FastClick from 'fastclick';
 FastClick.attach(document.body);
 
 
-var go = {
-    go(url, $router){
-        if ($router) {
-            url === 'BACK' ? $router.go(-1) : $router.push(url)
-        } else {
-            window.location.href = constant.baseurl + url
-        }
-    },
-    getquery: function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null) return (r[2]);
-        return null;
-    }
 
-}
 
 
 export default{

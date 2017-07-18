@@ -9,10 +9,11 @@ import App from './home.vue'
 
 import mall from '../mall/mall.vue'
 import category from '../category/category.vue'
-import cart from '../../cart/cart/cart.vue'
+import cart from '../cart/cart.vue'
 import mine from '../../mine/mine/mine.vue'
 
 const routes = [
+    {path: '/', meta: {id: 'mall'}, component: mall},
     {path: '/mall', meta: {id: 'mall'}, component: mall},
     {path: '/category', meta: {id: 'category'}, component: category},
     {path: '/cart', meta: {id: 'cart'}, component: cart},

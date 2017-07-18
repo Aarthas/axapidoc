@@ -1,8 +1,9 @@
 import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
-var baseurl = 'http://193.0.1.157:20000';
-// var baseurl = 'http://app.sanjiang.com';
+import go from './go';
+// var baseurl = 'http://193.0.1.157:20000';
+var baseurl = 'http://app.sanjiang.com';
 // var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
@@ -68,7 +69,10 @@ var Rxports = {
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
-            console.log(res)
+            console.log('then')
+
+            // console.log(res)
+            // console.log(res.status)
             // res.data.data.list = null;
             if (res.status == 200) {
                 var basebean = new BaseBean(res);
@@ -89,9 +93,15 @@ var Rxports = {
                 // 	opts.success(res.data,res);
                 // }
 
-            } else    if (res.status == 401){
 
-                opts.forunlogin();
+            } else   if (res.status == 401){
+
+                if (opts.forunlogin){
+                    opts.forunlogin();
+                }else {
+                    go.jt_login()
+                }
+
             }
             if (opts.onAfter) {
                 opts.onAfter();
@@ -101,7 +111,21 @@ var Rxports = {
             }
 
         }).catch(function (error) {
+            console.log('error');
             console.log(error);
+            console.log(error.response.status);
+
+            if (error.response.status == 401){
+
+                if (opts.forunlogin){
+                    console.log("forunlogin");
+                    opts.forunlogin();
+                }else {
+                    console.log("jt_login");
+                    go.jt_login()
+                }
+            }
+
             if (opts.error) {
                 opts.error(error);
             } else {
