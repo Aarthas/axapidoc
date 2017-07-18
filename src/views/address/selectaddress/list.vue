@@ -3,6 +3,7 @@
         <div>
             <div style="background-color: white;margin-bottom: 100px;">
 
+
                 <radio :options="addresslist" v-model="currentValue" :fill-mode="false" >
                     <template scope="props" slot="each-item">
                         <p style="line-height: 30px;">

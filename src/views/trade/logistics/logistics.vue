@@ -3,6 +3,7 @@
         <div style="background-color: white;font-size: 17px;text-align: left;height: 50px;">
             <div style="line-height: 50px;margin-left: 10px;">订单号：{{orderId}}</div>
         </div>
+
         <timeline style="background-color: white;margin-top: 10px;">
             <timeline-item v-for="item in logisticsData" :key="item.orderId">
                 <h4 >{{item.message}}</h4>

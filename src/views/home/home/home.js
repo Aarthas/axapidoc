@@ -19,6 +19,7 @@ import category from '../category/category.vue'
 import cart from '../cart/cart.vue'
 import mine from '../../mine/mine/mine.vue'
 
+
 const routes = [
     {path: '/', meta: {id: 'mall'}, component: mall},
     {path: '/mall', meta: {id: 'mall'}, component: mall},

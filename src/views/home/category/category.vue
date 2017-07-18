@@ -5,6 +5,7 @@
            <scroller width="25%"  style="left: 0;top:50px;bottom:49px;" >
               <div >
                 <ul>
+
                     <li v-for="(item,$index) in list" @click="selectStyle (item, $index);clickLeft(item.id) "
                         :class="{'active':item.active,'unactive':!item.active}">{{item.appCategoryName}}
                     </li>

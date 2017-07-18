@@ -375,6 +375,7 @@
 
         });
     }
+
     //删除单个
     function deleteSingle(cellItem){
         var deliverType = page.selectAddress.isDeliver ? 1 : 2;
