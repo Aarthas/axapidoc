@@ -111,9 +111,12 @@
                         // 支付成功后的回调函数
                         alert("succ")
                     },
-                    error:function () {
-                        console.log("err")
-                        alert("err")
+                    cencel:function(res){
+                    alert('cencel pay');
+                    },
+                    fail: function(res){
+                    alert('pay fail');
+                        alert(JSON.stringify(res));
                     }
                 });
 
