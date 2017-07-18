@@ -1,5 +1,5 @@
 <template>
-    <div class="main_view">
+    <div >
         <mine_header
                 @jt_profile="jt_profile"
                 @jt_login="jt_login"
@@ -18,6 +18,8 @@
             <icon_cell title="帮助与反馈" iconsrc="http://onpxz5rdd.bkt.clouddn.com/ic_info_service.png" v-on:click.native="routeto(6)"></icon_cell>
 
         </group>
+
+        <div style="height: 80px;"></div>
 
     </div>
 </template>
@@ -109,33 +111,7 @@
 </script>
 
 <style scoped>
-    .main_view {
-        width: 100%;
-        height: 100%;
-        background-color: #f6f6f6;
 
-    }
 
-    .wui-cell {
 
-        font-size: 16px;
-    }
-
-    /*.card-demo-flex {*/
-    /*display: flex;*/
-    /*}*/
-
-    /*.card-demo-content01 {*/
-    /*padding: 10px 0;*/
-    /*}*/
-
-    /*.card-demo-flex > div {*/
-    /*flex: 1;*/
-    /*text-align: center;*/
-    /*font-size: 13px;*/
-    /*}*/
-
-    /*.card-demo-flex span {*/
-    /*color: #f74c31;*/
-    /*}*/
 </style>
