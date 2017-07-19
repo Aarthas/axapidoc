@@ -3,8 +3,8 @@ var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
 import go from './go';
 // var baseurl = 'http://193.0.1.157:20000';
-var baseurl = 'http://app.sanjiang.com';
-// var baseurl = 'http://app.dev.sanjiang.info';
+// var baseurl = 'http://app.sanjiang.com';
+var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
     /*

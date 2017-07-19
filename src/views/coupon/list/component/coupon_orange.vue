@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="pane" v-on:click="myfunc">
+    <div class="pane" v-on:click="$emit('usecouponcode',item)">
         <div
                 class="pane_lf">
             <div class="pane_lf_info1">
@@ -45,10 +45,7 @@
         },
         methods: {
 
-            myfunc: function () {
-                let that = this;
-                that.$emit('exchange', this.item)
-            }
+
         }
     }
 </script>

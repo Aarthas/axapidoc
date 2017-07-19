@@ -5,9 +5,9 @@
         <ul v-if="!listEmpty">
             <li v-for="item in list">
 
-                <coupon_blue @exchange="exchange" :item=item v-if="item.isUnused&&item.isReduce"></coupon_blue>
-                <coupon_orange @exchange="exchange" :item=item v-else-if="item.isUnused&&item.isCach"></coupon_orange>
-                <coupon_gray @exchange="exchange" :item=item v-else-if="item.isUsed||item.isExpired"></coupon_gray>
+                <coupon_blue  :item=item v-if="item.isUnused&&item.isReduce"></coupon_blue>
+                <coupon_orange @usecouponcode="usecouponcode" :item=item v-else-if="item.isUnused&&item.isCach"></coupon_orange>
+                <coupon_gray :item=item v-else-if="item.isUsed||item.isExpired"></coupon_gray>
 
             </li>
 
@@ -77,11 +77,11 @@
         },
 
         methods: {
+            usecouponcode:function (item) {
+                Lib.go.go('/views/coupon/usecode.html?couponcode='+item.volumeNumber);
+            },
 
 
-            jt: function () {
-
-            }
         }
     }
 </script>
