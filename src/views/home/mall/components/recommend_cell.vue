@@ -2,7 +2,7 @@
     <div>
     <div style=" display: flex;flex-direction: column;background-color: #ffffff;height: 230px;margin :2px 5px 5px 5px;">
         <div @click="toDetail">
-            <img style="height: 150px;background-color: yellow;margin: 8px 15px 0px 15px;" :src="item.productImage"/>
+            <img style="height: 150px;margin: 8px 15px 0px 15px;" :src="item.productImage"/>
             <div style="color: #333333;font-size: 13px;margin-top:5px;margin-left:8px;margin-right:8px;text-align: left;white-space: nowrap;overflow: hidden;text-overflow: ellipsis; " >{{item.name}}</div>
         </div>
         <div style="display: flex;flex-direction: row;margin: 0px 8px 8px 8px;">

@@ -9,7 +9,7 @@
 
         <!--中  商品图片-->
         <div style="width: 100px; " v-on:click="myFun">
-            <img style="background-color: yellow;width: 80px;height: 80px;margin-top :15px;margin-left: 10px;"
+            <img style="width: 80px;height: 80px;margin-top :15px;margin-left: 10px;"
                  :src="cellItem.productImage">
         </div>
         <!--右-->
