@@ -2,9 +2,9 @@
     <div>
 
         <div>
-            <keep-alive>
+            <!--<keep-alive>-->
                 <router-view></router-view>
-            </keep-alive>
+            <!--</keep-alive>-->
         </div>
         <m-tabbar v-model="select">
             <m-tabbar-item id='mall' isIcon>
