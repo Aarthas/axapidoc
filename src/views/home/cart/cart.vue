@@ -1,7 +1,7 @@
 <template>
 
     <div style="margin-bottom: 120px;">
-
+       <div v-if="cartList!=null">
         <div style="background-color: white;overflow: hidden;position: relative;" @click="jt_select_address">
             <div v-if="selectAddress!=null" href="javascript:void(0);"
                  class="weui-cell weui-cell_access weui-cell_link">
@@ -35,9 +35,7 @@
 
             </div>
         </div>
-        <!--<div  v-show="cartList.length==0" style="display: flex;justify-content: center;align-items: center;height: 400px;">-->
-        <!--购物车列表为空-->
-        <!--</div>-->
+
         <ul>
             <li v-for="item in cartList">
                 <cart_temp :item="item">  </cart_temp>
@@ -48,6 +46,11 @@
                 @goSelectAll="goSelectAll"></settle>
         <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll"
               @addToFav="addToFav" @deleteAll="deleteAll"></edit>
+       </div>
+        <div  v-else style="display: flex;flex-direction:column;justify-content: center;align-items: center;height: 400px;">
+            <div>购物车列表为空</div>
+             <x-button @click.native="goHome" type="primary" mini style="margin-top: 20px;width: 100px;">去逛逛</x-button>
+        </div>
     </div>
 </template>
 
@@ -55,7 +58,7 @@
 <script>
 
 
-    import {Group, XInput, XButton, XNumber, Toast} from 'vux'
+    import {Group, XInput, XButton, XNumber, Toast,Confirm} from 'vux'
     import Vue from 'vue';
     import Lib from 'assets/js/Lib';
 
@@ -75,7 +78,8 @@
             cart_temp,
             settle,
             edit,
-            Toast
+            Toast,
+            Confirm
         },
         data () {
             return {
@@ -139,10 +143,13 @@
             Lib.Hub.$on('sub', (item) => {
                 var newNumber = item.number - 1;
                 if (newNumber < 1) {
-                    page.$vux.toast.show({
-                        type: 'cancel',
-                        text: '不能少于1件哦！'
-                    })
+                    this.$vux.confirm.show({
+                            title: '提示',
+                            content: '确认删除此商品吗？',
+                            onConfirm () {
+                                deleteSingle(item);
+                            }
+                    });
                     return;
                 } else if (newNumber > item.stock) {
                     newNumber = item.stock;
@@ -323,6 +330,10 @@
 
                 });
             },
+//            去逛逛
+            goHome:function () {
+                window.location.href = Lib.constant.baseurl+"/views/home/home.html#/mall";
+            }
         }
     }
     function loadCartData() {
