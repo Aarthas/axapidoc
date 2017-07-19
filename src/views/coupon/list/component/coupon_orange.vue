@@ -23,7 +23,7 @@
         </div>
 
         <div class="pane_rt" >
-            使<br>用
+            门店<br>使用
 
         </div>
     </div>
@@ -83,7 +83,7 @@
     }
 
     .pane_rt {
-        width: 48px;
+        width: 70px;
         background-color: white;
         color: #f4a818;
         font-size: 14px;
