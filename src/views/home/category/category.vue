@@ -1,27 +1,29 @@
 <template>
     <div>
         <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
-        <div style="display: flex;flex-direction: row;;">
-           <scroller width="25%"  style="left: 0;top:50px;bottom:49px;" >
-              <div >
-                <ul>
+        <div style="display: flex;flex-direction: row;">
 
-                    <li v-for="(item,$index) in list" @click="selectStyle (item, $index);clickLeft(item.id) "
-                        :class="{'active':item.active,'unactive':!item.active}">{{item.appCategoryName}}
-                    </li>
-                </ul>
-              </div>
+            <scroller style="width: 25%;">
+
+                <div style="height: 50px;"></div>
+                <div style="display: flex;flex-direction: column">
+                    <span  v-for="(item,$index) in list"
+                          @click="selectStyle (item, $index);clickLeft(item.id) "
+                           style=" border-bottom: 1px solid #eeeeee;"
+                          :class="{'active':item.active,'unactive':!item.active}">{{item.appCategoryName}}
+                    </span>
+                </div>
+                <div style="height: 50px;"></div>
             </scroller>
 
-            <scroller  width="75%" style="left: 25%;  background-color: white;margin-top: 50px;bottom:49px;" >
-            <div>
-                <ul >
-                    <li v-for="item in categoryModelList">
-                        <collect :item="item"></collect>
-                    </li>
-                </ul>
+            <scroller  style="width:75vw ;left:25vw;   background-color: #ffffff;">
 
-            </div>
+                <div style="height: 50px;"></div>
+                <div  v-for="item in categoryModelList">
+                    <collect  :item="item"></collect>
+                </div>
+
+                <div style="height: 50px;"></div>
             </scroller>
         </div>
     </div>
@@ -69,8 +71,8 @@
 
                 Lib.axios.axios({
                     url: 'categorys/' + itemId + '/childs',
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         page.categoryModelList = basebean.getData().categoryModelList;
@@ -85,8 +87,6 @@
                 item.active = true
 
             },
-
-
 
 
         }
@@ -116,7 +116,7 @@
         line-height: 44px;
         font-size: 14px;
         background-color: #ffffff;
-        margin-top: 2px;
+
     }
 
     .unactive {
@@ -125,7 +125,7 @@
         height: 44px;
         line-height: 44px;
         font-size: 14px;
-        margin-top: 2px;
+
         background-color: #f6f6f6;
     }
 
