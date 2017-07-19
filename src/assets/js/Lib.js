@@ -19,7 +19,7 @@ Vue.use(ToastPlugin)
 let Hub = new Vue(); //创建事件中心
 
 
-import M from './common';
+import axioshelp from './axioshelp';
 import Utils from './Utils';
 import uiutil from './uiutil';
 import constant from './constant';
@@ -37,7 +37,7 @@ FastClick.attach(document.body);
 export default{
     Utils,
     uiutil,
-    axios: M,
+    axios: axioshelp,
     constant,
     Hub,
     vux: avux,
