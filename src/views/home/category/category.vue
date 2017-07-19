@@ -3,7 +3,7 @@
         <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
         <div style="display: flex;flex-direction: row;">
 
-            <scroller style="width: 25%;">
+            <scroller width="25%" style="width: 25%;">
 
                 <div style="height: 50px;"></div>
                 <div style="display: flex;flex-direction: column">
@@ -16,7 +16,7 @@
                 <div style="height: 50px;"></div>
             </scroller>
 
-            <scroller  style="width:75vw ;left:25vw;   background-color: #ffffff;">
+            <scroller width="75%" style="width:75% ;left:25%;   background-color: #ffffff;">
 
                 <div style="height: 50px;"></div>
                 <div  v-for="item in categoryModelList">
