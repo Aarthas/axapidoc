@@ -37,6 +37,7 @@
         ,
         methods: {
             muFunc: function () {
+                console.log("aa")
                 Lib.Hub.$emit('keyword',this.keyword); //Hub触发事件
             }
         }

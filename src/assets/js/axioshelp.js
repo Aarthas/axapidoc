@@ -69,42 +69,46 @@ var Rxports = {
             timeout: opts.time || 10 * 1000,
             responseType: opts.dataType || 'json'
         }).then(function (res) {
-            console.log('then '+opts.url)
+            console.log('then ss'+opts.url)
 
-            // console.log(res)
-            // console.log(res.status)
-            // res.data.data.list = null;
-            if (res.status == 200) {
-                var basebean = new BaseBean(res);
-                // console.log(basebean)
+            try {
+                // console.log(res)
+                // console.log(res.status)
+                // res.data.data.list = null;
+                if (res.status == 200) {
+                    var basebean = new BaseBean(res);
+                    // console.log(basebean)
 
-                if (basebean.isSuccess()) {
-                    opts.success(basebean);
-                }
-                else {
-                    if (opts.onerrcode) {
-                        opts.onerrcode(basebean);
+                    if (basebean.isSuccess()) {
+                        opts.success(basebean);
+                    }
+                    else {
+                        if (opts.onerrcode) {
+                            opts.onerrcode(basebean);
+                        }
+
+
                     }
 
+                    // if(opts.success){
+                    // 	opts.success(res.data,res);
+                    // }
+
+
+                } else if (res.status == 401) {
+
+                    if (opts.forunlogin) {
+                        opts.forunlogin();
+                    } else {
+                        go.jt_login()
+                    }
 
                 }
-
-                // if(opts.success){
-                // 	opts.success(res.data,res);
-                // }
-
-
-            } else if (res.status == 401) {
-
-                if (opts.forunlogin) {
-                    opts.forunlogin();
-                } else {
-                    go.jt_login()
+                if (opts.onAfter) {
+                    opts.onAfter();
                 }
-
-            }
-            if (opts.onAfter) {
-                opts.onAfter();
+            }catch (e){
+                console.log("exception = "+e);
             }
             if (opt.loading) {
                 opt.loading.page.$vux.loading.hide()

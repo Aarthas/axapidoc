@@ -1,11 +1,22 @@
 <template>
 
-    <div style="display: flex;flex-direction: column">
+    <div >
         <YSearch placeholder="搜索三江购物商品"></YSearch>
-        <scroller style=""
+
+        <tab style="position:fixed; top:44px; left: 0;width: 100%;z-index: 99">
+            <tab-item selected @on-item-click="onItemClick(0)">综合排序</tab-item>
+
+            <tab-item  v-if="saleBig" @on-item-click="onItemClick(1)" >销量 ↓</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(1)"  >销量 ↑</tab-item>
+
+            <tab-item v-if="priceBig" @on-item-click="onItemClick(2)"  >价格 ↓</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(2)"  >价格 ↑</tab-item>
+        </tab>
+
+        <scroller
                   ref="myScroller"
                   :on-infinite="infinite">
-            <div style="height: 44px;"></div>
+            <div style="height: 90px;"></div>
             <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @goDetail="goDetail" ></favorite_cell>
         </scroller>
         <div v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
@@ -20,13 +31,14 @@
     import Lib from 'assets/js/Lib';
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
     import YSearch from '../../../components/search.vue' ;
-    import {Search} from 'vux';
+    import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux';
     let categoryId = Lib.Utils.getQueryString("categoryId");
     let keyword = Lib.Utils.getQueryString("keyword");
     var page;
     export default {
         components: {
-
+            Tab,
+            TabItem,
             favorite_cell,
             YSearch,
         },
@@ -36,20 +48,20 @@
                 listEmpty: false,
                 list: [],
                 pageIndex: 1,
-
+                selectedIndex:0,
+                priceBig:false,
+                saleBig:false,
 
             }
         },
+       created(){
 
+       },
         mounted(){
 
             page = this;
 
-            if (keyword == null) {
-                loadData(categoryId, page.pageIndex);
-            } else {
-                loadData(keyword, page.pageIndex);
-            }
+            page.onItemClick(0);
 
         },
         methods: {
@@ -64,30 +76,80 @@
                         console.log("done")
                         done(true)
                     } else {
-                        if (keyword == null) {
-                            loadData(categoryId, itemsData.page + 1);
-                        } else {
-                            loadData(keyword, itemsData.page + 1);
+                        var urlString;
+                        var newPage = itemsData.page + 1;
+                        if (page.selectedIndex==0){
+                            if (keyword == null) {
+                                urlString = '/search?categoryId=' + categoryId + "&page=" + newPage
+                            } else {
+                                urlString = '/search?keyword=' + keyword + "&page=" + newPage
+                            }
+                        }else if(page.selectedIndex==1){
+                            var saleBig=page.saleBig ? "salesUp":"sales";
+                            if (keyword == null) {
+                                urlString = '/search?categoryId=' + categoryId +"&sortType="+saleBig+"&page=" +   newPage
+                            } else {
+                                urlString = '/search?keyword=' + keyword +"&sortType="+saleBig+"&page=" +  newPage
+                            }
+                        }else {
+                            var priceBig=page.priceBig ? "priceUp":"price";
+
+                            if (keyword == null) {
+                                urlString = '/search?categoryId=' + categoryId +"&sortType="+priceBig+"&page=" + newPage
+                            } else {
+                                urlString = '/search?keyword=' + keyword + "&sortType="+priceBig+"&page=" + newPage
+                            }
                         }
+                        loadData(urlString);
+//                        if (keyword == null) {
+//
+//                            loadData(categoryId, itemsData.page + 1);
+//                        } else {
+//                            loadData(keyword, itemsData.page + 1);
+//                        }
 
                     }
                 }
             },
+            onItemClick: function (index) {
+                console.log("点击了"+index);
+                page.selectedIndex=index;
+               var urlString;
+                if (index == 0){
 
+                    if (keyword == null) {
+                        urlString = '/search?categoryId=' + categoryId + "&page=" +  page.pageIndex
+                    } else {
+                        urlString = '/search?keyword=' + keyword + "&page=" + page.pageIndex
+                    }
+                }else if (index == 1){
+                    var saleBig=page.saleBig ? "salesUp":"sales";
+                    if (keyword == null) {
+                        urlString = '/search?categoryId=' + categoryId +"&sortType="+saleBig+"&page=" +   page.pageIndex
+                    } else {
+                        urlString = '/search?keyword=' + keyword +"&sortType="+saleBig+"&page=" + page.pageIndex
+                    }
+                    page.saleBig=!page.saleBig;
+                }else{
+                    var priceBig=page.priceBig ? "priceUp":"price";
+
+                    if (keyword == null) {
+
+                        urlString = '/search?categoryId=' + categoryId +"&sortType="+priceBig+"&page=" +  page.pageIndex
+                    } else {
+                        urlString = '/search?keyword=' + keyword + "&sortType="+priceBig+"&page=" + page.pageIndex
+                    }
+                    page.priceBig=!page.priceBig;
+                }
+                loadData(urlString);
+            },
             goDetail:function (item) {
                 Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
             }
         }
     }
     var itemsData;
-    function loadData(param, pageIndex) {
-        var urlString;
-
-        if (keyword == null) {
-            urlString = '/search?categoryId=' + param + "&page=" + pageIndex
-        } else {
-            urlString = '/search?keyword=' + param + "&page=" + pageIndex
-        }
+    function loadData(urlString) {
         Lib.axios.axios({
 
             url: urlString,
