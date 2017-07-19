@@ -3,8 +3,8 @@ var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
 import go from './go';
 // var baseurl = 'http://193.0.1.157:20000';
-// var baseurl = 'http://app.sanjiang.com';
-var baseurl = 'http://app.dev.sanjiang.info';
+var baseurl = 'http://app.sanjiang.com';
+// var baseurl = 'http://app.dev.sanjiang.info';
 var Rxports = {
 
     /*
@@ -74,6 +74,9 @@ var Rxports = {
             // console.log(res)
             // console.log(res.status)
             // res.data.data.list = null;
+            try {
+
+
             if (res.status == 200) {
                 var basebean = new BaseBean(res);
                 // console.log(basebean)
@@ -106,14 +109,17 @@ var Rxports = {
             if (opts.onAfter) {
                 opts.onAfter();
             }
+            }catch (e){
+                console.log("exception = "+e);
+            }
+            console.log("loading");
             if (opt.loading) {
                 opt.loading.page.$vux.loading.hide()
             }
 
         }).catch(function (error) {
             console.log('error  ' +opts.url);
-            console.log(error);
-            console.log(error.response.status);
+
 
             if (error.response.status == 401) {
 
@@ -134,10 +140,14 @@ var Rxports = {
             if (opts.onAfter) {
                 opts.onAfter();
             }
-            if (opt.loading) {
-                opt.loading.page.$vux.loading.hide()
+            console.log("loading");
+            if (opts.loading) {
+                opts.loading.page.$vux.loading.hide()
             }
 
+
+            console.log(error);
+            console.log(error.response.status);
         });
 
     },
