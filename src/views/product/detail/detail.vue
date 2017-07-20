@@ -44,12 +44,12 @@
     import recommend from './components/recommend.vue'
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
-    import {Swiper, Alert} from 'vux'
+    import {Swiper, Alert,Toast} from 'vux'
     let productId = Lib.Utils.getQueryString("productId");
     let isScoreItem = Lib.Utils.getQueryString("isScoreItem");
     var page;
     export default {
-        components: {Swiper, recommend, bottom, info, Alert},
+        components: {Swiper, recommend, bottom, info, Alert,Toast},
         data(){
             return {
                 itemsData: {},
@@ -76,13 +76,19 @@
                 Lib.go.go("/views/address/selectaddress.html")
             },
             toIntroduction: function () {
-
-                this.$router.push({
-                    path: '/introduction',
-                    query: {
+                if ( page.itemsData.introduction==''||page.itemsData.introduction==null) {
+                    page.$vux.toast.show({
+                        type: 'cancel',
+                        text: '暂无商品介绍'
+                    })
+                }else{
+                  this.$router.push({
+                     path: '/introduction',
+                     query: {
                         introduction: page.itemsData.introduction
                     }
                 })
+            }
             },
             toGuarantee: function () {
                 document.body.scrollTop = 0;
