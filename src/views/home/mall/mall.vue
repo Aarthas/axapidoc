@@ -7,17 +7,8 @@
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
-            <!--<div v-if="selectedAddress" style="   position:absolute;-->
-                    <!--top: 14px;-->
-                    <!--padding: 1px 18px;-->
-                    <!--height: 24px;-->
-                    <!--line-height: 24px;-->
-                    <!--border-radius: 12px;-->
-                    <!--z-index:999;-->
-                    <!--color: white;-->
-                    <!--font-size: 13px;-->
-                    <!--background: rgba(0, 0, 0, 0.2);">-->
-                <div  v-if="selectedAddress.isDeliver" style="   position:absolute;
+
+            <div style="   position:absolute;
                     top: 14px;
                     padding: 1px 18px;
                     height: 24px;
@@ -26,56 +17,35 @@
                     z-index:999;
                     color: white;
                     font-size: 13px;
-                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}</div>
-                <div  v-else style="   position:absolute;
-                    top: 14px;
-                    padding: 1px 18px;
-                    height: 24px;
-                    line-height: 24px;
-                    border-radius: 12px;
-                    z-index:999;
-                    color: white;
-                    font-size: 13px;
-                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address">{{ selectedAddress.shopName}}</div>
-            <!--</div>-->
-            <!--<div v-else style="   position:absolute;-->
-                    <!--top: 14px;-->
-                    <!--padding: 1px 18px;-->
-                    <!--height: 24px;-->
-                    <!--line-height: 24px;-->
-                    <!--border-radius: 12px;-->
-                    <!--z-index:999;-->
-                    <!--color: white;-->
-                    <!--font-size: 13px;-->
-                    <!--background: rgba(0, 0, 0, 0.2);"  @click="jt_select_address"> 请选择收货地址 ></div>-->
+                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}
+            </div>
 
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
-        <!--<floor v-for="floor in floors" :floor="floor">-->
-        <!--<div style="height:8px;"></div>-->
-        <!--<qiangxian :list="hoticondata"></qiangxian>-->
-        <!--<floor/>-->
+
 
         <div v-for="floor in malldata.floors">
             <div style="height:8px;"></div>
             <qiangxian v-if="floor.vt ==1" :list="floor.data"></qiangxian>
 
-            <fourwhite v-else-if="floor.vt ==2||floor.vt ==3" :list="floor.data" :title="floor.title" :flag="floor.flag"></fourwhite>
-            <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag" @goToDetail="goToDetail"></horizon_scroll>
+            <fourwhite v-else-if="floor.vt ==2||floor.vt ==3" :list="floor.data" :title="floor.title"
+                       :flag="floor.flag"></fourwhite>
+            <horizon_scroll v-else-if="floor.vt ==4 " :list="floor.data" :title="floor.title" :flag="floor.flag"
+                            @goToDetail="goToDetail"></horizon_scroll>
             <oneimage v-if="floor.vt ==6"></oneimage>
         </div>
         <div style="height:3px;"></div>
 
         <div v-if="hotlist.length>0">
-        <div style="height: 30px;margin-top: 15px;text-align: center;">--热门推荐--</div>
-        <ul style="overflow:hidden;width:100%;">
-            <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in hotlist">
-                <recommend_cell :item="item" @goDetail="goDetail"></recommend_cell>
-            </li>
+            <div style="height: 30px;margin-top: 15px;text-align: center;">--热门推荐--</div>
+            <ul style="overflow:hidden;width:100%;">
+                <li style="float:left;width: 50%;white-space:nowrap;" v-for="item in hotlist">
+                    <recommend_cell :item="item" @goDetail="goDetail"></recommend_cell>
+                </li>
 
-        </ul>
-        <div style="height: 40px;margin-top: 15px;text-align: center;">--end--</div>
+            </ul>
+            <div style="height: 40px;margin-top: 15px;text-align: center;">--end--</div>
         </div>
     </div>
 </template>
@@ -108,12 +78,13 @@
             return {
                 malldata: {},
 
-                address_detail:"",
+                address_detail: "",
                 hotlist: [], //最下方推荐商品数据,
-                selectedAddress:{}
+                selectedAddress: {}
             };
         },
         computed: {
+
             bannerdata: function () {
                 if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
@@ -128,29 +99,29 @@
             hoticondata: function () {
                 if (page.malldata.menu) {
                     let array = page.malldata.menu.map(function (value, index) {
-                        if (value.jt == 191){
+                        if (value.jt == 191) {
                             return {
                                 url: value.aim,
                                 img: value.img,
                                 title: value.title
                             };
-                        }else if(value.jt == 91){
-                          let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fmembercard%2F%23%2Findex&response_type=code&scope=snsapi_base&state=sunlight#wechat_redirect'
+                        } else if (value.jt == 91) {
+                            let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fmembercard%2F%23%2Findex&response_type=code&scope=snsapi_base&state=sunlight#wechat_redirect'
                             return {
                                 url: url,
                                 img: value.img,
                                 title: value.title
                             };
-                        }else if(value.jt == 41){
+                        } else if (value.jt == 41) {
                             return {
-                                url: Lib.constant.baseurl+"/views/trade/list.html",
+                                url: Lib.constant.baseurl + "/views/trade/list.html",
                                 img: value.img,
                                 title: value.title
                             };
                         }
-                        else if(value.jt == 71){
+                        else if (value.jt == 71) {
                             return {
-                                url: Lib.constant.baseurl+"/views/mine/favorite.html",
+                                url: Lib.constant.baseurl + "/views/mine/favorite.html",
                                 img: value.img,
                                 title: value.title
                             };
@@ -165,6 +136,8 @@
         },
         created () {
             page = this;
+
+
             //Hub接收 搜索 事件
             Lib.Hub.$on('keyword', (keyword) => {
                 console.log("search keyword")
@@ -174,15 +147,15 @@
             //Hub接收 跳转活动页 事件
             Lib.Hub.$on('jt', (href) => {
 
-                if(href.indexOf("env=2") >= 0){
-                  let url =  href.replace("env=2", "env=3");
-                  if (page.selectedAddress.shopId) {
-                      window.location.href = url + "&shopId=" + page.selectedAddress.shopId;
-                  }else{
-                      window.location.href = url + "&shopId=00023";
-                  }
-                }else{
-                    window.location.href =href;
+                if (href.indexOf("env=2") >= 0) {
+                    let url = href.replace("env=2", "env=3");
+                    if (page.selectedAddress.shopId) {
+                        window.location.href = url + "&shopId=" + page.selectedAddress.shopId;
+                    } else {
+                        window.location.href = url + "&shopId=00023";
+                    }
+                } else {
+                    window.location.href = href;
                 }
 
 
@@ -193,45 +166,50 @@
 
             loadIndexData();
             let selectedAddress = Lib.localStorage.getCurrentAddress();
-          if(selectedAddress){
-              page.selectedAddress=selectedAddress;
+            if (selectedAddress) {
+//              page.selectedAddress=selectedAddress;
 
-              page.address_detail =selectedAddress.areaDesc;
-          }else {
-              Lib.axios.axios({
-                  url: '/address/getDefault',
-                  success: function (basebean) {
-                      let address = basebean.getData();
-                      page.address_detail = address.areaDesc
-                      Lib.localStorage.setCurrentAddress(address);
+                if (selectedAddress.isDeliver) {
+                    page.address_detail = selectedAddress.areaDesc;
+                } else {
+                    page.address_detail = selectedAddress.shopName;
+                }
 
-                  },
-                  forunlogin: function () {
-                      page.address_detail = "请选择收货地址"
-                  }
-              });
-          }
+            } else {
+                Lib.axios.axios({
+                    url: '/address/getDefault',
+                    success: function (basebean) {
+                        let address = basebean.getData();
+                        page.address_detail = address.areaDesc
+                        Lib.localStorage.setCurrentAddress(address);
+
+                    },
+                    forunlogin: function () {
+                        page.address_detail = "请选择收货地址"
+                    }
+                });
+            }
 
         },
         methods: {
             loadRecommend: function () {
                 Lib.axios.axios({
                     url: '/home/hotMarket',
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         page.hotlist = basebean.getData().list;
                     }
                 });
             },
-            goDetail:function (item) {
+            goDetail: function (item) {
 
-                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+                Lib.go.go("/views/product/detail.html?productId=" + item.sn + "&isScoreItem=0")
             },
-            goToDetail:function (item) {
+            goToDetail: function (item) {
 
-                Lib.go.go("/views/product/detail.html?productId="+item.aim+"&isScoreItem=0")
+                Lib.go.go("/views/product/detail.html?productId=" + item.aim + "&isScoreItem=0")
             },
             //            选择地址
             jt_select_address: function () {
@@ -240,9 +218,6 @@
 
         }
     }
-
-
-
 
 
     function loadIndexData() {
@@ -255,7 +230,7 @@
                 page.loadRecommend();
             }
         });
-   }
+    }
 </script>
 
 <style scoped>
