@@ -156,7 +156,8 @@
                         if (page.p_payType==1){
                            window.location.href = Lib.constant.baseurl + "/views/order/result.html?orderId=" + basebean.getData().orderId;
                         }else {
-                            window.location.href = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + basebean.getData().orderId+"&payAmount="+ basebean.getData().payAmount;
+                            Lib.go.jt_pay( basebean.getData().orderId, basebean.getData().payAmount)
+
                         }
 
                     },
@@ -172,6 +173,8 @@
             }
         }
     }
+
+
     function loadData(address){
         var deliverType;
         if (address.isDeliver==true){

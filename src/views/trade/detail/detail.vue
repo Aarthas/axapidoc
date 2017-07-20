@@ -118,7 +118,8 @@
          },
          //去支付
          goPay:function () {
-             window.location.href = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + orderId+"&payAmount="+page.itemsData.totalPrice;
+             Lib.go.jt_pay( orderId, page.itemsData.totalPrice)
+//             window.location.href = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + orderId+"&payAmount="+page.itemsData.totalPrice;
          },
          //查看物流
          checkLogistics:function (orderId) {

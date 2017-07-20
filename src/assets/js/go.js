@@ -1,4 +1,10 @@
 import constant from './constant';
+function encodeWxUrl(url) {
+    let encodeurl = encodeURIComponent(url)
+    let authedUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri="+encodeurl+"&response_type=code&scope=snsapi_base&state=aa#wechat_redirect"
+    return authedUrl;
+}
+
 export default {
     go(url, $router){
         if ($router) {
@@ -12,6 +18,10 @@ export default {
     },
     jt_home(){
         window.location.href = constant.baseurl + "/views/home/home.html"
+    },
+    jt_pay(orderId,payAmount){
+        let pay = constant.baseurl + "/views/order/pay.html?orderId=" +orderId+"&payAmount="+ payAmount;
+        window.location.href =  encodeWxUrl(pay)
     },
     getquery: function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
