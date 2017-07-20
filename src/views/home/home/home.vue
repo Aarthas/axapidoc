@@ -87,15 +87,19 @@
         },
         watch: {
             select: function (newVal, oldVal) {
-                console.log(newVal)
+                console.log("watch select="+newVal)
                 this.$router.replace({path: newVal})
             }
         },
         created () {
-            let path = this.$route.path;
-            this.select = path.substr(1, path.length)
 
 
+            let that  = this;
+            this.$router.afterEach(function (route) {
+
+                console.log("afterEach"+JSON.stringify(route.meta))
+                that.select = route.meta.id;
+            })
             let token = localStorage.getItem("token");
             console.log("has token "+(token != null && token != ''))
             if (token != null && token != '') {
@@ -116,6 +120,15 @@
             }
 
         },
+        mounted(){
+            console.log("mounted")
+
+        },
+        activated(){
+            console.log("activated")
+
+        }
+        ,
         methods: {}
     }
 
