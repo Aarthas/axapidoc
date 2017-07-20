@@ -8,7 +8,7 @@
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
 
-            <div style="   position:absolute;
+            <div  v-if="selectedAddress.isDeliver" style="   position:absolute;
                     top: 14px;
                     padding: 1px 18px;
                     height: 24px;
@@ -18,6 +18,16 @@
                     color: white;
                     font-size: 13px;
                     background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}</div>
+            <div  v-else style="   position:absolute;
+                    top: 14px;
+                    padding: 1px 18px;
+                    height: 24px;
+                    line-height: 24px;
+                    border-radius: 12px;
+                    z-index:999;
+                    color: white;
+                    font-size: 13px;
+                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address">{{ selectedAddress.shopName}}</div>
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
@@ -78,7 +88,8 @@
                 malldata: {},
 
                 address_detail:"",
-                hotlist: [] //最下方推荐商品数据
+                hotlist: [], //最下方推荐商品数据,
+                selectedAddress:{}
             };
         },
         computed: {
@@ -145,7 +156,8 @@
             loadIndexData();
             let selectedAddress = Lib.localStorage.getCurrentAddress();
           if(selectedAddress){
-              page.address_detail =selectedAddress.areaDesc
+              page.selectedAddress=selectedAddress;
+              page.address_detail =selectedAddress.areaDesc;
           }else {
               Lib.axios.axios({
                   url: '/address/getDefault',

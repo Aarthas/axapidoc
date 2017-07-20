@@ -76,7 +76,7 @@
                 window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
             },
             doOnNext2: function () {
-                window.location.href = Lib.constant.baseurl+"/views/home/home.html#/mall";
+                window.location = Lib.constant.baseurl+"/views/home/home.html#/mall";
             },
 
         }

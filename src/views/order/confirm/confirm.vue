@@ -152,10 +152,9 @@
                     },
                     success: function (basebean) {
                         if (page.p_payType==1){
-                           window.location.replace( Lib.constant.baseurl + "/views/order/result.html?orderId=" + basebean.getData().orderId) ;
+                           window.location.href = Lib.constant.baseurl + "/views/order/result.html?orderId=" + basebean.getData().orderId;
                         }else {
-                            window.location.replace( Lib.constant.baseurl + "/views/order/pay.html?orderId=" + basebean.getData().orderId+"&payAmount="+ basebean.getData().payAmount) ;
-
+                            window.location.href = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + basebean.getData().orderId+"&payAmount="+ basebean.getData().payAmount;
                         }
 
                     },
