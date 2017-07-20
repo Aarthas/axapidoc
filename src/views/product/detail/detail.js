@@ -11,6 +11,7 @@ import introduction from './components/introduction.vue'
 import guarantee from './components/guarantee.vue'
 
 const routes = [
+    { path: '/', component: detail },
     { path: '/detail', component: detail },
     { path: '/introduction', component: introduction },
     { path: '/guarantee', component: guarantee },

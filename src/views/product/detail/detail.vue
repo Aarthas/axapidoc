@@ -85,7 +85,8 @@
                 })
             },
             toGuarantee: function () {
-
+                document.body.scrollTop = 0;
+//                window.document.scrollTop(0);
                 this.$router.push({path: '/guarantee'})
             },
             goDetail: function (item) {

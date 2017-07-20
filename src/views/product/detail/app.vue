@@ -10,7 +10,7 @@
         components: {
         },
         mounted () {
-            this.$router.push({path: "detail"})
+//            this.$router.push({path: "detail"})
 
         },
 

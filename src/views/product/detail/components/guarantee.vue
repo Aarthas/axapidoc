@@ -1,6 +1,6 @@
 <template>
     <div>
-    <iframe width="100%"  frameborder="0"  scrolling="yes"  style="height: 900px;border:0px;" src="http://h5.sanjiang.com/help/guarantee.html"></iframe>
+    <iframe width="100%"  ref="miframe" frameborder="0"  scrolling="auto"  style="height: 900px;border:0px;" src="http://h5.sanjiang.com/help/guarantee.html"></iframe>
     </div>
 </template>
 
@@ -9,7 +9,10 @@
     export default {
         components: {},
         created () {
-//            window.location.href = "http://h5.sanjiang.com/help/guarantee.html"
+
+        },
+        mounted(){
+
         }
 
     }
