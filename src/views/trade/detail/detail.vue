@@ -8,7 +8,7 @@
             <div  style="height: 8px;background-color: white;"></div>
             <div  v-if="itemsData.orderStatus==5" style="display: flex;flex-direction: row;height: 50px;">
                 <x-button  @click.native="cancelOrder(itemsData.orderId)"  style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">取消订单</x-button>
-                <x-button @click.native="goPay" style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="warn" >去支付</x-button>
+                <x-button @click.native="goPay" style="margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 13px;margin-top: 10px;margin-right: 8px;" type="primary" >去支付</x-button>
             </div>
             <div  v-else-if="itemsData.orderStatus!=5&&itemsData.orderStatus>0" style="display: flex;flex-direction: row;height: 50px;text-align: center">
                 <x-button  @click.native="checkLogistics(itemsData.orderId)"  style=" margin-left:8px;width:100px;height: 35px;line-height: 32px;font-size: 11px;margin-top: 10px;margin-right: 8px;">查看物流</x-button>
@@ -115,11 +115,11 @@
          },
          //去支付
          goPay:function () {
-
+             window.location.href = Lib.constant.baseurl + "/views/order/pay.html?orderId=" + orderId+"&payAmount="+page.itemsData.totalPrice;
          },
          //查看物流
          checkLogistics:function (orderId) {
-             window.location = Lib.constant.baseurl + "/views/trade/logistics.html?orderId=" + orderId;
+             window.location.href = Lib.constant.baseurl + "/views/trade/logistics.html?orderId=" + orderId;
          }
 
      }
