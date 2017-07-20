@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <!--优惠券-->
         <div class="weui-msg">
             <div class="weui-msg__icon-area">
@@ -15,7 +15,7 @@
 
 
         <group style="margin-top: -10px;">
-            <cell style="font-size: 14px;height: 24px;" title="订单号"   @click.native="jt_usecoupon">
+            <cell style="font-size: 14px;height: 24px;" title="订单号" @click.native="jt_usecoupon">
                 <div style="">{{orderId}}</div>
             </cell>
             <cell style="font-size: 14px;height: 24px;" title="需要付款" @click.native="jt_usecoupon">
@@ -32,29 +32,29 @@
 
 <script>
     import Lib from 'assets/js/Lib';
-    import {Group, Cell,XButton} from 'vux'
+    import {Group, Cell, XButton} from 'vux'
     import axios from 'axios';
 
     let orderId = Lib.Utils.getQueryString("orderId");
-    let payAmount= Lib.Utils.getQueryString("payAmount");
+    let payAmount = Lib.Utils.getQueryString("payAmount");
     var page;
 
     export default {
         components: {
-            Group, Cell,XButton,
+            Group, Cell, XButton,
         },
         data () {
             return {
 
-                orderId:"",
-                payAmount:""
+                orderId: "",
+                payAmount: ""
 
             };
         },
         created () {
             page = this;
-            page.orderId=orderId;
-            page.payAmount=payAmount;
+            page.orderId = orderId;
+            page.payAmount = payAmount;
         },
 
         mounted(){
@@ -79,7 +79,7 @@
             wx.ready(function () {
                 wx.hideOptionMenu();
                 console.log("ready")
-
+                alert("ready")
             });
 
             wx.error(function (res) {
@@ -88,34 +88,49 @@
             });
 
 
-
         },
         activated () {
 
 
         },
         methods: {
-            payWeixin:function () {
+            payWeixin: function () {
 
-                let a ='{"code":1,"type":null,"codeMessage":"","data":{"appId":"wxe9553d916e42224c","partnerId":"1220794001","prepayId":"wx20170718153247858d38301f0429260985","packageValue":"Sign=WXPay","nonceStr":"jdMah5xUudrLa4Pi","timeStamp":"1500362856","sign":"47FFAC852809E8F5E5C9B81B4CF11C45"}}';
-                let data = JSON.parse(a).data;
+                let a = {
+                    "code": 1,
+                    "codeMessage": "",
 
-                console.log(data)
+                    "data": {
+                        "appId": "wxf698f56d095a5d43",
+                        "partnerId": "10026316",
+                        "prepayId": "wx20170720103643fdc9e3cb510206301605",
+                        "packageValue": "Sign=WXPay",
+                        "nonceStr": "6V8Gn9SAn5Qks0Bj",
+                        "timeStamp": "1500518184",
+                        "sign": "ECC1BFAA857139F3DC3509ED744B0032"
+                    }
+                }
+//                let data = JSON.parse(a).data;
+//a
+
+                let data2 = a.data;
+                alert(JSON.stringify(a.data))
+                console.log(a.code)
                 wx.chooseWXPay({
-                    timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                    nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
-                    package: data.prepayId, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                    timestamp: data2.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                    nonceStr: '6V8Gn9SAn5Qks0Bj', // 支付签名随机串，不长于 32 位
+                    package: 'prepay_id=wx20170720103643fdc9e3cb510206301605', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
                     signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                    paySign:  data.sign, // 支付签名
+                    paySign: 'ECC1BFAA857139F3DC3509ED744B0032', // 支付签名
                     success: function (res) {
                         // 支付成功后的回调函数
                         alert("succ")
                     },
-                    cencel:function(res){
-                    alert('cencel pay');
+                    cencel: function (res) {
+                        alert('cencel pay');
                     },
-                    fail: function(res){
-                    alert('pay fail');
+                    fail: function (res) {
+                        alert('pay fail');
                         alert(JSON.stringify(res));
                     }
                 });
@@ -125,7 +140,6 @@
     }
 </script>
 <style>
-
 
 
 </style>
