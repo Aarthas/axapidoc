@@ -2,10 +2,12 @@
     <div>
         <div>
             <!--收货信息-->
-            <div style="display:flex;flex-direction:column;background-color: lightyellow;margin-top: 8px;" @click="choosePick">
+            <div style="display:flex;flex-direction:column;background-color: white;margin-top: 8px;" @click="choosePick">
+                <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
                 <div  class="orderInfo">[历史自提] {{historyPickAddress.consignee}}   {{historyPickAddress.mobile}}</div>
                 <div  class="orderInfo">自提地址：{{historyPickAddress.shopName}} | {{historyPickAddress.detailAddress}}</div>
                 <div  style="height: 8px;background-color: white;"></div>
+                <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
             </div>
             <group title="请输入用户信息">
                 <YInput :item="{placeholder:'联系人',title:'联系人'}" v-model="p_contact"></YInput>

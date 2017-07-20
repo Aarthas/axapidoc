@@ -3,6 +3,7 @@
     <div style="margin-bottom: 120px;">
        <div v-if="cartList!=null">
         <div style="background-color: white;overflow: hidden;position: relative;" @click="jt_select_address">
+            <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
             <div v-if="selectAddress!=null" href="javascript:void(0);"
                  class="weui-cell weui-cell_access weui-cell_link">
                 <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>

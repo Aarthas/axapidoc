@@ -19,10 +19,12 @@
 
         <!--收货信息-->
         <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
+            <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
             <div  class="orderInfo">联系电话：{{address.mobile}}</div>
             <div  class="orderInfo">收货地址：{{address.detailAddress}}</div>
             <div  style="height: 8px;background-color: white;"></div>
+            <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
         </div>
         <!--商品信息-->
         <ul style="margin-top: 8px;">
@@ -34,7 +36,8 @@
         <group gutter="8px">
             <cell class="cell" title="支付方式" :value="itemsData.payTypeName"></cell>
             <cell class="cell" title="配送方式" :value="itemsData.deliverName"></cell>
-            <cell class="cell" title="订单备注" :value="itemsData.comment"></cell>
+            <cell v-if="itemsData.comment" class="cell" title="订单备注" :value="itemsData.comment"></cell>
+            <cell v-else class="cell" title="订单备注" value="无"></cell>
         </group>
         <!--价格信息-->
         <div style="margin-top: 8px;">

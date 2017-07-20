@@ -4,6 +4,7 @@
 
         <!--收货信息-->
         <div style="display:flex;flex-direction:column;background-color: #ffffff;margin-top: 8px;">
+            <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
             <div  class="orderInfo">收货人：{{address.consignee}}</div>
             <div  class="orderInfo">联系电话：{{address.mobile}}</div>
             <div v-if="address.isDeliver" class="orderInfo">取货方式：配送</div>
@@ -11,6 +12,7 @@
             <div v-if="address.isDeliver" class="orderInfo">收货地址：{{address.areaDesc}}&nbsp;&nbsp;{{address.detailAddress}}</div>
             <div v-else class="orderInfo">自提地址：{{address.shopName}}  {{address.address}}</div>
             <div  style="height: 8px;background-color: white;"></div>
+            <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
         </div>
         <!--支付方式-->
         <group title="支付方式">
