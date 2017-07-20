@@ -8,7 +8,7 @@ export default {
         }
     },
     jt_login(){
-        window.location.href = constant.baseurl + "/views/user/login.html"
+        window.location.replace(constant.baseurl + "/views/user/login.html") ;
     },
     jt_home(){
         window.location.href = constant.baseurl + "/views/home/home.html"

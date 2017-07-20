@@ -46,7 +46,7 @@
                 if (newVal == 'tab3') {
                     window.location.href = "http://h5.sanjiang.com/help/coupon-use.html"
                 } else {
-                    this.$router.replace({path: newVal})
+                    this.$router.push({path: newVal})
                 }
 
             }

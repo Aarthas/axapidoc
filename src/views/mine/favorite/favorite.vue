@@ -5,7 +5,7 @@
         <scroller style="top: 0px"
                   ref="myScroller"
                   :on-infinite="infinite">
-        <ul >
+        <ul style="display: inline-block">
             <li v-for="item in list">
                 <favorite_cell :item=item @goDetail="goDetail"></favorite_cell>
             </li>

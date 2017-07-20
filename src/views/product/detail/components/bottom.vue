@@ -61,6 +61,9 @@
                     }
                     , onerrcode: function (basebean) {
                         page.setFavIcon(false);
+                    },
+                    forunlogin:function () {
+
                     }
                 });
             },
