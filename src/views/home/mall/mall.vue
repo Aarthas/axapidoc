@@ -7,8 +7,17 @@
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
-
-            <div  v-if="selectedAddress.isDeliver" style="   position:absolute;
+            <!--<div v-if="selectedAddress" style="   position:absolute;-->
+                    <!--top: 14px;-->
+                    <!--padding: 1px 18px;-->
+                    <!--height: 24px;-->
+                    <!--line-height: 24px;-->
+                    <!--border-radius: 12px;-->
+                    <!--z-index:999;-->
+                    <!--color: white;-->
+                    <!--font-size: 13px;-->
+                    <!--background: rgba(0, 0, 0, 0.2);">-->
+                <div  v-if="selectedAddress.isDeliver" style="   position:absolute;
                     top: 14px;
                     padding: 1px 18px;
                     height: 24px;
@@ -18,7 +27,7 @@
                     color: white;
                     font-size: 13px;
                     background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}</div>
-            <div  v-else style="   position:absolute;
+                <div  v-else style="   position:absolute;
                     top: 14px;
                     padding: 1px 18px;
                     height: 24px;
@@ -28,6 +37,18 @@
                     color: white;
                     font-size: 13px;
                     background: rgba(0, 0, 0, 0.2);" @click="jt_select_address">{{ selectedAddress.shopName}}</div>
+            <!--</div>-->
+            <!--<div v-else style="   position:absolute;-->
+                    <!--top: 14px;-->
+                    <!--padding: 1px 18px;-->
+                    <!--height: 24px;-->
+                    <!--line-height: 24px;-->
+                    <!--border-radius: 12px;-->
+                    <!--z-index:999;-->
+                    <!--color: white;-->
+                    <!--font-size: 13px;-->
+                    <!--background: rgba(0, 0, 0, 0.2);"  @click="jt_select_address"> 请选择收货地址 ></div>-->
+
         </div>
 
         <hoticon :list="hoticondata"></hoticon>
@@ -153,7 +174,17 @@
             //Hub接收 跳转活动页 事件
             Lib.Hub.$on('jt', (href) => {
 
-                window.location.href = href+"&shopId="+ page.selectedAddress.shopId;
+                if(href.indexOf("env=2") >= 0){
+                  let url =  href.replace("env=2", "env=3");
+                  if (page.selectedAddress.shopId) {
+                      window.location.href = url + "&shopId=" + page.selectedAddress.shopId;
+                  }else{
+                      window.location.href = url + "&shopId=00023";
+                  }
+                }else{
+                    window.location.href =href;
+                }
+
 
             });
 
@@ -164,6 +195,7 @@
             let selectedAddress = Lib.localStorage.getCurrentAddress();
           if(selectedAddress){
               page.selectedAddress=selectedAddress;
+
               page.address_detail =selectedAddress.areaDesc;
           }else {
               Lib.axios.axios({

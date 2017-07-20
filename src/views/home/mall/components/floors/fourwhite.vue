@@ -40,9 +40,7 @@
         methods: {
             jt_anywhere: function (index) {
 
-                let href = this.list[index].aim.replace("env=2","env=3");
-                Lib.Hub.$emit('jt', href);
-
+                Lib.Hub.$emit('jt', this.list[index].aim);
             }
         }
     }

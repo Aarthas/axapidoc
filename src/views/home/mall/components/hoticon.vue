@@ -11,6 +11,7 @@
 
 </template>
 <script>
+    import Lib from 'assets/js/Lib';
     export default {
         components: {},
         data () {
@@ -29,9 +30,7 @@
         methods: {
             clickicon:function (item) {
                 console.log(item)
-
-                window.location.href = item.url.replace("env=2", "env=3");
-
+                Lib.Hub.$emit('jt', item.url);
             }
         }
     }
