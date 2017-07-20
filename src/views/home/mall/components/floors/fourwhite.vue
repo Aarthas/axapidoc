@@ -9,11 +9,11 @@
         <!--田字-->
         <div style="display: flex;flex-direction: row;background-color: white;height: 185px;">
            <div style="display: flex;flex-direction: column;margin-left:0;width:50%;margin-left: 5px;">
-               <span style="height:90px; background-size: contain;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[0].img+')'}"  @click="jt_anywhere(0)"></span>
-               <span style="height:90px; background-size: contain;margin-top: 5px;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[2].img+')'}"  @click="jt_anywhere(1)"></span>
+               <span style="height:90px; background-size: contain;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[0].img+')'}"  @click="jt_anywhere(0)" ></span>
+               <span style="height:90px; background-size: contain;margin-top: 5px;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[2].img+')'}"  @click="jt_anywhere(2)"></span>
            </div>
            <div style="display: flex;flex-direction: column;margin-left:0;width: 50%;">
-               <span style="height:90px; background-size: contain;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[1].img+')'}"  @click="jt_anywhere(2)"></span>
+               <span style="height:90px; background-size: contain;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[1].img+')'}"  @click="jt_anywhere(1)"></span>
                <span style="height:90px; background-size: contain;margin-top: 5px;background-repeat:no-repeat;"  :style="{backgroundImage:'url('+list[3].img+')'}"  @click="jt_anywhere(3)"></span>
            </div>
 
@@ -39,7 +39,10 @@
        },
         methods: {
             jt_anywhere: function (index) {
-                window.location.href = this.list[index].aim;
+
+                let href = this.list[index].aim.replace("env=2","env=3");
+                Lib.Hub.$emit('jt', href);
+
             }
         }
     }

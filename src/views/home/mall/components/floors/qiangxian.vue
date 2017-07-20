@@ -15,6 +15,7 @@
 
 </template>
 <script>
+    import Lib from 'assets/js/Lib';
     export default {
         components: {},
         data () {
@@ -32,7 +33,13 @@
         ,
         methods: {
             jt_anywhere: function (index) {
-                window.location.href = this.list[index].aim;
+                if (index == 1) {
+                    window.location.href = this.list[index].aim;
+                } else {
+
+                let href = this.list[index].aim.replace("env=2", "env=3");
+                Lib.Hub.$emit('jt', href);
+                }
             }
         }
     }

@@ -97,7 +97,7 @@
                 if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
                         return {
-                            url: value.aim,
+                            url: value.aim.replace("env=2", "env=3"),
                             img: value.img
                         };
                     })
@@ -144,9 +144,16 @@
         },
         created () {
             page = this;
-            Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+            //Hub接收 搜索 事件
+            Lib.Hub.$on('keyword', (keyword) => {
                 console.log("search keyword")
                 Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+
+            });
+            //Hub接收 跳转活动页 事件
+            Lib.Hub.$on('jt', (href) => {
+
+                window.location.href = href+"&shopId="+ page.selectedAddress.shopId;
 
             });
 

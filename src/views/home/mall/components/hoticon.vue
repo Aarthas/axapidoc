@@ -30,7 +30,7 @@
             clickicon:function (item) {
                 console.log(item)
 
-                window.location.href = item.url;
+                window.location.href = item.url.replace("env=2", "env=3");
 
             }
         }
