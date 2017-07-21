@@ -86,10 +86,11 @@
         computed: {
 
             bannerdata: function () {
+                let currentAddress = Lib.localStorage.getCurrentAddress();
                 if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
                         return {
-                            url: value.aim.replace("env=2", "env=3"),
+                            url: value.aim.replace("env=2", "env=3")+"&shopId=" + currentAddress.shopId,
                             img: value.img
                         };
                     })
