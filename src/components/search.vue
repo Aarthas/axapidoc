@@ -9,7 +9,11 @@
 
             <!--<img src="../../assets/images/ic_scan_gray.png" alt="">-->
         </div>
-        <span style="line-height: 44px;width:80px;text-align: center;color: #666666" v-on:click="muFunc">搜索</span>
+        <span style="line-height: 44px;width:60px;text-align: center;color: #666666" v-on:click="muFunc">搜索</span>
+
+        <div style="width: 44px;height: 100%;display: flex;align-items: center;justify-content: center;padding-right: 10px;" @click="jt_cart">
+            <i style="font-size: 22px;line-height: 1;" class="iconfont icon-gouwuche"></i>
+        </div>
         <!--<div class="m-header-button is-right" style="text-align: center;width: 50px;">-->
         <!--<a href="javascript:;"><img class="m-icon-img" src="../../assets/images/ic_chat_white.png" /></a>-->
         <!--</div>-->
@@ -39,6 +43,9 @@
             muFunc: function () {
                 console.log("aa")
                 Lib.Hub.$emit('keyword',this.keyword); //Hub触发事件
+            },
+            jt_cart:function () {
+                Lib.go.jt_home("cart");
             }
         }
     }
@@ -104,5 +111,5 @@
     .recommend-wrap {
         padding-top: 12px;
     }
-
+    @import "../assets/font/iconfont.css";
 </style>

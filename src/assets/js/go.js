@@ -16,8 +16,15 @@ export default {
     jt_login(){
         window.location.replace(constant.baseurl + "/views/user/login.html") ;
     },
-    jt_home(){
-        window.location.href = constant.baseurl + "/views/home/home.html"
+    jt_home(hash){
+        if (hash)
+        {
+            window.location.href = constant.baseurl + "/views/home/home.html"+"#/"+hash
+        }else
+        {
+            window.location.href = constant.baseurl + "/views/home/home.html"
+        }
+
     },
     jt_pay(orderId,payAmount){
         let pay = constant.baseurl + "/views/order/pay.html?orderId=" +orderId+"&payAmount="+ payAmount;
