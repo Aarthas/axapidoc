@@ -80,7 +80,7 @@
 
                 address_detail: "",
                 hotlist: [], //最下方推荐商品数据,
-                selectedAddress: {}
+
             };
         },
         computed: {
@@ -147,10 +147,12 @@
             //Hub接收 跳转活动页 事件
             Lib.Hub.$on('jt', (href) => {
 
-                if (href.indexOf("env=2") >= 0) {
+                let currentAddress = Lib.localStorage.getCurrentAddress();
+                if (href.indexOf("env=2") > 0) {
                     let url = href.replace("env=2", "env=3");
-                    if (page.selectedAddress.shopId) {
-                        window.location.href = url + "&shopId=" + page.selectedAddress.shopId;
+
+                    if (currentAddress.shopId) {
+                        window.location.href = url + "&shopId=" + currentAddress.shopId;
                     } else {
                         window.location.href = url + "&shopId=00023";
                     }
@@ -167,7 +169,7 @@
             loadIndexData();
             let selectedAddress = Lib.localStorage.getCurrentAddress();
             if (selectedAddress) {
-//              page.selectedAddress=selectedAddress;
+
 
                 if (selectedAddress.isDeliver) {
                     page.address_detail = selectedAddress.areaDesc;
