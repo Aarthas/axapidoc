@@ -1,14 +1,14 @@
 <template>
     <div class="page">
         <!--<x-header>会员卡绑定微信</x-header>-->
-        <div class="weui-msg">
+        <div class="weui-msg" v-show="loadComplete">
             <div class="weui-msg__icon-area">
                 <i v-if="resultCode==1" class="weui-icon-success weui-icon_msg"></i>
                 <i  v-else class="weui-icon-warn weui-icon_msg-primary"></i>
 
 
             </div>
-            <div class="weui-msg__text-area">
+            <div  class="weui-msg__text-area">
                 <h2  v-if="resultCode==1" class="weui-msg__title">提交成功</h2>
                 <!--<br/>-->
                 <p v-else class="weui-msg__desc">{{errMessage}}</p>
@@ -44,7 +44,8 @@
             return {
 
                 resultCode:1,
-                errMessage:""
+                errMessage:"",
+                loadComplete:false
             };
         },
         created () {
@@ -62,12 +63,12 @@
                 },
                 success: function (basebean) {
                    page.resultCode=1;
-
+                    page.loadComplete=true;
                 },
                 onerrcode: function (basebean) {
                     page.resultCode=0
                     page.errMessage=basebean.getMessage();
-
+                    page.loadComplete=true;
                 }
             })
         },
