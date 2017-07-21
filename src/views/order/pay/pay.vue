@@ -80,7 +80,7 @@
             wx.ready(function () {
                 wx.hideOptionMenu();
                 console.log("ready")
-                alert("ready")
+//                alert("ready")
             });
 
             wx.error(function (res) {
@@ -97,8 +97,12 @@
         methods: {
             payWeixin: function () {
 
+                //陈述检测下订单是否可以支付
                 Lib.axios.axios({
                     method: "get",
+                    loading:{
+                        page:page
+                    },
                     url: "/pays/wechath5Pay",
                     params:{
                         orderId : orderId,
@@ -114,48 +118,23 @@
                             paySign: wxparams.sign, // 支付签名
                             success: function (res) {
                                 // 支付成功后的回调函数
-                                alert("succ")
+                                Lib.go.go('/views/order/result.html?orderId='+orderId);
                             },
-                            cencel: function (res) {
-                                alert('cencel pay');
+                            cancel: function (res) {
+//                                alert('支付取消');
+                                Lib.vux.showtoast(page,"支付取消")
+//                                Lib.go.go('/views/order/result.html?orderId='+orderId);
                             },
                             fail: function (res) {
-                                alert('pay fail');
-                                alert(JSON.stringify(res));
+                                alert('pay fail'+JSON.stringify(res));
                             }
                         });
                     },
                     onerrcode:function (basebean) {
-
+                        Lib.vux.showtoast(page,basebean.getMessage())
 
                     }
                 });
-
-
-
-
-//                let data2 = a.data;
-//                alert(JSON.stringify(a.data))
-//                console.log(a.code)
-//                wx.chooseWXPay({
-//                    timestamp: data2.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-//                    nonceStr: '6V8Gn9SAn5Qks0Bj', // 支付签名随机串，不长于 32 位
-//                    package: 'prepay_id=wx20170720103643fdc9e3cb510206301605', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-//                    signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-//                    paySign: 'ECC1BFAA857139F3DC3509ED744B0032', // 支付签名
-//                    success: function (res) {
-//                        // 支付成功后的回调函数
-//                        alert("succ")
-//                    },
-//                    cencel: function (res) {
-//                        alert('cencel pay');
-//                    },
-//                    fail: function (res) {
-//                        alert('pay fail');
-//                        alert(JSON.stringify(res));
-//                    }
-//                });
-
             }
         }
     }
