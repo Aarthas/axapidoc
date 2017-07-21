@@ -20,8 +20,7 @@
             </div>
             <!--下  价格+加减-->
             <div style="display: flex;flex-direction: row;flex: 1;">
-                <div v-if="cellItem.score>0" style="color: #f03838;margin-top: 17px;" v-on:click="myFun">{{cellItem.displayPrice}}</div>
-                <div v-else style="color: #f03838;margin-top: 17px;" v-on:click="myFun">￥{{cellItem.displayPrice}}</div>
+                <div  style="color: #f03838;margin-top: 17px;" v-on:click="myFun">￥{{cellItem.displayPrice}}</div>
                 <add_sub v-show="typedId !=-1" v-model="cellItem.number" style="margin-right: 8px;flex: 1;"
                          @on-add="on_add" @on-sub="on_sub"></add_sub>
             </div>
