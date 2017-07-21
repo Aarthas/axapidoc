@@ -1,16 +1,16 @@
 <template>
 
     <div >
-        <YSearch placeholder="搜索三江购物商品"></YSearch>
 
-        <tab style="position:fixed; top:44px; left: 0;width: 100%;z-index: 99">
+        <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
+        <tab style="position:fixed; top:44px; left: 0;width: 100%;z-index: 99;">
             <tab-item selected @on-item-click="onItemClick(0)">综合排序</tab-item>
 
-            <tab-item  v-if="saleBig" @on-item-click="onItemClick(1)" >销量 ↓</tab-item>
-            <tab-item v-else @on-item-click="onItemClick(1)"  >销量 ↑</tab-item>
+            <tab-item  v-if="saleBig" @on-item-click="onItemClick(1)" >销量 ↑</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(1)"  >销量 ↓</tab-item>
 
-            <tab-item v-if="priceBig" @on-item-click="onItemClick(2)"  >价格 ↓</tab-item>
-            <tab-item v-else @on-item-click="onItemClick(2)"  >价格 ↑</tab-item>
+            <tab-item v-if="priceBig" @on-item-click="onItemClick(2)"  >价格 ↑</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(2)"  >价格 ↓</tab-item>
         </tab>
 
         <scroller
@@ -30,7 +30,7 @@
 
     import Lib from 'assets/js/Lib';
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
-    import YSearch from '../../../components/search.vue' ;
+    import search from '../../../components/search.vue' ;
     import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux';
     let categoryId = Lib.Utils.getQueryString("categoryId");
     let keyword = Lib.Utils.getQueryString("keyword");
@@ -40,7 +40,7 @@
             Tab,
             TabItem,
             favorite_cell,
-            YSearch,
+            search,
         },
         data () {
             return {
@@ -55,7 +55,11 @@
             }
         },
        created(){
+           Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+               console.log("search2 keyword")
+               Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
+           });
        },
         mounted(){
 

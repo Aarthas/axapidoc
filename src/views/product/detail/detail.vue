@@ -83,7 +83,7 @@
             toIntroduction: function () {
                 if ( page.itemsData.introduction==''||page.itemsData.introduction==null) {
                     page.$vux.toast.show({
-                        type: 'cancel',
+                        type: 'text',
                         text: '暂无商品介绍'
                     })
                 }else{
