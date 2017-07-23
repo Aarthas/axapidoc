@@ -3,15 +3,21 @@
         <div>
             <div style="background-color: white;margin-bottom: 100px;">
 
+                <radio  :options="addresslist" v-model="currentValue" :fill-mode="false" >
 
-                <radio :options="addresslist" v-model="currentValue" :fill-mode="false" >
-                    <template scope="props" slot="each-item">
-                        <p style="line-height: 30px;">
+                    <template scope="props" slot="each-item" >
+                        <p v-if="localAddress.id==addresslist[props.index].id" style="line-height: 30px;color: #1AAD19;">
                             {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
                          <br/>
-                            <span style="color:#666;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}  </span>
+                            <span style="color: #1AAD19;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}</span>
+                        </p>
+                        <p v-else style="line-height: 30px;">
+                            {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
+                            <br/>
+                            <span style="color: #666;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}  </span>
                         </p>
                     </template>
+
                 </radio>
 
 
@@ -39,7 +45,8 @@
         data () {
             return {
                 currentValue: '',
-                addresslist: []
+                addresslist: [],
+                localAddress:{}
             };
         },
         created () {
@@ -57,6 +64,7 @@
             }
         },
         mounted(){
+           page.localAddress= Lib.localStorage.getCurrentAddress();
             Lib.axios.axios({
                 url: '/address',
                 loading:{
