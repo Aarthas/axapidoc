@@ -81,7 +81,28 @@
                 Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem="+isScoreItem)
             },
             onCancelFav:function (item) {
+                console.log(item)
+                Lib.axios.axios({
+                    method:'post',
+                    url: '/collections/addItem',
+                    loading:{
+                        page:page
+                    },
+                    data:{
+                        id:item.erpGoodsId
+                    },
+                    success: function (basebean) {
 
+                    }
+                    ,
+                    onerrcode:function (basebean) {
+                        if (basebean.getCode() == 2)
+                        {
+                            console.log(itemsData)
+                            loadData(itemsData.page);
+                        }
+                    }
+                });
             }
 
         }
@@ -104,6 +125,11 @@
 
                 itemsData= basebean.getData();
 
+                if (itemsData== null)
+                {
+                    page.list=[];
+                    page.listEmpty = true;
+                }
                 if (basebean.getData().isFirst) {
                     page.list = basebean.getData().list;
                 } else {
