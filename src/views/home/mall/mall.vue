@@ -2,23 +2,25 @@
     <div style="display: flex;flex-direction: column;margin-bottom: 55px;">
 
         <search></search>
-        <div class="vux-demo" style="margin-top: 44px;position:relative;display: flex;justify-content: center">
+        <div class="vux-demo" style="margin-top: 44px;position:relative;display: block;justify-content: center">
 
             <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
 
-            <div style="   position:absolute;
-                    top: 14px;
-                    padding: 1px 18px;
+            <div style="position:absolute;
+            display: inline-block;  z-index:999;  top: 14px;display: flex;flex-direction: row;justify-content: center;width: 100%">
+                 <span style="
+                    padding: 2px 18px;
                     height: 24px;
                     line-height: 24px;
                     border-radius: 12px;
-                    z-index:999;
                     color: white;
                     font-size: 13px;
                     background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}
+            </span>
             </div>
+
 
         </div>
 
@@ -86,16 +88,15 @@
         computed: {
 
             bannerdata: function () {
-                let shopid ='00023';
+                let shopid = '00023';
                 let currentAddress = Lib.localStorage.getCurrentAddress();
-                if (currentAddress)
-                {
-                    shopid=currentAddress.shopId;
+                if (currentAddress) {
+                    shopid = currentAddress.shopId;
                 }
                 if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
                         return {
-                            url: value.aim.replace("env=2", "env=3")+"&shopId=" + shopid,
+                            url: value.aim.replace("env=2", "env=3") + "&shopId=" + shopid,
                             img: value.img
                         };
                     })
@@ -153,11 +154,10 @@
             //Hub接收 跳转活动页 事件
             Lib.Hub.$on('jt', (href) => {
 
-                let shopid ='00023';
+                let shopid = '00023';
                 let currentAddress = Lib.localStorage.getCurrentAddress();
-                if (currentAddress)
-                {
-                    shopid=currentAddress.shopId;
+                if (currentAddress) {
+                    shopid = currentAddress.shopId;
                 }
 
 
@@ -165,7 +165,7 @@
                     let url = href.replace("env=2", "env=3");
 
 
-                        window.location.href = url + "&shopId=" + shopId;
+                    window.location.href = url + "&shopId=" + shopId;
 
 
                 } else {
