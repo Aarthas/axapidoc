@@ -4,12 +4,12 @@
         <search></search>
         <div class="vux-demo" style="margin-top: 44px;position:relative;display: block;justify-content: center">
 
-            <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px"
+            <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px; z-index:1; "
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
 
             <div style="position:absolute;
-            display: inline-block;  z-index:999;  top: 14px;display: flex;flex-direction: row;justify-content: center;width: 100%">
+            display: inline-block;  z-index:10;  top: 14px;display: flex;flex-direction: row;justify-content: center;width: 100%">
                  <span style="
                     padding: 2px 18px;
                     height: 24px;
@@ -165,7 +165,7 @@
                     let url = href.replace("env=2", "env=3");
 
 
-                    window.location.href = url + "&shopId=" + shopId;
+                    window.location.href = url + "&shopId=" + shopid;
 
 
                 } else {
