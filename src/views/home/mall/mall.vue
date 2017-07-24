@@ -86,11 +86,16 @@
         computed: {
 
             bannerdata: function () {
+                let shopid ='00023';
                 let currentAddress = Lib.localStorage.getCurrentAddress();
+                if (currentAddress)
+                {
+                    shopid=currentAddress.shopId;
+                }
                 if (page.malldata.head) {
                     let headbanner = page.malldata.head.map(function (value, index) {
                         return {
-                            url: value.aim.replace("env=2", "env=3")+"&shopId=" + currentAddress.shopId,
+                            url: value.aim.replace("env=2", "env=3")+"&shopId=" + shopid,
                             img: value.img
                         };
                     })
@@ -148,15 +153,21 @@
             //Hub接收 跳转活动页 事件
             Lib.Hub.$on('jt', (href) => {
 
+                let shopid ='00023';
                 let currentAddress = Lib.localStorage.getCurrentAddress();
+                if (currentAddress)
+                {
+                    shopid=currentAddress.shopId;
+                }
+
+
                 if (href.indexOf("env=2") > 0) {
                     let url = href.replace("env=2", "env=3");
 
-                    if (currentAddress.shopId) {
-                        window.location.href = url + "&shopId=" + currentAddress.shopId;
-                    } else {
-                        window.location.href = url + "&shopId=00023";
-                    }
+
+                        window.location.href = url + "&shopId=" + shopId;
+
+
                 } else {
                     window.location.href = href;
                 }

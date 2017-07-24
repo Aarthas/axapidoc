@@ -52,8 +52,10 @@
         },
         data () {
             return {
-                uname: '13780082671',
-                pwd: '123456a',
+//                uname: '13780082671',
+//                pwd: '123456a',
+                uname: '',
+                pwd: '',
             };
         },
         computed: {},
