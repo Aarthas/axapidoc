@@ -89,8 +89,9 @@
             logout:function () {
                 Lib.axios.axios({
                     showload:true,
-                    page:page,
-                    loadtext:"加载中",
+                    loading:{
+                        page:page
+                    },
                     'url': 'logout',
                     'success': function (basebean) {
                         window.location.href = Lib.constant.baseurl+"/views/user/login.html"
