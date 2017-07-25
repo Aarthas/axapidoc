@@ -1,56 +1,69 @@
 <template>
 
     <div style="margin-bottom: 120px;">
-       <div v-if="cartList!=null">
-        <div style="margin-top: 3px;background-color: white;overflow: hidden;position: relative;" @click="jt_select_address">
+        <div v-if="cartList!=null">
+            <div style="margin-top: 3px;background-color: white;overflow: hidden;position: relative;"
+                 @click="jt_select_address">
+                <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
+                <div v-if="selectAddress!=null" href="javascript:void(0);"
+                     class="weui-cell weui-cell_access weui-cell_link">
+                    <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
+                    <div v-if="selectAddress.isDeliver" class="weui-cell__bd"
+                         style="margin-right: 20px;color: #333333;line-height: 30px;">
+                        {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.areaDesc
+                        }} {{selectAddress.detailAddress}}
+
+                    </div>
+                    <div v-else class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
+                        {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName
+                        }}  |  {{selectAddress.address }}
+
+                    </div>
+                    <span class="weui-cell__ft"></span>
+
+                </div>
+                <div v-else href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                    <div class="weui-cell__hd" style="margin-right: 20px;color: #666666"></div>
+                    <div class="weui-cell__bd" style="text-align: center;line-height: 40px;">新增收货地址<br></div>
+                    <span class="weui-cell__ft"></span>
+                </div>
+            </div>
             <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
-            <div v-if="selectAddress!=null" href="javascript:void(0);"
-                 class="weui-cell weui-cell_access weui-cell_link">
-                <div class="weui-cell__hd" style="margin-right: 20px;color: #666666">收货<br>地址</div>
-                <div v-if="selectAddress.isDeliver" class="weui-cell__bd"
-                     style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [配送]<br> {{selectAddress.areaDesc
-                    }} {{selectAddress.detailAddress}}
+
+            <div style="display: flex;flex-direction: row; background-color: white;height: 30px; margin-top: 10px;justify-content: flex-end;">
+                <div v-show="cartData.cartV2PriceInfo.showBuyMore"
+                     style="display: flex;flex-direction: row;justify-content: space-between;">
+                    <div style="font-size: 10px;line-height: 30px;margin-left: 0px;">
+                        {{cartData.cartV2PriceInfo.freeTransferInfo}}
+                    </div>
+                    <div v-on:click="goHome"
+                         style="width: 60px;float:right;margin-left:4px;margin-right:4px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
+                        去逛逛
+                    </div>
+                </div>
+                <div v-on:click="changeEdit"
+                     style="width: 60px;float:right;margin-right:2px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
+                    {{editStatu}}
 
                 </div>
-                <div v-else class="weui-cell__bd" style="margin-right: 20px;color: #333333;line-height: 30px;">
-                    {{selectAddress.consignee }}     {{selectAddress.mobile }}  [自提]<br>{{selectAddress.shopName
-                    }} {{selectAddress.address }}
-
-                </div>
-                <span class="weui-cell__ft"></span>
-
             </div>
-            <div v-else href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                <div class="weui-cell__hd" style="margin-right: 20px;color: #666666"></div>
-                <div class="weui-cell__bd" style="text-align: center;line-height: 40px;">新增收货地址<br></div>
-                <span class="weui-cell__ft"></span>
-            </div>
+
+            <ul>
+                <li v-for="item in cartList">
+                    <cart_temp :item="item"></cart_temp>
+                </li>
+
+            </ul>
+            <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData"
+                    @goSettle="goSettle"
+                    @goSelectAll="goSelectAll"></settle>
+            <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll"
+                  @addToFav="addToFav" @deleteAll="deleteAll"></edit>
         </div>
-        <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
-
-        <div style="background-color: white;height: 30px; margin-top: 10px;">
-            <div v-on:click="changeEdit"
-                 style="width: 60px;float:right;margin-right:8px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
-                {{editStatu}}
-
-            </div>
-        </div>
-
-        <ul>
-            <li v-for="item in cartList">
-                <cart_temp :item="item">  </cart_temp>
-            </li>
-
-        </ul>
-        <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSettle="goSettle"
-                @goSelectAll="goSelectAll"></settle>
-        <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll"
-              @addToFav="addToFav" @deleteAll="deleteAll"></edit>
-       </div>
-        <div  v-else style="display: flex;flex-direction:column;justify-content: center;align-items: center;height: 400px;">
+        <div v-else
+             style="display: flex;flex-direction:column;justify-content: center;align-items: center;height: 400px;">
             <div>购物车列表为空</div>
-             <x-button @click.native="goHome" type="primary" mini style="margin-top: 20px;width: 100px;">去逛逛</x-button>
+            <x-button @click.native="goHome" type="primary" mini style="margin-top: 20px;width: 100px;">去逛逛</x-button>
         </div>
     </div>
 </template>
@@ -59,7 +72,7 @@
 <script>
 
 
-    import {Group, XInput, XButton, XNumber, Toast,Confirm} from 'vux'
+    import {Group, XInput, XButton, XNumber, Toast, Confirm} from 'vux'
     import Vue from 'vue';
     import Lib from 'assets/js/Lib';
 
@@ -145,11 +158,11 @@
                 var newNumber = item.number - 1;
                 if (newNumber < 1) {
                     this.$vux.confirm.show({
-                            title: '提示',
-                            content: '确认删除此商品吗？',
-                            onConfirm () {
-                                deleteSingle(item);
-                            }
+                        title: '提示',
+                        content: '确认删除此商品吗？',
+                        onConfirm () {
+                            deleteSingle(item);
+                        }
                     });
                     return;
                 } else if (newNumber > item.stock) {
@@ -179,8 +192,8 @@
                 let deliverType = currentAddress.isDeliver ? 1 : 2;
                 Lib.axios.axios({
                     url: '/cartsV2?deliverType=' + deliverType,
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         console.log(basebean.getData())
@@ -192,8 +205,8 @@
 
                 Lib.axios.axios({
                     url: '/cartsV2/getCartsInFirstTime',
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         console.log(basebean.getData())
@@ -238,8 +251,8 @@
                         deliverType: deliverType,
 
                     },
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         console.log('返回的' + basebean.getData())
@@ -284,8 +297,8 @@
                     data: {
                         ids: newSelectedData,
                     },
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         page.$vux.toast.show({
@@ -312,8 +325,8 @@
                     params: {
                         deliverType: deliverType,
                     },
-                    loading:{
-                        page:page,
+                    loading: {
+                        page: page,
                     },
                     success: function (basebean) {
                         console.log('返回的' + basebean.getData())
@@ -332,8 +345,8 @@
                 });
             },
 //            去逛逛
-            goHome:function () {
-                window.location.href = Lib.constant.baseurl+"/views/home/home.html#/mall";
+            goHome: function () {
+                window.location.href = Lib.constant.baseurl + "/views/home/home.html#/mall";
             }
         }
     }
@@ -367,8 +380,8 @@
                 deliverType: deliverType,
                 cartStatus: score > 0 ? 3 : 1
             },
-            loading:{
-                page:page,
+            loading: {
+                page: page,
             },
             success: function (basebean) {
 
@@ -389,7 +402,7 @@
     }
 
     //删除单个
-    function deleteSingle(cellItem){
+    function deleteSingle(cellItem) {
         var deliverType = page.selectAddress.isDeliver ? 1 : 2;
         var score;
         if (cellItem.score == null) {
@@ -401,12 +414,12 @@
             method: "post",
             url: "/cartsV2/deleteSingle",
             params: {
-                skuId:cellItem.erpGoodsId,
+                skuId: cellItem.erpGoodsId,
                 deliverType: deliverType,
                 cartStatus: score > 0 ? 3 : 1
             },
-            loading:{
-                page:page,
+            loading: {
+                page: page,
             },
             success: function (basebean) {
 
@@ -429,8 +442,8 @@
         Lib.axios.axios({
             method: "post",
             url: "/cartsV2/updateNum",
-            loading:{
-                page:page,
+            loading: {
+                page: page,
             },
             data: param,
             success: function (basebean) {

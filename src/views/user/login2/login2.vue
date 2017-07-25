@@ -13,7 +13,7 @@
         <group title="请输入手机号与密码">
 
             <x-input v-model="uname" title="" placeholder="手机号"></x-input>
-            <x-input v-model="pwd" title="" placeholder="密码"></x-input>
+            <x-input type="password" v-model="pwd" title="" placeholder="密码"></x-input>
         </group>
 
 
