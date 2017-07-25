@@ -12,7 +12,7 @@
 
             <xcell title="性别" :value="userInfo.sexName"></xcell>
 
-            <xcell title="生日" :value="userInfo.birthdayStr" @click.native="aa" ></xcell>
+            <!--<xcell title="生日" :value="userInfo.birthdayStr" @click.native="aa" ></xcell>-->
 
             <!--<xcell title="到期日" :value="info.expiryDate"></xcell>-->
 

@@ -37,7 +37,7 @@
 <script>
 
     import vcodecell from '../../../components/vcodecell.vue'
-    import {Group, XInput, XButton} from 'vux'
+    import {Group, XInput, XButton,Toast} from 'vux'
     import Lib from 'assets/js/Lib';
     import YHead from '../../../components/YHead.vue'
     var page
@@ -48,7 +48,7 @@
         components: {
             Group,
             XInput,
-            XButton,YHead
+            XButton,YHead,Toast
         },
         data () {
             return {
@@ -75,6 +75,22 @@
             },
 
             doSubmit: function () {
+
+                if (page.uname==""){
+
+                    page.$vux.toast.show({
+                        type: 'text',
+                        text: '请输入手机号'
+                    })
+                    return;
+                }else if(page.pwd==""){
+
+                    page.$vux.toast.show({
+                        type: 'text',
+                        text: '请输入密码'
+                    })
+                    return;
+                }
                 let params = {
                     username: page.uname,
                     password: page.pwd,
