@@ -31,7 +31,7 @@
             <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
 
             <div style="display: flex;flex-direction: row; background-color: white;height: 36px; margin-top: 10px;justify-content: flex-end;">
-                <div v-show="cartData.cartV2PriceInfo.showBuyMore"
+                <div v-if="cartData.cartV2PriceInfo" v-show="cartData.cartV2PriceInfo.showBuyMore"
                      style="display: flex;flex-direction: row;justify-content: space-between;flex: 1;padding-left: 6px;">
                     <!--<div style="font-size: 13px;line-height: 30px;margin-left: 6px;">-->
                         <!--{{cartData.cartV2PriceInfo.freeTransferInfo}}-->

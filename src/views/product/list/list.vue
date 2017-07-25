@@ -34,6 +34,14 @@
     import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux';
     let categoryId = Lib.Utils.getQueryString("categoryId");
     let keyword = Lib.Utils.getQueryString("keyword");
+    if (keyword!= null)
+    {
+        keyword = decodeURIComponent(keyword);
+    }else {
+        keyword = null;
+    }
+
+    console.log(keyword)
     var page;
     export default {
         components: {
@@ -58,7 +66,7 @@
            page = this;
            Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
                console.log("search2 keyword")
-               Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+               Lib.go.replace("/views/product/list.html?&keyword=" + keyword)
 
            });
            page.mkeyword = keyword;

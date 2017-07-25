@@ -13,6 +13,11 @@ export default {
             window.location.href = constant.baseurl + url
         }
     },
+    replace(url){
+
+            window.location.replace(constant.baseurl + url) ;
+
+    },
     jt_login(){
         window.location.replace(constant.baseurl + "/views/user/login.html") ;
     },
