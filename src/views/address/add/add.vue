@@ -12,7 +12,7 @@
 
 
             <group title="请选择社区">
-            <picker  :data="newAreaData" :fixed-columns=3 :columns=3 v-model="year7ValueArr" @on-change="change" ref="picker1"></picker>
+            <picker  :data="newAreaData" :fixed-columns=3 :columns=3 v-model="year7ValueArr"  ref="picker1"></picker>
             </group>
             <group title="详细地址">
                 <YInput :item="{placeholder:'详细地址'}" v-model="p_detail"></YInput>
@@ -59,6 +59,21 @@
         },
         computed:{
 
+        },
+        watch:{
+            year7ValueArr:function (newvalue) {
+               console.log('new Value', newvalue);
+               page.year7Value=newvalue[0]+","+newvalue[1]+","+newvalue[2];
+
+               function findshopid(element) {
+
+                   return element.value == newvalue[2];
+               }
+
+               let find = page.newAreaData.find(findshopid);
+
+               page.shopId=find.shopid;
+           }
         },
         created(){
             page =this;
@@ -130,7 +145,8 @@
                     },
                     onerrcode:function (basebean) {
                         page.$vux.toast.show({
-                            type:'cancel',
+                            type:'text',
+                            width:'10em',
                             text: basebean.getMessage()
                         })
 
@@ -139,19 +155,7 @@
                 });
             },
 
-            change:function (newvalue) {
-                console.log('new Value', newvalue);
-                page.year7Value=newvalue[0]+","+newvalue[1]+","+newvalue[2];
 
-                function findshopid(element) {
-
-                    return element.value == newvalue[2];
-                }
-
-                let find = page.newAreaData.find(findshopid);
-
-                page.shopId=find.shopid;
-            }
         },
 
     }

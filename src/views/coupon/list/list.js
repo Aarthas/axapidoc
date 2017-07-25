@@ -6,12 +6,13 @@ Vue.use(VueRouter)
 import App from './app.vue'
 import list from './list.vue'
 import exchange from './exchange.vue'
-
+import h5srcframe from './h5srcframe.vue'
 
 const routes = [
     { path: '/', component: list },
     { path: '/list', component: list },
     { path: '/exchange', component: exchange },
+    { path: '/h5srcframe', component: h5srcframe },
 
 ]
 

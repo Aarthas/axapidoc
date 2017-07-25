@@ -33,7 +33,7 @@ export default {
     },
     jt_pay(orderId,payAmount){
         let pay = constant.baseurl + "/views/order/pay.html?orderId=" +orderId+"&payAmount="+ payAmount;
-        window.location.href =  encodeWxUrl(pay)
+        window.location.replace(encodeWxUrl(pay))
     },
     getquery: function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

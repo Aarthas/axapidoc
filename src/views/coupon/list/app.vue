@@ -11,7 +11,7 @@
                 <div style="line-height: 40px;">兑换</div>
 
             </m-tabbar-item>
-            <m-tabbar-item id='tab3'>
+            <m-tabbar-item id='h5srcframe'>
                 <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-normal">-->
                 <!--<img src="http://onpxz5rdd.bkt.clouddn.com/tab1.png" alt="" slot="icon-active">-->
                 <div style="line-height: 40px;">说明</div>
@@ -43,11 +43,11 @@
         },
         watch: {
             select: function (newVal, oldVal) {
-                if (newVal == 'tab3') {
-                    window.location.href = "http://h5.sanjiang.com/help/coupon-use.html"
-                } else {
+//                if (newVal == 'tab3') {
+//                    window.location.href = "http://h5.sanjiang.com/help/coupon-use.html"
+//                } else {
                     this.$router.push({path: newVal})
-                }
+//                }
 
             }
         },
