@@ -30,19 +30,21 @@
             </div>
             <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
 
-            <div style="display: flex;flex-direction: row; background-color: white;height: 30px; margin-top: 10px;justify-content: flex-end;">
+            <div style="display: flex;flex-direction: row; background-color: white;height: 36px; margin-top: 10px;justify-content: flex-end;">
                 <div v-show="cartData.cartV2PriceInfo.showBuyMore"
-                     style="display: flex;flex-direction: row;justify-content: space-between;">
-                    <div style="font-size: 10px;line-height: 30px;margin-left: 0px;">
-                        {{cartData.cartV2PriceInfo.freeTransferInfo}}
-                    </div>
+                     style="display: flex;flex-direction: row;justify-content: space-between;flex: 1;padding-left: 6px;">
+                    <!--<div style="font-size: 13px;line-height: 30px;margin-left: 6px;">-->
+                        <!--{{cartData.cartV2PriceInfo.freeTransferInfo}}-->
+                    <!--</div>-->
+                  <vue-marquee  style="color: #666666;font-size: 10px;width: 230px;" :content="cartData.cartV2PriceInfo.freeTransferInfo" class="two"  :showtwo="false"></vue-marquee>
+
                     <div v-on:click="goHome"
-                         style="width: 60px;float:right;margin-left:4px;margin-right:4px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
+                         style="width: 60px;float:right;margin-left:4px;margin-right:4px;background-color: #04BE02;line-height: 36px;font-size: 13px;color: white;text-align: center;">
                         去逛逛
                     </div>
                 </div>
                 <div v-on:click="changeEdit"
-                     style="width: 60px;float:right;margin-right:2px;background-color: #04BE02;line-height: 30px;font-size: 13px;color: white;text-align: center;">
+                     style="width: 60px;float:right;margin-right:2px;background-color: #04BE02;line-height: 36px;font-size: 13px;color: white;text-align: center;">
                     {{editStatu}}
 
                 </div>
@@ -80,6 +82,9 @@
     import settle from './components/settle.vue'
     import edit from './components/edit.vue'
 
+    import marquee from './components/marquee.vue'
+
+
     var page
     export default {
 
@@ -88,6 +93,7 @@
             XInput,
             XButton,
 //            popup_radio,
+            "vue-marquee": marquee,
             XNumber,
             cart_temp,
             settle,
