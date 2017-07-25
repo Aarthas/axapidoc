@@ -60,7 +60,10 @@
 //                let currentAddress = Lib.localStorage.getCurrentAddress();
 //                console.log(page.addresslist[index])
 //                console.log(currentAddress)
-                history.go(-1)
+//                history.go(-1)
+
+                Lib.go.jt_home();
+
             }
         },
         mounted(){

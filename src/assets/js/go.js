@@ -22,12 +22,17 @@ export default {
         window.location.replace(constant.baseurl + "/views/user/login.html") ;
     },
     jt_home(hash){
+        var rand = Math.random()*100000000;
+
+        // alert("jt_home rand="+rand)
         if (hash)
         {
-            window.location.href = constant.baseurl + "/views/home/home.html"+"#/"+hash
+
+
+            window.location.href = constant.baseurl + "/views/home/home.html"+"#/"+hash+"?rand="+rand
         }else
         {
-            window.location.href = constant.baseurl + "/views/home/home.html"
+            window.location.href = constant.baseurl + "/views/home/home.html"+"?rand="+rand
         }
 
     },

@@ -4,7 +4,8 @@
         <search></search>
         <div class="vux-demo" style="margin-top: 44px;position:relative;display: block;justify-content: center">
 
-            <swiper :list="bannerdata" :show-desc-mask="false" auto style="width:100%;overflow: hidden;margin-top: 0px; z-index:1; "
+            <swiper :list="bannerdata" :show-desc-mask="false" auto
+                    style="width:100%;overflow: hidden;margin-top: 0px; z-index:1; "
                     dots-class="custom-bottom"
                     dots-position="center" :aspect-ratio="210/375"></swiper>
 
@@ -17,7 +18,7 @@
                     border-radius: 12px;
                     color: white;
                     font-size: 13px;
-                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}
+                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail2}}
             </span>
             </div>
 
@@ -139,12 +140,27 @@
                 }
 
 
+            },
+            address_detail2: function () {
+                let selectedAddress = Lib.localStorage.getCurrentAddress();
+                if (selectedAddress) {
+
+                    if (selectedAddress.isDeliver) {
+                        return selectedAddress.areaDesc;
+                    } else {
+                        return selectedAddress.shopName;
+                    }
+                } else {
+                    return "请选择收货地址"
+                }
             }
+
         },
         created () {
             page = this;
 
 
+            console.log("aaa created");
             //Hub接收 搜索 事件
             Lib.Hub.$on('keyword', (keyword) => {
                 console.log("search keyword")
@@ -177,7 +193,7 @@
 
         },
         mounted(){
-
+            console.log("aa  mounted")
             loadIndexData();
             let selectedAddress = Lib.localStorage.getCurrentAddress();
             if (selectedAddress) {
@@ -188,7 +204,6 @@
                 } else {
                     page.address_detail = selectedAddress.shopName;
                 }
-
             } else {
                 Lib.axios.axios({
                     url: '/address/getDefault',
