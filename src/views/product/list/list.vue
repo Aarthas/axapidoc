@@ -2,7 +2,7 @@
 
     <div >
 
-        <search style="position:fixed; top:0; left: 0;" placeholder="搜索三江购物商品"></search>
+        <search style="position:fixed; top:0; left: 0;"  placeholder="搜索三江购物商品" v-model="mkeyword"></search>
         <tab style="position:fixed; top:44px; left: 0;width: 100%;z-index: 99;">
             <tab-item selected @on-item-click="onItemClick(0)">综合排序</tab-item>
 
@@ -51,19 +51,21 @@
                 selectedIndex:0,
                 priceBig:false,
                 saleBig:false,
-
+                mkeyword:'',
             }
         },
        created(){
+           page = this;
            Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
                console.log("search2 keyword")
                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
            });
+           page.mkeyword = keyword;
        },
         mounted(){
 
-            page = this;
+
 
             page.onItemClick(0);
 

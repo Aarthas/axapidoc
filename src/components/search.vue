@@ -36,9 +36,18 @@
         },
         props: {
             item: Object,
-
+            value: {
+                default: '',
+            },
         }
         ,
+        created () {
+
+            console.log(this.value)
+            this.keyword =this.value;
+
+        },
+
         methods: {
             muFunc: function () {
                 console.log("aa")
