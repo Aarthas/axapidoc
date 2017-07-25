@@ -7,10 +7,10 @@
             <div style="font-size: 14px;margin-left: 8px;color: #f03838">{{item.adSlogan}}</div>
         </div>
         <div style="height: 20px;line-height: 30px;text-align: left;">
-            <div style="font-size: 12px;margin-left: 8px;">零售价：￥{{item.originalSalePrice}}</div>
+            <div style="font-size: 12px;margin-left: 8px;">零售价：￥{{item.salePrice}}</div>
         </div>
         <div style="height: 30px;line-height: 30px;text-align: left;">
-            <div style="font-size: 13px;margin-left: 8px;color: #f03838">会员价：￥{{item.originalMemberPrice}}</div>
+            <div style="font-size: 13px;margin-left: 8px;color: #f03838">会员价：￥{{item.memberPrice}}</div>
         </div>
     </div>
 </template>

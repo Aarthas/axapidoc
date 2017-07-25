@@ -6,11 +6,11 @@
         <tab style="position:fixed; top:44px; left: 0;width: 100%;z-index: 99;">
             <tab-item selected @on-item-click="onItemClick(0)">综合排序</tab-item>
 
-            <tab-item  v-if="saleBig" @on-item-click="onItemClick(1)" >销量 ↑</tab-item>
-            <tab-item v-else @on-item-click="onItemClick(1)"  >销量 ↓</tab-item>
+            <tab-item  v-if="saleBig" @on-item-click="onItemClick(1)" >销量 ↓</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(1)"  >销量 ↑</tab-item>
 
-            <tab-item v-if="priceBig" @on-item-click="onItemClick(2)"  >价格 ↑</tab-item>
-            <tab-item v-else @on-item-click="onItemClick(2)"  >价格 ↓</tab-item>
+            <tab-item v-if="priceBig" @on-item-click="onItemClick(2)"  >价格 ↓</tab-item>
+            <tab-item v-else @on-item-click="onItemClick(2)"  >价格 ↑</tab-item>
         </tab>
 
         <scroller
