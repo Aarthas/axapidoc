@@ -6,7 +6,7 @@
         <div style="display:inline-block;flex: 1;">
             <div style="display:flex;text-align: left;margin-left:5px;margin-right:8px;margin-top: 10px;height: 40px;" v-on:click="toDetail">{{item.name}}</div>
             <div style="display:flex;flex-direction: row;">
-                <div style="flex:2;text-align:left;color: #f03838;margin-left: 10px;width: 70%;margin-top: 10px;" v-on:click="toDetail">¥{{item.pn}}</div>
+                <div style="flex:2;text-align:left;color: #f03838;margin-left: 10px;width: 70%;margin-top: 10px;" v-on:click="toDetail"><span style="font-size: 10px;color: #666">会员价：</span>¥{{item.pn}}</div>
                 <img style="height:34px;margin-top: 10px;margin-right: 10px;" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" @click="action_addToCart">
 
             </div>
