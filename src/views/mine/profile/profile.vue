@@ -61,6 +61,9 @@
             Lib.axios.axios({
                 method: "get",
                 'url': 'users/me',
+                loading:{
+                  page:page
+                },
                 'success': function (basebean) {
                     console.log(basebean.getData())
                     if (basebean.getData().sex == 0) {
