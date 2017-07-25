@@ -6,7 +6,7 @@
                 <radio  :options="addresslist" v-model="currentValue" :fill-mode="false" >
 
                     <template scope="props" slot="each-item" >
-                        <p v-if="localAddress.id==addresslist[props.index].id" style="line-height: 30px;color: #1AAD19;">
+                        <p v-if="idflag==addresslist[props.index].id" style="line-height: 30px;color: #1AAD19;">
                             {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
                          <br/>
                             <span style="color: #1AAD19;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}</span>
@@ -46,12 +46,13 @@
             return {
                 currentValue: '',
                 addresslist: [],
-                localAddress:{}
+                idflag:''
             };
         },
         created () {
             page = this;
-
+            let currentAddress = Lib.localStorage.getCurrentAddress();
+            page.idflag = currentAddress.id;
         },
         watch: {
             currentValue (index) {
@@ -67,7 +68,7 @@
             }
         },
         mounted(){
-           page.localAddress= Lib.localStorage.getCurrentAddress();
+
             Lib.axios.axios({
                 url: '/address',
                 loading:{
