@@ -9,20 +9,17 @@ import exchange from './exchange.vue'
 import h5srcframe from './h5srcframe.vue'
 
 const routes = [
-    { path: '/', component: list },
-    { path: '/list', component: list },
-    { path: '/exchange', component: exchange },
-    { path: '/h5srcframe', component: h5srcframe },
+    {path: '/', meta: {id: 'list'}, component: list},
+    {path: '/list', meta: {id: 'list'}, component: list},
+    {path: '/exchange', meta: {id: 'exchange'}, component: exchange},
+    {path: '/h5srcframe', meta: {id: 'h5srcframe'}, component: h5srcframe},
 
 ]
 
 
-
 const router = new VueRouter({
-    routes:routes
+    routes: routes
 })
-
-
 
 
 new Vue({

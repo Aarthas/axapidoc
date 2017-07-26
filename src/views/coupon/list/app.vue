@@ -52,7 +52,17 @@
             }
         },
         mounted () {
+            let that  = this;
+            let path = this.$route.path;
+            if (path == '/')
+                path = "/list"
+            this.select = path.substr(1, path.length)
+//            window.location.
+            this.$router.afterEach(function (route) {
 
+                console.log("afterEach"+JSON.stringify(route.meta))
+                that.select = route.meta.id;
+            })
 
         },
 
