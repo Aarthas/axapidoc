@@ -74,6 +74,7 @@
     import mTabbar from '../../../components/tabbar/tabbar'
     import mTabbarItem from '../../../components/tabbar/tabbar-item'
 
+    var page ;
     export default {
         components: {
 
@@ -93,7 +94,7 @@
         },
         created () {
 
-
+            page = this;
             let that  = this;
             let path = this.$route.path;
             if (path == '/')
@@ -143,6 +144,7 @@
         let code = Lib.Utils.getQueryString("code");
         console.log('checkCode code = ' + code)
 
+
         if (code != null && code.length > 0) {
             Lib.axios.axios({
                 url: '/wechat/getTokenByWxcode?code=' + code + '&userinfo=userinfo',
@@ -150,6 +152,9 @@
                     console.log("getTokenByWxcode success token="+(basebean.getSessionId()))
                     let data = basebean.getData();
                     localStorage.setItem("token", basebean.getSessionId())
+                    console.log("send justlogin")
+                    Lib.Hub.$emit('justlogin');
+
                 },
                 forunlogin: function (basebean) {
 

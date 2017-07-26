@@ -18,7 +18,7 @@
                     border-radius: 12px;
                     color: white;
                     font-size: 13px;
-                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail2}}
+                    background: rgba(0, 0, 0, 0.2);" @click="jt_select_address"> {{address_detail}}
             </span>
             </div>
 
@@ -141,19 +141,19 @@
 
 
             },
-            address_detail2: function () {
-                let selectedAddress = Lib.localStorage.getCurrentAddress();
-                if (selectedAddress) {
-
-                    if (selectedAddress.isDeliver) {
-                        return selectedAddress.areaDesc;
-                    } else {
-                        return selectedAddress.shopName;
-                    }
-                } else {
-                    return "请选择收货地址"
-                }
-            }
+//            address_detail2: function () {
+//                let selectedAddress = Lib.localStorage.getCurrentAddress();
+//                if (selectedAddress) {
+//
+//                    if (selectedAddress.isDeliver) {
+//                        return selectedAddress.areaDesc;
+//                    } else {
+//                        return selectedAddress.shopName;
+//                    }
+//                } else {
+//                    return "请选择收货地址"
+//                }
+//            }
 
         },
         created () {
@@ -165,6 +165,12 @@
             Lib.Hub.$on('keyword', (keyword) => {
                 console.log("search keyword")
                 Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+
+            });
+            Lib.Hub.$on('justlogin', () => {
+                console.log("justlogin")
+                loadAddress();
+//                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
 
             });
             //Hub接收 跳转活动页 事件
@@ -195,29 +201,7 @@
         mounted(){
             console.log("aa  mounted")
             loadIndexData();
-            let selectedAddress = Lib.localStorage.getCurrentAddress();
-            if (selectedAddress) {
-
-
-                if (selectedAddress.isDeliver) {
-                    page.address_detail = selectedAddress.areaDesc;
-                } else {
-                    page.address_detail = selectedAddress.shopName;
-                }
-            } else {
-                Lib.axios.axios({
-                    url: '/address/getDefault',
-                    success: function (basebean) {
-                        let address = basebean.getData();
-                        page.address_detail = address.areaDesc
-                        Lib.localStorage.setCurrentAddress(address);
-
-                    },
-                    forunlogin: function () {
-                        page.address_detail = "请选择收货地址"
-                    }
-                });
-            }
+            loadAddress();
 
         },
         methods: {
@@ -242,13 +226,38 @@
             },
             //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html")
+                Lib.go.go("/views/address/selectaddress.html?isMall=1")
             },
 
         }
     }
 
 
+    function loadAddress() {
+        let selectedAddress = Lib.localStorage.getCurrentAddress();
+        if (selectedAddress) {
+
+
+            if (selectedAddress.isDeliver) {
+                page.address_detail = selectedAddress.areaDesc;
+            } else {
+                page.address_detail = selectedAddress.shopName;
+            }
+        } else {
+            Lib.axios.axios({
+                url: '/address/getDefault',
+                success: function (basebean) {
+                    let address = basebean.getData();
+                    page.address_detail = address.areaDesc
+                    Lib.localStorage.setCurrentAddress(address);
+
+                },
+                forunlogin: function () {
+                    page.address_detail = "请选择收货地址"
+                }
+            });
+        }
+    }
     function loadIndexData() {
         Lib.axios.axios({
             url: '/home/index',

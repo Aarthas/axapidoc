@@ -8,10 +8,10 @@
             <y-icon style="margin-top: 10px;" v-model="item.selectAll"></y-icon>
         </div>
         <div style="display: flex;flex-direction: column;width:60vw;">
-            <div style="height: 25px;display: flex;flex-direction: row;" v-if="item.cartV2PriceInfo">
-                <div style="color: #333333;line-height: 25px;margin-left: 5px;">合计：</div>
-                <div  style="color: #f03838;line-height: 25px;">￥{{item.cartV2PriceInfo.retailTotalAmount}}</div>
-                <div style="color: #333333;line-height: 25px;font-size: 13px;">{{item.cartV2PriceInfo.transportAmount}}</div>
+            <div style="height: 25px;display: flex;flex-direction: row;" v-show="item.cartV2PriceInfo">
+                <span style="color: #333333;line-height: 25px;margin-left: 5px;">合计：</span>
+                <span  style="color: #f03838;line-height: 25px;">￥{{item.cartV2PriceInfo.retailTotalAmount}}</span>
+                <span style="color: #333333;line-height: 25px;font-size: 13px;">{{item.cartV2PriceInfo.transportAmount}}</span>
             </div>
             <div style=" height :25px;line-height:20px;color: #666666;font-size: 12px;margin-left: 5px;" v-if="item.cartV2PriceInfo" >{{item.cartV2PriceInfo.memberPriceTip}} ￥{{item.cartV2PriceInfo.memberPriceCut}}{{item.cartV2PriceInfo.scoreAmountInfo}}{{item.cartV2PriceInfo.scoreAmount}}</div>
 

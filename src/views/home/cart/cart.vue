@@ -229,7 +229,7 @@
         methods: {
 //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html")
+                Lib.go.go("/views/address/selectaddress.html?isMall=0")
             },
 //            改变编辑商品状态
             changeEdit: function () {

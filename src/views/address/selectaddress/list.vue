@@ -3,18 +3,20 @@
         <div>
             <div style="background-color: white;margin-bottom: 100px;">
 
-                <radio  :options="addresslist" v-model="currentValue" :fill-mode="false" >
+                <radio :options="addresslist" v-model="currentValue" :fill-mode="false">
 
-                    <template scope="props" slot="each-item" >
+                    <template scope="props" slot="each-item">
                         <p v-if="idflag==addresslist[props.index].id" style="line-height: 30px;color: #1AAD19;">
                             {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
                          <br/>
-                            <span style="color: #1AAD19;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}</span>
+                            <span style="color: #1AAD19;">  {{addresslist[props.index].areaDesc
+                                }} {{addresslist[props.index].detailAddress }}</span>
                         </p>
                         <p v-else style="line-height: 30px;">
                             {{addresslist[props.index].consignee }}     {{addresslist[props.index].mobile }}
                             <br/>
-                            <span style="color: #666;">  {{addresslist[props.index].areaDesc }} {{addresslist[props.index].detailAddress }}  </span>
+                            <span style="color: #666;">  {{addresslist[props.index].areaDesc
+                                }} {{addresslist[props.index].detailAddress }}  </span>
                         </p>
                     </template>
 
@@ -22,7 +24,7 @@
 
 
             </div>
-            <div   style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
+            <div style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
                 <x-button @click.native="jt_add_address" type="primary"> 添加地址</x-button>
             </div>
         </div>
@@ -33,26 +35,27 @@
     import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux'
     import {Group, Cell, Card} from 'vux'
     import Lib from 'assets/js/Lib';
-
+    let isMall = Lib.Utils.getQueryString("isMall");
     var page;
     export default {
         components: {
             Group,
             Tab,
             TabItem,
-            Radio,XButton
+            Radio, XButton
         },
         data () {
             return {
                 currentValue: '',
                 addresslist: [],
-                idflag:''
+                idflag: ''
             };
         },
         created () {
             page = this;
             let currentAddress = Lib.localStorage.getCurrentAddress();
-            page.idflag = currentAddress.id;
+            if (currentAddress)
+                page.idflag = currentAddress.id;
         },
         watch: {
             currentValue (index) {
@@ -61,9 +64,18 @@
 //                let currentAddress = Lib.localStorage.getCurrentAddress();
 //                console.log(page.addresslist[index])
 //                console.log(currentAddress)
-//                history.go(-1)
 
-                Lib.go.jt_home();
+//                Lib.Hub.$emit('changeAddress',page.addresslist[index]);
+//                history.go(-1)
+                if (isMall==0){
+                    Lib.go.jt_home("cart");
+                }else{
+                    Lib.go.jt_home();
+                }
+//                console.log(window.document)
+//                console.log("cart referrer="+window.document.referrer)
+//                window.location.href = window.document.referrer;
+
 
             }
         },
@@ -71,8 +83,8 @@
 
             Lib.axios.axios({
                 url: '/address',
-                loading:{
-                    page:page,
+                loading: {
+                    page: page,
                 },
                 success: function (basebean) {
                     console.log(basebean.getData())
@@ -87,12 +99,8 @@
             });
         },
         methods: {
-            onItemClick: function (index) {
-                console.log(index)
 
-            }
-            ,
-            jt_add_address:function () {
+            jt_add_address: function () {
                 Lib.go.go("/views/address/showlist.html#/add")
             }
         }
