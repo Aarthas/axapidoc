@@ -35,7 +35,7 @@
     import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux'
     import {Group, Cell, Card} from 'vux'
     import Lib from 'assets/js/Lib';
-    let isMall = Lib.Utils.getQueryString("isMall");
+    let isFrom = Lib.Utils.getQueryString("isFrom");
     var page;
     export default {
         components: {
@@ -67,10 +67,12 @@
 
 //                Lib.Hub.$emit('changeAddress',page.addresslist[index]);
 //                history.go(-1)
-                if (isMall==0){
+                if (isFrom=="cart"){
                     Lib.go.jt_home("cart");
-                }else{
+                }else if(isFrom=="mall"){
                     Lib.go.jt_home();
+                }else{
+                    history.go(-1);
                 }
 //                console.log(window.document)
 //                console.log("cart referrer="+window.document.referrer)

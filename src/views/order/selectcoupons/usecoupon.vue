@@ -15,8 +15,10 @@
         <div v-else style="display: flex;justify-content: center;align-items: center;height: 400px;">
             优惠券为空
         </div>
-        <div v-if="!listEmpty" style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
-            <x-button v-on:click.native="useCoupon" type="primary" :disabled="coupons_able.length == 0">使用</x-button>
+        <div  style="position: fixed;bottom: 0px;width: 100%;padding: 10px;box-sizing: border-box;background-color: #fbfbfb;">
+
+            <x-button  v-if="!listEmpty" v-on:click.native="useCoupon" type="primary" :disabled="coupons_able.length == 0">使用</x-button>
+            <x-button  v-else  type="primary" :disabled=true>暂无优惠券可使用</x-button>
         </div>
     </div>
 </template>

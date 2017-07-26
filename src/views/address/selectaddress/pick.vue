@@ -37,7 +37,7 @@
     import Lib from 'assets/js/Lib';
     import YInput from '../../../components/YInput.vue';
     import YSelect from '../../../components/YSelect.vue';
-    let isMall = Lib.Utils.getQueryString("isMall");
+    let isFrom = Lib.Utils.getQueryString("isFrom");
     var page;
     export default {
         components: {
@@ -152,10 +152,12 @@
                     success: function (basebean) {
                         console.log('返回的'+basebean.getData())
                         Lib.localStorage.setCurrentAddress(basebean.getData());
-                        if (isMall==0){
+                        if (isFrom=="cart"){
                             Lib.go.jt_home("cart");
-                        }else{
+                        }else if(isFrom=="mall"){
                             Lib.go.jt_home();
+                        }else{
+                            history.go(-1);
                         }
 
                     },
@@ -174,10 +176,12 @@
                 Lib.localStorage.setCurrentAddress(page.historyPickAddress);
 //                console.log(window.document.referrer)
 //                window.location.href = window.document.referrer;
-                if (isMall==0){
+                if (isFrom=="cart"){
                     Lib.go.jt_home("cart");
-                }else{
+                }else if(isFrom=="mall"){
                     Lib.go.jt_home();
+                }else{
+                    history.go(-1);
                 }
             }
         },

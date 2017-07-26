@@ -226,7 +226,7 @@
             },
             //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html?isMall=1")
+                Lib.go.go("/views/address/selectaddress.html?isFrom=mall")
             },
 
         }

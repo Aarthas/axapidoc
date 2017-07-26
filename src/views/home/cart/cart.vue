@@ -74,18 +74,17 @@
 <script>
 
 
-    import {Group, XInput, XButton, XNumber, Toast, Confirm} from 'vux'
+
     import Vue from 'vue';
     import Lib from 'assets/js/Lib';
+    import {Group, XInput, XButton, XNumber, Toast, Confirm} from 'vux';
+    import cart_temp from './components/cart_temp.vue';
+    import settle from './components/settle.vue';
+    import edit from './components/edit.vue';
+    import marquee from './components/marquee.vue';
 
-    import cart_temp from './components/cart_temp.vue'
-    import settle from './components/settle.vue'
-    import edit from './components/edit.vue'
 
-    import marquee from './components/marquee.vue'
-
-
-    var page
+    var page;
     export default {
 
         components: {
@@ -190,6 +189,45 @@
                 };
                 updateNumber(param);
             });
+            //Hub接收 改变数量 事件
+            Lib.Hub.$on('changeNum', (item) => {
+                var newNumber = item.number ;
+                this.$vux.confirm.prompt(newNumber, {
+                    title: '请修改数量',
+                    onConfirm (msg) {
+                        if (msg > item.stock) {
+                            msg = item.stock;
+                            page.$vux.toast.show({
+                                type: 'cancel',
+                                text: '就这么多啦！'
+                            });
+                        }else if(msg==0){
+                            msg=1;
+                            page.$vux.toast.show({
+                                type: 'cancel',
+                                text: '数量不能为0！'
+                            });
+                        }
+                        var score;
+                        if (item.score == null) {
+                            score = 0;
+                        } else {
+                            score = item.score;
+                        }
+                        var deliverType = page.selectAddress.isDeliver ? 1 : 2;
+                        var param = {
+                            id: item.erpGoodsId,
+                            number: msg,
+                            deliverType: deliverType,
+                            cartStatus: score > 0 ? 3 : 1
+                        };
+                        updateNumber(param);
+                    }
+                });
+                console.log("比较" + newNumber, item.stock);
+
+
+            });
         },
         mounted () {
             let currentAddress = Lib.localStorage.getCurrentAddress();
@@ -229,7 +267,7 @@
         methods: {
 //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html?isMall=0")
+                Lib.go.go("/views/address/selectaddress.html?isFrom=cart")
             },
 //            改变编辑商品状态
             changeEdit: function () {

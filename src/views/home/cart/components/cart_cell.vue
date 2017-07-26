@@ -22,7 +22,7 @@
             <div style="display: flex;flex-direction: row;flex: 1;">
                 <div  style="color: #f03838;margin-top: 17px;" v-on:click="myFun">￥{{cellItem.displayPrice}}</div>
                 <add_sub v-show="typedId !=-1" v-model="cellItem.number" style="margin-right: 8px;flex: 1;"
-                         @on-add="on_add" @on-sub="on_sub"></add_sub>
+                         @on-add="on_add" @on-sub="on_sub" @changeNum="on_changeNum"></add_sub>
             </div>
         </div>
     </div>
@@ -82,6 +82,10 @@
             on_sub: function () {
                 console.log("on_sub")
                 Lib.Hub.$emit('sub', this.cellItem); //Hub触发事件
+            },
+            on_changeNum:function () {
+                console.log("on_changeNum")
+                Lib.Hub.$emit('changeNum', this.cellItem); //Hub触发事件
             }
 
         }

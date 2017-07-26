@@ -7,7 +7,7 @@
                 <div style="color: #f03838;line-height: 25px;">￥{{item.total_price}}</div>
             </div>
             <div style=" height :25px;line-height:20px;color: #666666;font-size: 12px;margin-left: 5px;">
-                会员优惠： ￥{{item.coupons_price}}
+                会员优惠： ￥{{item.member_privilege}}
             </div>
 
         </div>
