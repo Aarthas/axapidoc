@@ -195,19 +195,24 @@
                 this.$vux.confirm.prompt(newNumber, {
                     title: '请修改数量',
                     onConfirm (msg) {
-                        if (msg > item.stock) {
-                            msg = item.stock;
-                            page.$vux.toast.show({
-                                type: 'cancel',
-                                text: '就这么多啦！'
-                            });
-                        }else if(msg==0){
-                            msg=1;
-                            page.$vux.toast.show({
-                                type: 'cancel',
-                                text: '数量不能为0！'
-                            });
-                        }
+                        console.log("msg" + msg);
+
+                            if (msg > item.stock) {
+                                msg = item.stock;
+                                page.$vux.toast.show({
+                                    position:'middle',
+                                    type: 'text',
+                                    text: '只剩'+item.stock+'件了！'
+                                });
+                            } else if (msg == 0) {
+                                msg = newNumber;
+                                page.$vux.toast.show({
+                                    position:'middle',
+                                    type: 'text',
+                                    text: '数量不能为0!'
+                                });
+                            }
+
                         var score;
                         if (item.score == null) {
                             score = 0;
