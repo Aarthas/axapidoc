@@ -72,11 +72,13 @@
                 }else if(isFrom=="mall"){
                     Lib.go.jt_home();
                 }else{
-                    history.go(-1);
+//                    window.location.replace( window.document.referrer)
+                    page.$router.go(-1)
                 }
+//                history.go()
 //                console.log(window.document)
 //                console.log("cart referrer="+window.document.referrer)
-//                window.location.href = window.document.referrer;
+
 
 
             }

@@ -157,7 +157,9 @@
                         }else if(isFrom=="mall"){
                             Lib.go.jt_home();
                         }else{
-                            history.go(-1);
+//                            history.go(-1);
+
+                            page.$router.go(-1)
                         }
 
                     },
@@ -181,7 +183,8 @@
                 }else if(isFrom=="mall"){
                     Lib.go.jt_home();
                 }else{
-                    history.go(-1);
+
+                    page.$router.go(-1)
                 }
             }
         },

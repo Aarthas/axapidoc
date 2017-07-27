@@ -138,7 +138,7 @@
 
                             },
                             onHide () {
-                                page.$router.back(-1);
+                                page.$router.go(-1);
                             }
                         })
 

@@ -78,7 +78,8 @@
         },
         methods: {
             jt_select_address:function () {
-                Lib.go.go("/views/address/selectaddress.html?isFrom=productDetail")
+//                Lib.go.go("/views/address/selectaddress.html?isFrom=productDetail")
+                page.$router.push({path:'selectaddress'});
             },
             toIntroduction: function () {
                 if ( page.itemsData.introduction==''||page.itemsData.introduction==null) {

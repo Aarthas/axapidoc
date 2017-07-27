@@ -144,7 +144,8 @@
                     },
                     success: function (basebean) {
                          Lib.Hub.$emit('useCouponSuccess',(basebean.getData().priceInfo)); //Hub触发事件
-                        history.go(-1);
+
+                        page.$router.go(-1)
                     },
                     onerrcode:function (basebean) {
                         page.$vux.toast.show({
