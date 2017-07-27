@@ -50,8 +50,8 @@
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
     import {Swiper, Alert,Toast} from 'vux'
-    let productId = Lib.Utils.getQueryString("productId");
-    let isScoreItem = Lib.Utils.getQueryString("isScoreItem");
+    let productId ;
+    let isScoreItem ;
     var page;
     export default {
         components: {Swiper, recommend, bottom, info, Alert,Toast},
@@ -79,7 +79,7 @@
         methods: {
             jt_select_address:function () {
 //                Lib.go.go("/views/address/selectaddress.html?isFrom=productDetail")
-                page.$router.push({path:'selectaddress'});
+                page.$router.push({path:'/selectaddress'});
             },
             toIntroduction: function () {
                 if ( page.itemsData.introduction==''||page.itemsData.introduction==null) {
@@ -89,7 +89,7 @@
                     })
                 }else{
                   this.$router.push({
-                     path: '/introduction',
+                     path: '/product/introduction',
                      query: {
                         introduction: page.itemsData.introduction
                     }
@@ -99,10 +99,14 @@
             toGuarantee: function () {
                 document.body.scrollTop = 0;
 //                window.document.scrollTop(0);
-                this.$router.push({path: '/guarantee'})
+                this.$router.push({path: '/product/guarantee'})
             },
             goDetail: function (item) {
-                Lib.go.go("/views/product/detail.html?productId=" + item.sn + "&isScoreItem=0")
+                console.log("goDetail")
+                loadData(item.sn,0)
+//                this.$router.replace({path:"/product/detail/aa",query:{productId:item.sn,isScoreItem:0}})
+//                Lib.go.go("/views/main/main.html#/product/detail?productId="+item.sn+"&isScoreItem="+0)
+
             },
             addCart: function () {
                 Lib.axios.addtocart({
@@ -114,6 +118,8 @@
         },
         created(){
             page = this;
+            productId = page.$route.query.productId ;
+            isScoreItem = page.$route.query.isScoreItem ;
         },
         mounted(){
             page.selectedAddress = Lib.localStorage.getCurrentAddress();

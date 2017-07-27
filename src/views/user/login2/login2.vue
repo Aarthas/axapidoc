@@ -52,10 +52,10 @@
         },
         data () {
             return {
-//                uname: '13780082671',
-//                pwd: '123456a',
-                uname: '',
-                pwd: '',
+                uname: '13780082671',
+                pwd: '123456a',
+//                uname: '',
+//                pwd: '',
             };
         },
         computed: {},
@@ -107,7 +107,7 @@
                     success: function (basebean) {
                         console.log("localStorage.setItem(token)"+basebean.getData().sessionId);
                         localStorage.setItem("token",basebean.getData().sessionId);
-                        Lib.go.go("/views/home/home.html#/mine");
+                        Lib.go.go("/views/main/main.html#/mine");
                     }
                     ,onerrcode:function (basebean) {
 

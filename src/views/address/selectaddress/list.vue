@@ -75,10 +75,7 @@
 //                    window.location.replace( window.document.referrer)
                     page.$router.go(-1)
                 }
-//                history.go()
-//                console.log(window.document)
-//                console.log("cart referrer="+window.document.referrer)
-
+//
 
 
             }
@@ -105,7 +102,7 @@
         methods: {
 
             jt_add_address: function () {
-                Lib.go.go("/views/address/showlist.html#/add")
+                this.$router.push({path: 'addaddress'})
             }
         }
 

@@ -125,9 +125,10 @@
             //Hub接收 去商品详情 事件
             Lib.Hub.$on('goDetail', (cellItem) => {
                 if (cellItem.score > 0) {
-                    Lib.go.go("/views/product/detail.html?productId=" + cellItem.sn + "&isScoreItem=0")
+
+                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=0")
                 } else {
-                    Lib.go.go("/views/product/detail.html?productId=" + cellItem.sn + "&isScoreItem=1")
+                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=1")
                 }
 
             });
@@ -272,7 +273,7 @@
         methods: {
 //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html?isFrom=cart")
+                Lib.go.jt_selectaddress(this.$router)
             },
 //            改变编辑商品状态
             changeEdit: function () {
@@ -395,7 +396,7 @@
             },
 //            去逛逛
             goHome: function () {
-                window.location.href = Lib.constant.baseurl + "/views/home/home.html#/mall";
+                this.$router.push({path: 'mall'})
             }
         }
     }

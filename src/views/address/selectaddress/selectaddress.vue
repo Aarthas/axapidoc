@@ -52,13 +52,7 @@
                     page.showlist = false;
                 }
             }
-            ,
-            jt_add_address:function () {
-//                window.history.replaceState(obj,"aa","http://blog.csdn.net/charlene0824/article/details/52165429#history") ;
-                Lib.go.go("/views/address/showlist.html#/add")
 
-
-            }
         }
 
     }

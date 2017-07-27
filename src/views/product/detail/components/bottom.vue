@@ -42,7 +42,7 @@
         },
         methods: {
             jt_cart:function () {
-                window.location.href = Lib.constant.baseurl+"/views/home/home.html#/cart";
+                window.location.href = Lib.constant.baseurl+"/views/main/main.html#/cart";
             },
 
             setFavIcon: function (isFav) {

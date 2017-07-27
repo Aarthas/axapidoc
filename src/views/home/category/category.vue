@@ -34,6 +34,7 @@
     import search from '../../../components/search.vue' ;
     import collect from './components/collection_cell.vue';
 
+
     var page;
     export default {
         components: {

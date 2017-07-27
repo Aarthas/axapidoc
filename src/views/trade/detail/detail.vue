@@ -81,7 +81,8 @@
              }else{
                  isScoreItem=0
              }
-             Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem="+isScoreItem)
+             Lib.go.go("/views/main/main.html#/product/detail?productId="+item.sn+"&isScoreItem="+isScoreItem)
+
          },
          //取消订单
          cancelOrder:function (orderId) {

@@ -158,7 +158,8 @@
                 loadData(urlString);
             },
             goDetail:function (item) {
-                Lib.go.go("/views/product/detail.html?productId="+item.sn+"&isScoreItem=0")
+                Lib.go.go("/views/main/main.html#/product/detail?productId="+item.sn+"&isScoreItem="+0)
+
             }
         }
     }

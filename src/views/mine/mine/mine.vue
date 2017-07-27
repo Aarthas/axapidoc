@@ -79,31 +79,38 @@
                 switch (index) {
                     case 0:
                         a= Lib.constant.baseurl + "/views/trade/list.html"
+                        window.location.href=a
                         break;
                     case 1:
                         a=   Lib.constant.baseurl + "/views/mine/favorite.html"
+                        window.location.href=a
                         break;
                     case 2:
-                        a= Lib.constant.baseurl + "/views/address/showlist.html#/list"
+                        this.$router.push({path: 'listaddress'})
+//                        a= Lib.constant.baseurl + "/views/address/showlist.html#/list"
                         break;
                     case 3:
                         a=  Lib.constant.baseurl + "/views/coupon/list.html"
+                        window.location.href=a
                         break;
                     case 4:
                         a=    Lib.constant.baseurl + "/views/mine/iccard.html"
+                        window.location.href=a
                         break;
                     case 5:
                         a=   "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=http%3A%2F%2Fweixin.sanjiang.com%2Fsjmarket%2Fviews%2Fcomplaint%2Fsubmit.html&response_type=code&scope=snsapi_base#wechat_redirect";
+                        window.location.href=a
                         break;
                     case 6:
                         a=   "http://h5.sanjiang.com/help/help.html";
+                        window.location.href=a
                         break;
                     default:
 
 
 
                 }
-                window.location.href=a
+
             }
         }
 

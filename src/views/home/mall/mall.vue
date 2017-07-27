@@ -218,15 +218,17 @@
             },
             goDetail: function (item) {
 
-                Lib.go.go("/views/product/detail.html?productId=" + item.sn + "&isScoreItem=0")
+                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
+
             },
             goToDetail: function (item) {
+                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
 
-                Lib.go.go("/views/product/detail.html?productId=" + item.aim + "&isScoreItem=0")
             },
             //            选择地址
             jt_select_address: function () {
-                Lib.go.go("/views/address/selectaddress.html?isFrom=mall")
+                Lib.go.jt_selectaddress(this.$router)
+
             },
 
         }
