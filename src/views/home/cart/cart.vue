@@ -139,8 +139,9 @@
                 if (newNumber > item.stock) {
                     newNumber = item.stock;
                     page.$vux.toast.show({
-                        type: 'cancel',
-                        text: '就这么多啦！'
+                        position:'middle',
+                        type: 'text',
+                        text: '只剩'+item.stock+'件了!'
                     })
                 }
                 var score;
