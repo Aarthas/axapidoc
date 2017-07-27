@@ -58,8 +58,10 @@
                 }
             },
             toDetail: function (orderId) {
-                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
+//                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
+                this.$router.push({path: 'detailtrade',query:{orderId:orderId
 
+                }})
             }
 
 

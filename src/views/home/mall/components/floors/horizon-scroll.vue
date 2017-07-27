@@ -21,6 +21,7 @@ display: -webkit-box;
     </div>
 </template>
 <script>
+    import Lib from 'assets/js/Lib';
     export default {
         name: 'allSort',
         data () {
@@ -40,7 +41,9 @@ display: -webkit-box;
         methods:{
             toDetail: function (item) {
                 let that =this;
-                that.$emit('goToDetail', item)
+                console.log(item)
+                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.aim + "&isScoreItem=0")
+//                that.$emit('goToDetail', item)
             }
         }
     }

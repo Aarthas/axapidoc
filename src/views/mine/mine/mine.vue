@@ -78,8 +78,9 @@
                 let a ;
                 switch (index) {
                     case 0:
-                        a= Lib.constant.baseurl + "/views/trade/list.html"
-                        window.location.href=a
+
+                        this.$router.push({path: 'listtrade'})
+
                         break;
                     case 1:
                         a=   Lib.constant.baseurl + "/views/mine/favorite.html"

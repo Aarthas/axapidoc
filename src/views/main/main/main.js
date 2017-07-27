@@ -28,7 +28,9 @@ import detailproduct from '../../product/detail/detail.vue'
 
 import introduction from '../../product/detail/components/introduction.vue'
 import guarantee from '../../product/detail/components/guarantee.vue'
-
+//trade
+import listtrade from '../../trade/list/list.vue'
+import detailtrade from '../../trade/detail/detail.vue'
 
 const routes = [
     {
@@ -54,7 +56,8 @@ const routes = [
         ]
 
     },
-
+    {path: '/listtrade', meta: {title: '订单列表'}, component: listtrade},
+    {path: '/detailtrade', meta: {title: '订单详情'}, component: detailtrade},
     // {path: '/category', meta: {id: 'category'}, component: category},
     // {path: '/cart', meta: {id: 'cart'}, component: cart},
     // {path: '/mine', meta: {id: 'mine'}, component: mine}
