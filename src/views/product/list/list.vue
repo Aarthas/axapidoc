@@ -14,12 +14,13 @@
         </tab>
 
         <scroller
+                v-show="!listEmpty"
                   ref="myScroller"
                   :on-infinite="infinite">
             <div style="height: 90px;"></div>
             <favorite_cell v-for="item in list" :item=item :key="item.erpGoodsId" @goDetail="goDetail" ></favorite_cell>
         </scroller>
-        <div v-show="listEmpty==true" style="display: flex;justify-content: center;align-items: center;height: 400px;">
+        <div v-show="listEmpty" style="display: flex;justify-content: center;align-items: center;height: 400px;">
             商品列表为空
         </div>
     </div>
@@ -181,21 +182,30 @@
 
                 itemsData = basebean.getData();
 
+                console.log("success")
+                console.log(itemsData)
+//                let  a =  itemsData==null||itemsData.list ==null || itemsData.list.length==0
+//                console.log(a)
                 if (itemsData==null||itemsData.list ==null || itemsData.list.length==0) {
+                    console.log("  page.listEmpty="+  page.listEmpty)
                     page.listEmpty = true;
                     page.$refs.myScroller.finishInfinite(true);
+                    return
+                }
+                else{
+                    page.listEmpty = false;
+                    if (basebean.getData().isFirst) {
+                        page.list = basebean.getData().list;
+                    } else {
+                        page.list = page.list.concat(basebean.getData().list);
+                    }
+                    if (basebean.getData().isLast) {
+                        page.$refs.myScroller.finishInfinite(true);
+                    } else {
+                        page.$refs.myScroller.finishInfinite();
+                    }
                 }
 
-                if (basebean.getData().isFirst) {
-                    page.list = basebean.getData().list;
-                } else {
-                    page.list = page.list.concat(basebean.getData().list);
-                }
-                if (basebean.getData().isLast) {
-                    page.$refs.myScroller.finishInfinite(true);
-                } else {
-                    page.$refs.myScroller.finishInfinite();
-                }
             }
         });
 
