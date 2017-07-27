@@ -10,7 +10,7 @@
             <div v-if="address.isDeliver" class="orderInfo">取货方式：配送</div>
             <div v-else class="orderInfo">取货方式：自提</div>
             <div v-if="address.isDeliver" class="orderInfo">收货地址：{{address.areaDesc}}&nbsp;&nbsp;{{address.detailAddress}}</div>
-            <div v-else class="orderInfo">自提地址：{{address.shopName}}  {{address.address}}</div>
+            <div v-else class="orderInfo">自提地址：{{address.shopName}} | {{address.detailAddress}}</div>
             <div  style="height: 8px;background-color: white;"></div>
             <div style="background-image: url('http://onpxz5rdd.bkt.clouddn.com/ic_address_line.png');background-size: contain;height: 2px;width: 100%"></div>
         </div>
@@ -130,24 +130,30 @@
             clickSubmit:function () {
                 console.log("clickSubmit 2")
 
-                var deliverType;
-                if ( page.address.isDeliver==true){
-                    deliverType="deliver";
+                var param={};
+                if ( page.address.isDeliver){
+                    param={
+                       addressId :  page.address.id,
+                       shopId :  page.address.shopId,
+                       deliverType : "deliver",
+                       payType:page.p_payType,
+                       comment:page.remarket,
+                    }
                 }else {
-                    deliverType="pick_shop";
+
+                    param={
+                        shopId :  page.address.shopId,
+                        deliverType : "pick_shop",
+                        payType:page.p_payType,
+                        comment:page.remarket,
+                    }
                 }
 
 
                 Lib.axios.axios({
                     method: "post",
                     url: "/orders/submit",
-                    data:{
-                        addressId :  page.address.id,
-                        shopId :  page.address.shopId,
-                        deliverType : deliverType,
-                        payType:page.p_payType,
-                        comment:page.remarket,
-                    },
+                    data:param,
                     loading:{
                         page:page
 
@@ -186,6 +192,10 @@
         Lib.axios.axios({
             method: "post",
             url: "/orders/goToConfirmOrder",
+            loading:{
+                page:page
+
+            },
             data:{
                 addressId : address.id,
                 shopId : address.shopId,
