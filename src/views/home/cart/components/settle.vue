@@ -8,10 +8,10 @@
             <y-icon style="margin-top: 10px;" v-model="item.selectAll"></y-icon>
         </div>
         <div style="display: flex;flex-direction: column;width:60vw;">
-            <div style="height: 25px;display: flex;flex-direction: row;" v-show="item.cartV2PriceInfo">
+            <div style="height: 25px;display: flex;flex-direction: row;" >
                 <span style="color: #333333;line-height: 25px;margin-left: 5px;">合计：</span>
-                <span  style="color: #f03838;line-height: 25px;">￥{{item.cartV2PriceInfo.retailTotalAmount}}</span>
-                <span style="color: #333333;line-height: 25px;font-size: 13px;">{{item.cartV2PriceInfo.transportAmount}}</span>
+                <span  style="color: #f03838;line-height: 25px;">￥{{retailTotalAmount}}</span>
+                <span style="color: #333333;line-height: 25px;font-size: 13px;">{{transportAmount}}</span>
             </div>
             <div style=" height :25px;line-height:20px;color: #666666;font-size: 12px;margin-left: 5px;" v-if="item.cartV2PriceInfo" >{{item.cartV2PriceInfo.memberPriceTip}} ￥{{item.cartV2PriceInfo.memberPriceCut}}{{item.cartV2PriceInfo.scoreAmountInfo}}{{item.cartV2PriceInfo.scoreAmount}}</div>
 
@@ -32,11 +32,26 @@
 
             }
         },
+        computed:{
+            retailTotalAmount:function () {
+                if (this.item&& this.item.cartV2PriceInfo){
+                    return  this. item.cartV2PriceInfo.retailTotalAmount
+                }
+                return "";
+            },
+            transportAmount:function () {
+                if (this.item&& this.item.cartV2PriceInfo){
+                    return  this. item.cartV2PriceInfo.transportAmount
+                }
+                return "";
+            }
+        },
         props:{
             item:Object
         },
         created(){
-
+//            console.log('item')
+//            console.log(item!=null&&item.cartV2PriceInfo)
         },
         methods:{
             myFun:function () {

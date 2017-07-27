@@ -1,11 +1,12 @@
 <template>
-    <div class="vux-check-icon" @click="updateValue">
+    <span class="vux-check-icon" @click="updateValue">
 
             <i class="weui-icon-success" v-show="type == 'default' && value"></i>
             <i class="weui-icon-circle" v-show="type == 'default' && !value"></i>
             <i class="weui-icon-cancel" v-show="type == 'cancel'"></i>
 
-    </div>
+
+    </span>
 </template>
 
 <script>
@@ -33,7 +34,7 @@
 </script>
 
 <style lang="less">
-
+    @import '../assets/css/weui.min.css';
 
     .vux-check-icon {
         display: inline-block;

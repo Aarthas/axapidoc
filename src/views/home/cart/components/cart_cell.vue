@@ -4,7 +4,7 @@
         <div style="width: 30px;" v-on:click="single">
             <!--<img v-if="isSelected==1" src="http://onpxz5rdd.bkt.clouddn.com/ic_put_into_cart.png" style="width: 24px;margin-left: 5px;margin-top: 45px;" />-->
             <!--<img v-else src=""  style="width: 20px;margin-left: 5px;margin-top: 45px;background-color: black;" />-->
-            <y-icon style="line-height: 100px;" v-model="checked" :type="showCancel"></y-icon>
+            <y-icon style="line-height: 100px;" v-model="checked" :type="cellItem.stockState ==1?'default':'cancel'"></y-icon>
         </div>
 
         <!--中  商品图片-->
