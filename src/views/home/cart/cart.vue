@@ -57,7 +57,7 @@
 
             </ul>
             <settle v-if="isEdit==false" style="position:fixed; bottom:49px; left: 0;" :item="cartData"
-                    @goSettle="goSettle"
+
                     @goSelectAll="goSelectAll"></settle>
             <edit v-else style="position:fixed; bottom:49px; left: 0;" :item="cartData" @goSelectAll="goSelectAll"
                   @addToFav="addToFav" @deleteAll="deleteAll"></edit>
@@ -285,10 +285,7 @@
                     page.editStatu = "完成"
                 }
             },
-//            去结算
-            goSettle: function () {
-                Lib.go.go("/views/order/confirm.html")
-            },
+//
 //            全选
             goSelectAll: function (item) {
                 var deliverType = page.selectAddress.isDeliver ? 1 : 2;
