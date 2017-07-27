@@ -164,7 +164,8 @@
             //Hub接收 搜索 事件
             Lib.Hub.$on('keyword', (keyword) => {
                 console.log("search keyword")
-                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+//                Lib.go.go("/views/product/list.html?&keyword=" + keyword)
+                this.$router.push({ path: 'listproduct',query:{keyword:keyword} })
 
             });
             Lib.Hub.$on('justlogin', () => {

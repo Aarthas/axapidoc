@@ -77,10 +77,10 @@
         methods: {
 
             toAdd: function () {
-                this.$router.push({path: "add"})
+                this.$router.push({path: "addaddress"})
             },
             toEdit: function (address) {
-                this.$router.push({path: "edit",query:address})
+                this.$router.push({path: "editaddress",query:address})
             }
         }
     }

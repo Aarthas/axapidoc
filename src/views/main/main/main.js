@@ -22,7 +22,7 @@ import editaddress from '../../address/edit/edit.vue'
 import listaddress from '../../address/showlist/list.vue'
 
 //product
-// import listproduct from '../../product/list/list.vue'
+import listproduct from '../../product/list/list.vue'
 import detailmain from '../../product/detail/app.vue'
 import detailproduct from '../../product/detail/detail.vue'
 
@@ -45,7 +45,7 @@ const routes = [
     {path: '/addaddress', meta: {title: '增加地址列表'}, component: addaddress},
     {path: '/editaddress', meta: {title: '编辑地址'}, component: editaddress},
     {path: '/listaddress', meta: {title: '地址列表'}, component: listaddress},
-
+    {path: '/listproduct', meta: {title: '商品列表'}, component: listproduct},
     {path: '/product', meta: {title: '商品详情'}, component: detailmain,
         children: [
             { path: 'detail',meta: {title: '商品详情'}, component: detailproduct },

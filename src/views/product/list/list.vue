@@ -32,16 +32,16 @@
     import favorite_cell from '../../mine/favorite/components/favorite_cell.vue' ;
     import search from '../../../components/search.vue' ;
     import {Tab, TabItem, Sticky, Divider, XButton, Swiper, SwiperItem, Radio} from 'vux';
-    let categoryId = Lib.Utils.getQueryString("categoryId");
-    let keyword = Lib.Utils.getQueryString("keyword");
-    if (keyword!= null)
-    {
-        keyword = decodeURIComponent(keyword);
-    }else {
-        keyword = null;
-    }
+    let categoryId
+    let keyword
+//    if (keyword!= null)
+//    {
+//        keyword = decodeURIComponent(keyword);
+//    }else {
+//        keyword = null;
+//    }
 
-    console.log(keyword)
+
     var page;
     export default {
         components: {
@@ -64,9 +64,15 @@
         },
        created(){
            page = this;
-           Lib.Hub.$on('keyword', (keyword) => { //Hub接收事件
+           categoryId = page.$route.query.categoryId ;
+           keyword = page.$route.query.keyword ;
+
+
+           Lib.Hub.$on('keyword', (newkey) => { //Hub接收事件
                console.log("search2 keyword")
-               Lib.go.replace("/views/product/list.html?&keyword=" + keyword)
+//               Lib.go.replace("/views/product/list.html?&keyword=" + keyword)
+               keyword = newkey
+               page.onItemClick(0);
 
            });
            page.mkeyword = keyword;
