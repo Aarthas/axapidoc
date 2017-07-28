@@ -10,14 +10,23 @@
             <div style="background-color: white;height: 40px;margin-top: 10px;">
                 <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">服务： 商品10kg以内满88元，20kg以内满176元 包邮</div>
             </div>
-            <div v-if="selectedAddress" style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;" @click="jt_select_address">
-                <div v-if="selectedAddress.isDeliver" style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： {{selectedAddress.areaDesc}}</div>
-                <div v-else style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： {{selectedAddress.shopName}}</div>
+            <div v-if="selectedAddress"
+                 style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;"
+                 @click="jt_select_address">
+                <div v-if="selectedAddress.isDeliver" style="font-size: 13px;line-height: 40px;margin-left: 8px;">
+                    送至： {{selectedAddress.areaDesc}}
+
+                </div>
+                <div v-else style="font-size: 13px;line-height: 40px;margin-left: 8px;">
+                    送至： {{selectedAddress.shopName}}
+
+                </div>
                 <div style="font-size: 13px;line-height: 40px;margin-left: 8px;color: #f03838">库存：{{stock}}件</div>
                 <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
             </div>
-            <div v-else style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;" @click="jt_select_address">
-                <div  style="font-size: 13px;line-height: 40px;margin-left: 8px;" >送至： 请选择收货地址</div>
+            <div v-else style="background-color: white;height: 40px;margin-top: 1px;display: flex;flex-direction: row;"
+                 @click="jt_select_address">
+                <div style="font-size: 13px;line-height: 40px;margin-left: 8px;">送至： 请选择收货地址</div>
 
                 <div style="font-size: 14px;line-height: 40px;margin-right: 15px;text-align: right;flex: 2;"> > </div>
             </div>
@@ -38,7 +47,8 @@
             <recommend :list="itemsData.recommendItemList" @goDetail="goDetail"></recommend>
 
         </div>
-        <bottom :item="itemsData" style="position:fixed; bottom:0; left: 0;" @addCart="addCart" ref="bottombar"></bottom>
+        <bottom :item="itemsData" style="position:fixed; bottom:0; left: 0;" @addCart="addCart"
+                ref="bottombar"></bottom>
     </div>
 
 
@@ -49,17 +59,21 @@
     import recommend from './components/recommend.vue'
     import bottom from './components/bottom.vue'
     import info from './components/info.vue'
-    import {Swiper, Alert,Toast} from 'vux'
-    let productId ;
-    let isScoreItem ;
+    import {Swiper, Alert, Toast} from 'vux'
+    //    var productId = Lib.Utils.getQueryString("productId");
+    //    var isScoreItem = Lib.Utils.getQueryString("isScoreItem");
+
+    console.log("fist")
     var page;
     export default {
-        components: {Swiper, recommend, bottom, info, Alert,Toast},
+        components: {Swiper, recommend, bottom, info, Alert, Toast},
         data(){
             return {
                 itemsData: {},
                 stock: 0,
-                selectedAddress:{}
+                selectedAddress: {},
+                productId: "",
+                isScoreItem: '',
             }
         },
         computed: {
@@ -77,24 +91,24 @@
             }
         },
         methods: {
-            jt_select_address:function () {
+            jt_select_address: function () {
 //                Lib.go.go("/views/address/selectaddress.html?isFrom=productDetail")
-                page.$router.push({path:'/selectaddress'});
+                page.$router.push({path: '/selectaddress'});
             },
             toIntroduction: function () {
-                if ( page.itemsData.introduction==''||page.itemsData.introduction==null) {
+                if (page.itemsData.introduction == '' || page.itemsData.introduction == null) {
                     page.$vux.toast.show({
                         type: 'text',
                         text: '暂无商品介绍'
                     })
-                }else{
-                  this.$router.push({
-                     path: '/product/introduction',
-                     query: {
-                        introduction: page.itemsData.introduction
-                    }
-                })
-            }
+                } else {
+                    this.$router.push({
+                        path: '/product/introduction',
+                        query: {
+                            introduction: page.itemsData.introduction
+                        }
+                    })
+                }
             },
             toGuarantee: function () {
                 document.body.scrollTop = 0;
@@ -103,7 +117,7 @@
             },
             goDetail: function (item) {
                 console.log("goDetail")
-                loadData(item.sn,0)
+                loadData(item.sn, 0)
 //                this.$router.replace({path:"/product/detail/aa",query:{productId:item.sn,isScoreItem:0}})
 //                Lib.go.go("/views/main/main.html#/product/detail?productId="+item.sn+"&isScoreItem="+0)
 
@@ -118,12 +132,28 @@
         },
         created(){
             page = this;
-            productId = page.$route.query.productId ;
-            isScoreItem = page.$route.query.isScoreItem ;
+            console.log("productId=" + page.productId)
+            console.log("page.$route=" + page.$route)
+
+            page.productId = page.$route.query.productId;
+            page.isScoreItem = page.$route.query.isScoreItem;
+
+            if ( page.productId == null)
+            {
+                page.productId = Lib.Utils.getQueryString("productId");
+            }
+            if ( page.isScoreItem == null)
+            {
+                page.isScoreItem = Lib.Utils.getQueryString("isScoreItem");
+            }
+
+
+
+            console.log("productId2=" + page.productId)
         },
         mounted(){
             page.selectedAddress = Lib.localStorage.getCurrentAddress();
-            loadData(productId, isScoreItem);
+            loadData(page.productId, page.isScoreItem);
         },
     }
     function loadData(productId, isScoreItem) {
@@ -131,8 +161,8 @@
         Lib.axios.axios({
 
             url: '/products/' + productId + '?isScoreItem=' + isScoreItem,
-            loading:{
-                page:page,
+            loading: {
+                page: page,
             },
             success: function (basebean) {
 

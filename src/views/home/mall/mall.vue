@@ -122,7 +122,8 @@
                             };
                         } else if (value.jt == 41) {
                             return {
-                                url: Lib.constant.baseurl + "/views/trade/list.html",
+//                                url: Lib.constant.baseurl + "/views/trade/list.html",
+                                url: Lib.constant.baseurl + "/views/main/main.html#/listtrade",
                                 img: value.img,
                                 title: value.title
                             };

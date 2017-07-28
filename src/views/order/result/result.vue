@@ -74,7 +74,8 @@
         },
        methods:{
             doOnNext1: function () {
-                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
+//                window.location = Lib.constant.baseurl + "/views/trade/detail.html?orderId=" + orderId;
+                window.location = Lib.constant.baseurl + "/views/main/main.html#/detailtrade?orderId=" + orderId;
             },
             doOnNext2: function () {
                 window.location = Lib.constant.baseurl+"/views/main/main.html#/mall";
