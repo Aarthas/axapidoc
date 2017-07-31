@@ -10,7 +10,7 @@
 
         </div>
         <div style="height: 20px"/>
-        <group title="未注册过的手机将自动注册为三江账户">
+        <group title="未注册过的手机将自动注册三江账户">
             <vcodecell title="" :max=60 @startCount="startCount" placeholder="手机号" ref="vcodecell"
                        vcodeLabel="发送验证码" v-model="mobile"></vcodecell>
             <x-input v-model="smscode" title="" placeholder="验证码"></x-input>
