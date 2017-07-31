@@ -9,11 +9,11 @@
             <ul class="sortMenu-ul" >
                 <li style="display: flex;flex-direction: column;background-color: white;width:110px;height:165px;" v-for="item in list"  v-on:click="toDetail(item)">
                     <img  style="margin-top: 8px;margin-left:8px;margin-right:8px;height: 90px;" :src="item.img">
-                    <div style="margin-right: 8px;margin-left:8px;margin-top: 5px;color: #666666;text-align: center;font-size: 10px;word-break: break-all ;overflow: hidden;
+                    <div style="margin-right: 8px;margin-left:8px;margin-top: 5px;color: #666666;text-align: center;font-size: 12px;word-break: break-all ;height:35px;overflow: hidden;
 text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 2;
--webkit-box-orient: vertical; ">{{item.title}}</div>
+ -webkit-box-orient: vertical; ">{{item.title}}</div>
                     <div style="height: 20px;color: #f03838;text-align: center;font-size:14px;margin-bottom: 5px;"><span style="font-size: 10px;color: #666">会员价</span>￥{{item.pn}}</div>
                 </li>
             </ul>
