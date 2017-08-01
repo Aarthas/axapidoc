@@ -33,6 +33,7 @@ import listtrade from '../../trade/list/list.vue'
 import detailtrade from '../../trade/detail/detail.vue'
 
 const routes = [
+
     {
         path: '/home', component: home,
         children: [

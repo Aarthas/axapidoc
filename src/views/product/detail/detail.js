@@ -10,6 +10,7 @@ import detail from './detail.vue'
 import introduction from './components/introduction.vue'
 import guarantee from './components/guarantee.vue'
 import selectaddress from '../../address/selectaddress/selectaddress.vue'
+
 const routes = [
     { path: '/', component: detail },
     { path: '/detail', component: detail },
@@ -17,6 +18,7 @@ const routes = [
     { path: '/guarantee', component: guarantee },
     { path: '/selectaddress', component: selectaddress },
 ]
+
 
 const router = new VueRouter({
     routes:routes

@@ -116,10 +116,10 @@
                 this.$router.push({path: '/product/guarantee'})
             },
             goDetail: function (item) {
-                console.log("goDetail")
-                loadData(item.sn, 0)
-//                this.$router.replace({path:"/product/detail/aa",query:{productId:item.sn,isScoreItem:0}})
-//                Lib.go.go("/views/main/main.html#/product/detail?productId="+item.sn+"&isScoreItem="+0)
+                console.log("goDetail="+item.sn)
+//                loadData(item.sn, 0)
+                this.$router.replace({path:"/product/detail",query:{productId:item.sn,isScoreItem:0}})
+                window.location.reload(true)
 
             },
             addCart: function () {

@@ -9,7 +9,7 @@ var Rxports = {
 
     /*
      params.put("number", number);
-     params.put("data", erpGoodsId);
+     params.put("data", erpGoodsId)
      params.put("cartStatus", cartStatus);
      */
     addtocart: function (data, page) {
