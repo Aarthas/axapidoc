@@ -42,7 +42,9 @@ display: -webkit-box;
             toDetail: function (item) {
                 let that =this;
                 console.log(item)
-                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.aim + "&isScoreItem=0")
+//                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.aim + "&isScoreItem=0")
+                this.$router.push({path:"/product/detail",query:{productId:item.aim,isScoreItem:0}})
+
 //                that.$emit('goToDetail', item)
             }
         }

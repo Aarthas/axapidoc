@@ -220,12 +220,12 @@
             },
             goDetail: function (item) {
 
-                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
-
+//                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
+                page.$router.push({path:"/product/detail",query:{productId:item.sn,isScoreItem:0}})
             },
             goToDetail: function (item) {
-                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
-
+//                Lib.go.go("/views/main/main.html#/product/detail?productId=" + item.sn + "&isScoreItem=0")
+                page.$router.push({path:"/product/detail",query:{productId:item.sn,isScoreItem:0}})
             },
             //            选择地址
             jt_select_address: function () {

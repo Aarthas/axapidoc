@@ -125,10 +125,11 @@
             //Hub接收 去商品详情 事件
             Lib.Hub.$on('goDetail', (cellItem) => {
                 if (cellItem.score > 0) {
-
-                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=0")
+                    this.$router.push({path:"/product/detail",query:{productId:cellItem.sn,isScoreItem:0}})
+//                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=0")
                 } else {
-                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=1")
+                    this.$router.push({path:"/product/detail",query:{productId:cellItem.sn,isScoreItem:1}})
+//                    Lib.go.go("/views/main/main.html#/product/detail?productId=" + cellItem.sn + "&isScoreItem=1")
                 }
 
             });
