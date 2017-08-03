@@ -81,7 +81,7 @@
             return {
                 malldata: {},
 
-                address_detail: "",
+                address_detail: "请选择收货地址",
                 hotlist: [], //最下方推荐商品数据,
 
             };
@@ -252,13 +252,17 @@
                 url: '/address/getDefault',
                 success: function (basebean) {
                     let address = basebean.getData();
-                    page.address_detail = address.areaDesc
-                    Lib.localStorage.setCurrentAddress(address);
+                    if (address) {
+
+                        page.address_detail = address.areaDesc
+                        Lib.localStorage.setCurrentAddress(address);
+                    }
 
                 },
                 forunlogin: function () {
-                    page.address_detail = "请选择收货地址"
-                }
+                    page.address_detail = "请选择收货地址";
+                },
+
             });
         }
     }

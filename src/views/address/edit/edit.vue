@@ -155,6 +155,10 @@
                 });
             },
             deleteAddress:function () {
+                let currentAddress = Lib.localStorage.getCurrentAddress();
+                if (page.addressId==currentAddress.id){
+                    Lib.localStorage.setCurrentAddress(null);
+                }
                 Lib.axios.axios({
                     method: "delete",
                     url:"/address/delete/"+page.addressId,
