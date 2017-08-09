@@ -35,10 +35,10 @@ import detailtrade from '../../trade/detail/detail.vue'
 const routes = [
 
     {
-        path: '/home', component: home,
+        path: '/home', meta: {alive:true}, component: home,
         children: [
             {path: '', meta: {id: 'mall'}, component: mall},
-            {path: '/mall', meta: {id: 'mall',title: '三江购物'}, component: mall},
+            {path: '/mall', meta: {id: 'mall',title: '三江购物',alive:true}, component: mall},
             {path: '/category', meta: {id: 'category',title: '分类'}, component: category},
             {path: '/cart', meta: {id: 'cart',title: '购物车'}, component: cart},
             {path: '/mine', meta: {id: 'mine',title: '我的'}, component: mine}
