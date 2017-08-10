@@ -101,11 +101,12 @@
                             paySign: wxparams.sign, // 支付签名
                             success: function (res) {
                                 // 支付成功后的回调函数
-                                Lib.go.go('/views/order/result.html?orderId=' + orderId);
+                                Lib.go.go('/views/card/renewmsg.html?orderId=' + basebean.getData().orderId);
                             },
                             cancel: function (res) {
 //                                alert('支付取消');
                                 Lib.vux.showtoast(page, "支付取消")
+//                                Lib.go.go('/views/card/renewmsg.html?orderId=' + basebean.getData().orderId);
 //                                Lib.go.go('/views/order/result.html?orderId='+orderId);
                             },
                             fail: function (res) {

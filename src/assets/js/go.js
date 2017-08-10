@@ -1,11 +1,13 @@
 import constant from './constant';
-function encodeWxUrl(url) {
+function encodeWxUrl(url,scope) {
     let encodeurl = encodeURIComponent(url)
-    let authedUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=" + encodeurl + "&response_type=code&scope=snsapi_base&state=aa#wechat_redirect"
+    scope = scope==null?'snsapi_base':scope;
+    let authedUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf698f56d095a5d43&redirect_uri=" + encodeurl + "&response_type=code&scope="+scope+"&state=aa#wechat_redirect"
     return authedUrl;
 }
 
 export default {
+    encodeWxUrl:encodeWxUrl,
     go(url, $router){
         if ($router) {
             url === 'BACK' ? $router.go(-1) : $router.push(url)
