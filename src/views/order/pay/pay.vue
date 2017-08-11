@@ -2,6 +2,7 @@
     <div>
         <marketpay v-if="paytype == 'market'"></marketpay>
         <cardrenewpay v-else-if="paytype == 'cardrenew'"></cardrenewpay>
+        <cardapplypay v-else-if="paytype == 'cardapply'"></cardapplypay>
     </div>
 </template>
 
@@ -10,6 +11,7 @@
     import axios from 'axios';
     import marketpay from './components/marketpay.vue'
     import cardrenewpay from './components/cardrenewpay.vue'
+    import cardapplypay from './components/cardapplypay.vue'
     let paytype = Lib.Utils.getQueryString("paytype");
     if (paytype == null || paytype.trim().length == 0) {
         paytype = "market";
@@ -17,7 +19,7 @@
     console.log("paytype=" + paytype)
     export default {
         components: {
-            marketpay, cardrenewpay
+            marketpay, cardrenewpay,cardapplypay
         },
         data () {
             return {

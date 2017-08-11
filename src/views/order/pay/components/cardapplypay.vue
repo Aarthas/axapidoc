@@ -6,10 +6,9 @@
 
             <group>
 
-                <cell title="姓名" :value="userName"></cell>
-                <cell title="卡号" :value="cardNum"></cell>
-                <cell title="有效期" :value="expiryDate"></cell>
-                <cell title="续卡金额" value="¥20"></cell>
+                <cell title="姓名" :value="contact"></cell>
+                <cell title="手机号" :value="mobile"></cell>
+                <cell title="开卡金额" value="¥30"></cell>
             </group>
 
         </div>
@@ -40,18 +39,16 @@
         },
         data () {
             return {
-                cardNum: '',
-                userName: '',
-                expiryDate: '',
+                contact: '',
+                mobile: '',
+
 
             };
         },
         created () {
             page = this;
-            this.cardNum = Lib.Utils.getQueryString("cardNum");
-            this.userName = decodeURIComponent(Lib.Utils.getQueryString("userName"));
-
-            this.expiryDate = Lib.Utils.getQueryString("expiryDate");
+            this.mobile = Lib.Utils.getQueryString("mobile");
+            this.contact = decodeURIComponent(Lib.Utils.getQueryString("contact"));
 
 
         },
@@ -83,9 +80,8 @@
                     },
                     url: "/card/getCardPayInfo",
                     params: {
-                        type: 1,
+                        type: 2,
                         platForm: 140,
-                        cardNum: page.cardNum,
                         code: wxcode
                     },
                     success: function (basebean) {
@@ -98,7 +94,7 @@
                             paySign: wxparams.sign, // 支付签名
                             success: function (res) {
                                 // 支付成功后的回调函数
-                                Lib.go.go('/views/card/renewmsg.html?orderId=' + basebean.getData().orderId);
+                                Lib.go.go('/views/card/applymsg.html');
                             },
                             cancel: function (res) {
 //                                alert('支付取消');
@@ -116,6 +112,7 @@
 
                     }
                 });
+
             },
 
 

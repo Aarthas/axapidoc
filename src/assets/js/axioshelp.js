@@ -105,6 +105,7 @@ var Rxports = {
 
                 }
                 if (opts.onAfter) {
+                    console.log("onAfter")
                     opts.onAfter();
                 }
             }catch (e){
