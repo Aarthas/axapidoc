@@ -18,8 +18,7 @@
         </div>
         <div style="height: 20px"/>
         <group>
-
-            <x-input v-model="cardnum" title="会员卡号" placeholder="请输入会员卡号"></x-input>
+            <x-input v-model="newcardnum" title="会员卡号" placeholder="请输入会员卡号"></x-input>
         </group>
 
         <div style="height: 10px"/>
@@ -52,8 +51,8 @@
         },
         data () {
             return {
-                cardnum: ''
-
+                cardnum: '',
+                newcardnum:''
 
             };
         },
@@ -64,6 +63,7 @@
         mounted () {
 
             page.cardnum = cardnum;
+            page.newcardnum = cardnum;
         },
 
         methods: {
@@ -73,11 +73,11 @@
                         page: page,
                     },
                     method: "post",
-                    url: "/card/checkRenew?cardNum=" + page.cardnum,
+                    url: "/card/checkRenew?cardNum=" + page.newcardnum,
                     success: function (basebean) {
                         let data = basebean.getData();
                         if (data.canRenew) {
-                            window.location.href = Lib.go.encodeWxUrl("http://weixin.sanjiang.com/memberCenter/views/order/pay.html?paytype=cardrenew&cardNum=" + data.cardNum + "&userName=" + data.userName + "&expiryDate=" + data.expiryDate + "", 'snsapi_base');
+                            window.location.href = Lib.go.encodeWxUrl(Lib.constant.baseurl+"/views/order/pay.html?paytype=cardrenew&cardNum=" + data.cardNum + "&userName=" + data.userName + "&expiryDate=" + data.expiryDate + "", 'snsapi_base');
                         } else {
                             Lib.vux.showtoast(page, data.remind + "")
 

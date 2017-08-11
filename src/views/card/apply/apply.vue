@@ -156,9 +156,6 @@
             ,
             submit: function () {
 
-                let encodeWxUrl = Lib.go.encodeWxUrl("http://weixin.sanjiang.com/memberCenter/views/order/pay.html?paytype=cardapply&contact=" + page.p_contact + "&mobile=" +page.p_mobile, 'snsapi_base');
-                window.location.href = encodeWxUrl
-
 
                 console.log("submit")
                 page.submitDisabled = true;
@@ -248,7 +245,7 @@
                                 width: "19em"
                             })
                             Lib.vux.hideLoad(page)
-                            let encodeWxUrl = Lib.go.encodeWxUrl("http://weixin.sanjiang.com/memberCenter/views/order/pay.html?paytype=cardapply&contact=" + contact + "&mobile=" +mobile, 'snsapi_base');
+                            let encodeWxUrl = Lib.go.encodeWxUrl(Lib.constant.baseurl+"/views/order/pay.html?paytype=cardapply&contact=" + contact + "&mobile=" +mobile, 'snsapi_base');
                             window.location.href = encodeWxUrl
                         },
                         onAfter: function () {
