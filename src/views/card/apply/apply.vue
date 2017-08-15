@@ -80,7 +80,7 @@
     import axios from 'axios';
     var page
 
-    var showalert = true;
+    var showalert = false;
 
     export default {
 
@@ -234,9 +234,16 @@
                         data: data,
                         success: function (basebean) {
                             if (showalert)
+                            {
                                 alert("submit SUCCESS")
-                            alert(JSON.stringify(basebean))
+                                alert(JSON.stringify(basebean))
+                            }
+
                             Lib.vux.hideLoad(page)
+
+                            let encodeWxUrl = Lib.go.encodeWxUrl(Lib.constant.baseurl+"/views/order/pay.html?paytype=cardapply&contact=" + page.p_contact + "&mobile=" +page.p_mobile, 'snsapi_base');
+                            window.location.href = encodeWxUrl
+
                         },
                         onerrcode: function (basebean) {
                             page.$vux.toast.show({
@@ -245,8 +252,7 @@
                                 width: "19em"
                             })
                             Lib.vux.hideLoad(page)
-                            let encodeWxUrl = Lib.go.encodeWxUrl(Lib.constant.baseurl+"/views/order/pay.html?paytype=cardapply&contact=" + contact + "&mobile=" +mobile, 'snsapi_base');
-                            window.location.href = encodeWxUrl
+
                         },
                         onAfter: function () {
                             Lib.vux.hideLoad(page)
