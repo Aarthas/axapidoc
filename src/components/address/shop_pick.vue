@@ -6,7 +6,7 @@
             <!--<selector placeholder="请选择省份"title="省份" name="district" :options="complaintPreData.types" @on-change="onChange"></selector>-->
             <!--</cell>-->
             <YSelect :propsData="{title:'区域与门店',require:true, placeholder:'',list:areaList}" v-model="p_areaindex"></YSelect>
-            <YSelect :propsData="{ placeholder:'请选择门店', require:true,list:shopList}" v-model="p_shopindex" v-show="p_areaindex>0"></YSelect>
+            <YSelect :propsData="{ placeholder:'请选择门店', require:true,list:shopList}" v-model="p_shopindex" v-show="p_areaindex>=0&&p_areaindex<areaList.length-1"></YSelect>
 
             <div  >
                 <div  v-show="p_shopindex>-1" style="font-size: 14px;margin-left: 1em;margin-bottom: 12px;"  >{{info}}</div>
