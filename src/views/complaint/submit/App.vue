@@ -4,9 +4,10 @@
 
 
         <group title="请选择购买平台">
-            <YSelect :propsData="{title:'购买平台',require:true, list:complaintPreData.platforms}" v-model="p_platform"></YSelect>
+            <YSelect :propsData="{title:'购买平台',require:true, list:complaintPreData.platforms}"
+                     v-model="p_platform"></YSelect>
         </group>
-        <group title="请选择投诉类型" >
+        <group title="请选择投诉类型">
             <YSelect :propsData="{title:'投诉类型',require:true, list:complaintPreData.types}" v-model="p_type"></YSelect>
         </group>
 
@@ -38,13 +39,12 @@
 
 
                                 <!--<li v-for="(file,index) in previewimagesBase64" class="weui-uploader__file"-->
-                                    <!--:style="{backgroundImage: 'url('+file+''}" @click="showPreview(index)">-->
+                                <!--:style="{backgroundImage: 'url('+file+''}" @click="showPreview(index)">-->
 
                                 <!--</li>-->
                                 <img v-for="(file,index) in previewimages" class="weui-uploader__file"
                                      :src="file"
-                                    @click="showPreview(index)"/>
-
+                                     @click="showPreview(index)"/>
 
 
                             </ul>
@@ -122,7 +122,7 @@
                 p_content: "",
                 p_contact: "",
                 p_mobile: "",
-                submitDisabled:false,
+                submitDisabled: false,
                 previewimages: [],
 //                previewimagesBase64: [],
             };
@@ -151,7 +151,7 @@
                     return;
                 }
                 res.data.debug = false;
-                res.data.jsApiList = ['chooseImage', 'uploadImage', 'showPreview','getLocalImgData'];
+                res.data.jsApiList = ['chooseImage', 'uploadImage', 'showPreview', 'getLocalImgData'];
                 wx.config(res.data);
             }, function (resp) {
                 console.log("resp=" + resp)
@@ -193,7 +193,25 @@
 
                 setTimeout(function () {
                     page.submitDisabled = false;
-                },1500)
+                }, 1500)
+
+
+                let shopid
+                if (page.$refs.shop_pick.p_areaindex >= 0 && page.$refs.shop_pick.p_shopindex >= 0) {
+                    let shopsList = page.complaintPreData.shopsList;
+                    if (shopsList != null && shopsList.length > 0) {
+                        let a = shopsList[page.$refs.shop_pick.p_areaindex];
+                        if (a != null && a.shops.length > 0) {
+                            shopid = a.shops[page.$refs.shop_pick.p_shopindex].shopId
+                        }
+
+                    }
+
+
+                } else {
+                    shopid = null;
+                }
+
                 console.log("submit")
                 console.log("submit p_platform = " + page.p_platform)
                 console.log("submit p_type = " + page.p_type)
@@ -201,12 +219,13 @@
                 console.log("submit p_type = " + page.p_type)
                 console.log("submit p_areaindex" + page.$refs.shop_pick.p_areaindex)
                 console.log("submit p_shopindex" + page.$refs.shop_pick.p_shopindex)
+                console.log("submit shopid" + shopid)
                 console.log("submit p_orderNum =" + page.p_orderNum)
                 console.log("submit p_content =" + page.p_content)
                 console.log("submit  p_contact = " + page.p_contact)
                 console.log("submit   p_mobile =" + page.p_mobile)
                 console.log("submit   previewimages =" + page.previewimages)
-                console.log("submit   code =" +    Lib.Utils.getQueryString("code"))
+                console.log("submit   code =" + Lib.Utils.getQueryString("code"))
 
                 if (page.p_platform <= 0) {
                     Lib.uiutil.showtoast(page, '请选择平台')
@@ -237,19 +256,19 @@
 
                     return;
                 }
-                let shopid
-                if (page.$refs.shop_pick.p_areaindex > 0 && page.$refs.shop_pick.p_shopindex >= 0) {
-                    shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
+//                let shopid
+//                if (page.$refs.shop_pick.p_areaindex > 0 && page.$refs.shop_pick.p_shopindex >= 0) {
+//                    shopid = page.complaintPreData.shopsList[page.$refs.shop_pick.p_areaindex].shops[page.$refs.shop_pick.p_shopindex].shopId
+//
+//                } else {
+//                    shopid = null;
+//                }
 
-                } else {
-                    shopid = null;
-                }
-
-                console.log("submit shop =" + shopid)
+//                console.log("submit shop =" + shopid)
 
 
                 if (page.previewimages.length > 0) {
-                    Lib.vux.showLoad(page,'正在提交')
+                    Lib.vux.showLoad(page, '正在提交')
                     let localIds = [];
 
                     page.previewimages.forEach(function (value, index, array) {
@@ -286,7 +305,7 @@
 
                     });
                 } else {
-                    Lib.vux.showLoad(page,'正在提交')
+                    Lib.vux.showLoad(page, '正在提交')
                     let data = {
 
                         platform: page.p_platform,
@@ -325,7 +344,7 @@
                         })
 
                     },
-                    onAfert:function () {
+                    onAfert: function () {
                         Lib.vux.hideLoad(page)
                     }
                 })
