@@ -31,7 +31,7 @@ module.exports = {
     port: 9090,
     autoOpenBrowser: false,
     assetsSubDirectory: 'memberCenter/static',
-    assetsPublicPath: 'http://193.0.1.157:9090/',
+    assetsPublicPath: 'http://localhost:9090/',
        // assetsSubDirectory: 'static',
        // assetsPublicPath: '/',
     proxyTable: {},

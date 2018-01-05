@@ -67,7 +67,7 @@
         computed: {},
         created () {
             page = this;
-            console.log("created")
+            console.log('url' + window.location)
 
         },
         mounted () {
@@ -78,13 +78,16 @@
 
         methods: {
             jt_login2:function () {
-
-                Lib.go.go("/views/user/login2.html");
+                var url = window.location.hash;
+                if (url == ''){
+                    Lib.go.go("/views/user/login2.html");
+                }else {
+                    Lib.go.go("/views/user/login2.html?redirect=/views/main/main.html" +url);
+                }
 
             },
 
             startCount: function (v) {
-
                 Lib.axios.axios({
                     loading:{
                         loadtext:'请稍等',
@@ -114,7 +117,12 @@
                     success: function (basebean) {
                         console.log("localStorage.setItem(token)"+basebean.getData().sessionId);
                         localStorage.setItem("token",basebean.getData().sessionId);
-                        Lib.go.go("/views/main/main.html#/mine");
+                        var url = window.location.hash;
+                        if (url == '') {
+                            Lib.go.go("/views/main/main.html#/mine");
+                        }else {
+                            Lib.go.go("/views/main/main.html"+url);
+                        }
                     }
                     ,onerrcode:function (basebean) {
 

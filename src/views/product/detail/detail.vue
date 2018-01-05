@@ -126,14 +126,14 @@
                 Lib.axios.addtocart({
                     number: 1,
                     cartStatus: 1,
-                    data: page.itemsData.erpGoodsId,
+                    data: page.itemsData.erpGoodsId
                 }, this)
             }
         },
         created(){
             page = this;
             console.log("productId=" + page.productId)
-            console.log("page.$route=" + page.$route)
+            console.log("page.$route=" + page.$route.fullPath)
 
             page.productId = page.$route.query.productId;
             page.isScoreItem = page.$route.query.isScoreItem;

@@ -2,6 +2,7 @@ import axios from 'axios';
 var BaseBean = require('./BaseBean.js');
 import localstorage from './localstorage';
 import go from './go';
+import constant from './constant';
 // var baseurl = 'http://193.0.1.157:20000';
 var baseurl = 'http://app.sanjiang.com';
 // var baseurl = 'http://app.dev.sanjiang.info';
@@ -20,6 +21,10 @@ var Rxports = {
             loading: {
                 loadtext: '请稍等',
                 page: page
+            },
+            forunlogin: function () {
+                console.log('url:' + constant.baseurl + page.$route.fullPath)
+                window.location.replace(constant.baseurl + '/views/user/login.html?redirect=/views/main/main.html#' + page.$route.fullPath);
             },
             success: function (basebean) {
                 if (basebean.isSuccess()) {

@@ -24,7 +24,8 @@
         <div style="display: flex;justify-content: flex-end;flex-direction: row">
 
             <!--<router-link :to="{ path: '/loginbypwd'}">-->
-            <div style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;" v-on:click="goRest">重置密码</div>
+            <div style="color: #02af00;font-size:14px;margin-right: 2em;margin-top: 10px;" v-on:click="goRest">重置密码
+            </div>
             <!--</router-link>-->
         </div>
 
@@ -37,7 +38,7 @@
 <script>
 
     import vcodecell from '../../../components/vcodecell.vue'
-    import {Group, XInput, XButton,Toast} from 'vux'
+    import {Group, XInput, XButton, Toast} from 'vux'
     import Lib from 'assets/js/Lib';
     import YHead from '../../../components/YHead.vue'
     var page
@@ -48,7 +49,7 @@
         components: {
             Group,
             XInput,
-            XButton,YHead,Toast
+            XButton, YHead, Toast
         },
         data () {
             return {
@@ -70,20 +71,20 @@
 
         methods: {
 
-            goRest:function () {
-              Lib.go.go( '/views/user/reset.html')
+            goRest: function () {
+                Lib.go.go('/views/user/reset.html')
             },
 
             doSubmit: function () {
 
-                if (page.uname==""){
+                if (page.uname == "") {
 
                     page.$vux.toast.show({
                         type: 'text',
                         text: '请输入手机号'
                     })
                     return;
-                }else if(page.pwd==""){
+                } else if (page.pwd == "") {
 
                     page.$vux.toast.show({
                         type: 'text',
@@ -97,21 +98,27 @@
                 };
                 console.log(params)
                 Lib.axios.axios({
-                    loading:{
-                        loadtext:'请稍等',
-                        page:page
+                    loading: {
+                        loadtext: '请稍等',
+                        page: page
                     },
-                    method:'post',
-                    params:params,
+                    method: 'post',
+                    params: params,
                     url: 'login',
                     success: function (basebean) {
-                        console.log("localStorage.setItem(token)"+basebean.getData().sessionId);
-                        localStorage.setItem("token",basebean.getData().sessionId);
-                        Lib.go.go("/views/main/main.html#/mine");
+                        console.log("localStorage.setItem(token)" + basebean.getData().sessionId);
+                        localStorage.setItem("token", basebean.getData().sessionId);
+                        var url = window.location.hash;
+                        if (url != '') {
+                            console.log(url);
+                            Lib.go.go("/views/main/main.html" + url);
+                        } else {
+                            Lib.go.go("/views/main/main.html#/mine");
+                        }
                     }
-                    ,onerrcode:function (basebean) {
+                    , onerrcode: function (basebean) {
 
-                        Lib.vux.showtoast(page,basebean.getMessage());
+                        Lib.vux.showtoast(page, basebean.getMessage());
                     }
                 });
 
